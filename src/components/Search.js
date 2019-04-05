@@ -62,7 +62,6 @@ class Search extends React.Component {
           <input type="text" onChange={this.handleTyping}/>
           <input type="submit" value="Search"/>
         </form>
-        <h3>Search Results</h3>
         <p>{this.renderSearchResults()}</p>
       </div>
     )
