@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import './App.css';
 import NavHeader from './components/Header'
 import Search from './components/Search'
-import Movies from './components/Movies'
 import MovieView from './components/MovieView'
 // import 'semantic-ui-css/semantic.min.css';
 import {connect} from 'react-redux'
@@ -12,17 +11,17 @@ console.log('connect function', connect({hello: 'world'}))
 class App extends Component {
 
   state = {
-    searched: false
+    searched: ""
   }
 
-  changePage = () => {
-    this.setState({searched: !this.state.searched})
+  changePage = (page) => {
+    this.setState({searched: page})
   }
 
   renderPage = () => {
-    if (this.state.searched === true) {
+    if (this.state.searched === "MovieView") {
       return <MovieView changePage={this.changePage}/>
-    } else {
+    } else if ("Search"){
       return <Search changePage={this.changePage}/>
     }
   }

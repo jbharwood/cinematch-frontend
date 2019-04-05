@@ -5,20 +5,19 @@ const initialState =  {
   movieInfo: null,
   user: 1,
   badData: false,
-  movieInfo: null
 }
 
 function reducer(state=initialState, action){
   console.log(state)
   switch (action.type) {
     case "SEARCH_MOVIES":
-        return {...state, search: action.payload}
+      return {...state, search: action.payload}
     case "WATCH_MOVIE":
-        return {...state, watchlist: [...state.watchlist, action.payload]}
+      return {...state, watchlist: [...state.watchlist, action.payload]}
     case "VIEW_MOVIE":
-        return {...state, viewMovie: action.payload}
+      return {...state, viewMovie: action.payload}
     case "FETCH_MOVIE":
-        fetchMovieInfo(action.payload)
+      fetchMovieInfo(action.payload)
     default:
       return state
   }

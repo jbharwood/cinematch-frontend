@@ -52,7 +52,6 @@ class Search extends React.Component {
       return this.state.results.map(r => {
         return <SearchResult result={r} changePage={this.props.changePage}/>
       })
-
     }
   }
 
@@ -67,12 +66,6 @@ class Search extends React.Component {
         <p>{this.renderSearchResults()}</p>
       </div>
     )
-  }
-}
-
-function mapStateToProps(state) {
-  return {
-    search: state.search
   }
 }
 

@@ -20,7 +20,7 @@ class MovieView extends React.Component {
     .then(r => {
       if (r.movie_results.length !== 0) {
         this.setState({movie: r.movie_results[0]}, this.fetchSimilarMovies)
-      } else if (r.tv_results.length !== 0) {
+      } else if (r.tv_results.length !== 0) { //tv check
         this.setState({movie: r.tv_results[0]}, this.fetchSimilarMovies)
       } else {
         this.setState({badData: true})
@@ -28,14 +28,16 @@ class MovieView extends React.Component {
     })
   }
 
-  handleFetch = () => {
-    if (this.props.viewMovie !== null) {
-      this.fetchMovieInfo()
-      // this.props.dispatch({ type: "FETCH_MOVIE", payload: this.props.viewMovie })
-
-    } else {
-      return null
-    }
+  fetchWithOMDBId = (id) => {
+    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US`)
+    .then(r => r.json())
+    .then(r => {
+      if (r) {
+        this.setState({movie: r}, this.fetchSimilarMovies)
+      } else {
+        this.setState({badData: true})
+      }
+    })
   }
 
   handleWatchlist = () => {
@@ -61,21 +63,18 @@ class MovieView extends React.Component {
     })
   }
 
-  // handleSimilarMovies = () => {
-  //   this.fetchSimilarMovies(this.state.movie.id)
-  //   // return (
-  //   //   <div>
-  //   //     <p>{this.state.movie.name}</p>
-  //   // )
-  // }
-
   handleBack = () => {
-    this.props.changePage()
+    this.props.changePage("Search")
   }
 
   fetchSimilarMovies = (omdbId) => {
     let id = this.state.movie.id
-    fetch(`https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US&page=1`)
+    let media = "movie"
+    //tv check
+    if (this.state.movie.name !== undefined) {
+      media = "tv"
+    }
+    fetch(`https://api.themoviedb.org/3/${media}/${id}/recommendations?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US&page=1`)
     .then(r => r.json())
     .then(r => {
       this.setState({similarMovies: r.results})
@@ -85,39 +84,49 @@ class MovieView extends React.Component {
   renderSimilarMovies = () => {
     if (this.state.similarMovies.length > 0) {
       return this.state.similarMovies.map (m => {
-        return <SimilarMovie result={m} changePage={this.props.changePage}/>
+        return  <SimilarMovie result={m}
+        changePage={this.props.changePage}
+        fetchWithOMDBId={this.fetchWithOMDBId}/>
       })
     }
   }
 
   renderMoviePage = () => {
     if (this.state.movie !== null) {
+      //tv check
       if (this.state.movie.name !== undefined) {
         return (
           <div>
-            <p>{this.state.movie.name}</p>
+            <h3>{this.state.movie.name}</h3>
             <p>{this.state.movie.first_air_date}</p>
             <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="50" height="50"/> <br/>
             <p>{this.state.movie.overview}</p>
             <button onClick={this.handleWatchlist}> Add to Watchlist </button>
             <button onClick={this.handleBack}> Go Back </button>
+            <h3>Similar TV Shows</h3>
             {this.renderSimilarMovies()}
           </div>
         )
       }
       return (
         <div>
-          <p>{this.state.movie.title}</p>
+          <h3>{this.state.movie.title}</h3>
           <p>{this.state.movie.release_date}</p>
           <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="50" height="50"/> <br/>
           <p>{this.state.movie.overview}</p>
           <button onClick={this.handleWatchlist}> Add to Watchlist </button>
           <button onClick={this.handleBack}> Go Back </button>
+          <h3>Similar Movies</h3>
           {this.renderSimilarMovies()}
         </div>
       )
     } if (this.state.badData === true) {
-        return "Movie Not Found"
+        return (
+          <div>
+            <p>Movie Not Found</p>
+            <button onClick={this.handleBack}> Go Back </button>
+          </div>
+        )
       } else {
         return null
       }
@@ -133,7 +142,6 @@ class MovieView extends React.Component {
     console.log(this.state);
     return (
       <div className="movieView">
-        <h3>Selected Movie</h3>
         {this.renderMoviePage()}
       </div>
     )
