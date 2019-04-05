@@ -10,28 +10,8 @@ const SearchResult = (props) => {
 
   const handleViewMovie = () => {
     props.dispatch({type: "VIEW_MOVIE", payload: props.result})
+    props.changePage()
   }
-
-  // const postToWatchlist = (movie) => {
-  //   debugger
-  //   fetch(`http://localhost:3000/watchlists`, {
-  //     method: 'POST',
-  //     headers: {
-  //       'Accept': 'application/json',
-  //       'Content-Type': 'application/json'
-  //     },
-  //     body: JSON.stringify({
-  //       title: movie.Title,
-  //       omdb_id: this.state.movie.id,
-  //       imdb_id: movie.imdbID,
-  //       user_id: this.props.user
-  //     })
-  //   })
-  //   .then(r=>r.json())
-  //   .then(r=> {
-  //     debugger
-  //   })
-  // }
 
   const fetchMovieInfo = () => {
     let id = this.props.viewMovie.imdbID
@@ -52,7 +32,7 @@ const SearchResult = (props) => {
   return (
     <div className="searchResult">
       <h3>{props.result.Title}</h3>
-      <p>{props.result.Year}</p>
+      <p>{props.result.release_date}</p>
       <img src={props.result.Poster} alt="poster" width="50" height="50"/> <br/>
       <button onClick={handleViewMovie}> View Movie Info </button>
     </div>

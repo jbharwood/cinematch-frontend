@@ -15,13 +15,24 @@ class App extends Component {
     searched: false
   }
 
+  changePage = () => {
+    this.setState({searched: !this.state.searched})
+  }
+
+  renderPage = () => {
+    if (this.state.searched === true) {
+      return <MovieView changePage={this.changePage}/>
+    } else {
+      return <Search changePage={this.changePage}/>
+    }
+  }
+
   render() {
     console.log(this.props)
     return (
       <div className="App">
         <NavHeader />
-        <MovieView />
-        <Search />
+        {this.renderPage()}
       </div>
     );
   }

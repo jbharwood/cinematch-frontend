@@ -11,6 +11,7 @@ class Search extends React.Component {
 
   handleTyping = (e) => {
     this.setState({input: e.target.value})
+
   }
 
   handleSearch = (e) => {
@@ -49,7 +50,7 @@ class Search extends React.Component {
   renderSearchResults = () => {
     if (this.state.results.length > 0) {
       return this.state.results.map(r => {
-        return <SearchResult result={r}/>
+        return <SearchResult result={r} changePage={this.props.changePage}/>
       })
 
     }
