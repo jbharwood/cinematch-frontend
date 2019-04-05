@@ -14,10 +14,11 @@ class MovieView extends React.Component {
       fetch(`https://api.themoviedb.org/3/find/${id}?api_key=3eb68659d6134fa388c1a0220feb7fd1&external_source=imdb_id`)
       .then(r => r.json())
       .then(r => {
-        debugger
         if (r.movie_results.length !== 0) {
         // if (r.movie_results[0].length !== 0 || r.movie_results[0] !== undefined) {
           this.setState({movie: r.movie_results[0]})
+        } else if (r.tv_results.length !== 0) {
+          this.setState({movie: r.tv_results[0]})
         } else {
           this.setState({badData: true})
         }
@@ -41,6 +42,7 @@ class MovieView extends React.Component {
     // title: movie.Title
     // omdb_id: this.state.movie.id
     // imdb_id: movie.imdbID
+    debugger
     fetch(`http://localhost:3000/watchlists`, {
       method: 'POST',
       headers: {
@@ -60,6 +62,16 @@ class MovieView extends React.Component {
 
   renderMoviePage = () => {
     if (this.state.movie !== null) {
+      if (this.state.movie.name !== undefined) {
+        return (
+          <div>
+            <p>{this.state.movie.name}</p>
+            <p>{this.state.movie.first_air_date}</p>
+            <p>{this.state.movie.overview}</p>
+            <button onClick={this.handleWatchlist}> Add to Watchlist </button>
+          </div>
+        )
+      }
       return (
         <div>
           <p>{this.state.movie.title}</p>
