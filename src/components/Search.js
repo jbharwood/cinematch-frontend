@@ -10,26 +10,37 @@ class Search extends React.Component {
   }
 
   handleTyping = (e) => {
-    // e.preventDefault()
-    // console.log(this.props.dispatch);
-    // debugger
-    // this.props.dispatch({ type: "SEARCH_MOVIES", payload: e.target.value })
-    // this.props.dispatch(this.this.props.change_input(e))
     this.setState({input: e.target.value})
 
   }
 
   handleSearch = (e) => {
     e.preventDefault()
-    // console.log(this.this.props.dispatch);
-    // debugger
     this.fetchMovies()
-    // this.props.dispatch({ type: "FETCH_MOVIE", payload: this.state.input })
-    // this.props.dispatch(this.props.change_input(e))
+  }
+
+  slugify = (str) => {
+      str = str.replace(/^\s+|\s+$/g, '') // trim
+      str = str.toLowerCase()
+
+      // remove accents, swap ñ for n, etc
+      var from = "àáãäâèéëêìíïîòóöôùúüûñç·/_,:;"
+      var to   = "aaaaaeeeeiiiioooouuuunc------"
+
+      for (var i=0, l=from.length ; i<l ; i++) {
+          str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i))
+      }
+
+      str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
+          .replace(/\s+/g, '_') // collapse whitespace and replace by -
+          .replace(/-+/g, '_') // collapse dashes
+
+      return str;
   }
 
   fetchMovies = () => {
-    fetch(`http://www.omdbapi.com/?s=${this.state.input}&apikey=7e2663e7`)
+    let slug = this.slugify(this.state.input)
+    fetch(`http://www.omdbapi.com/?s=${slug}&apikey=7e2663e7`)
     .then(r => r.json())
     .then(r => {
       this.setState({results: r.Search})
@@ -65,53 +76,4 @@ function mapStateToProps(state) {
   }
 }
 
-// export default connect(mapStateToProps)(Search)
 export default Search
-
-// const Search = (props) => {
-//
-//   const handleTyping = (e) => {
-//     // e.preventDefault()
-//     // console.log(this.props.dispatch);
-//     // debugger
-//     props.dispatch({ type: "SEARCH_MOVIES", payload: e.target.value })
-//     // this.props.dispatch(this.props.change_input(e))
-//
-//   }
-//
-//   const handleSearch = (e) => {
-//     e.preventDefault()
-//     // console.log(this.props.dispatch);
-//     // debugger
-//     props.dispatch({ type: "FETCH_MOVIE", payload: props.search })
-//     // this.props.dispatch(this.props.change_input(e))
-//
-//   }
-//
-//   return (
-//     <div>
-//       <form onSubmit={handleSearch}>
-//         <input type="text" onChange={handleTyping}/>
-//         <input type="submit" />
-//       </form>
-//     </div>
-//   )
-// }
-//
-// const mapStateToProps = (state) => {
-//   return {
-//     search: state.search
-//   }
-// }
-//
-// // function mapDispatchToProps(dispatch) {
-// //   console.log('dispatch', dispatch)
-// //   return {
-// //     cookie: (something) => dispatch({ //something is really a player
-// //       type: "CHOOSE_PLAYER",
-// //       payload: something
-// //     })
-// //   }
-// // }
-//
-// export default connect(mapStateToProps)(Search)

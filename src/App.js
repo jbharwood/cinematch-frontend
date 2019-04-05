@@ -3,6 +3,7 @@ import './App.css';
 import NavHeader from './components/Header'
 import Search from './components/Search'
 import Movies from './components/Movies'
+import MovieView from './components/MovieView'
 // import 'semantic-ui-css/semantic.min.css';
 import {connect} from 'react-redux'
 
@@ -10,10 +11,8 @@ console.log('connect function', connect({hello: 'world'}))
 
 class App extends Component {
 
-  fetchMovieInfo = () => {
-    if (this.props.viewMovie !== "") {
-      debugger
-    }
+  state = {
+    searched: false
   }
 
   render() {
@@ -21,8 +20,8 @@ class App extends Component {
     return (
       <div className="App">
         <NavHeader />
+        <MovieView />
         <Search />
-        <Movies />
       </div>
     );
   }

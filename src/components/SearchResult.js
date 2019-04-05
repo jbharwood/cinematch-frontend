@@ -4,11 +4,12 @@ import {connect} from 'react-redux'
 const SearchResult = (props) => {
 
   const handleWatchlist = () => {
-    props.dispatch({ type: "WATCH_MOVIE", payload: props.result.imdbID })
+    // debugger
+    props.dispatch({type: "WATCH_MOVIE", payload: props.result.imdbID})
   }
 
   const handleViewMovie = () => {
-    props.dispatch({ type: "VIEW_MOVIE", payload: props.result.imdbID })
+    props.dispatch({type: "VIEW_MOVIE", payload: props.result})
   }
 
 
