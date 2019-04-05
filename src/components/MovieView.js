@@ -9,39 +9,36 @@ class MovieView extends React.Component {
   }
 
   fetchMovieInfo = () => {
-      let id = this.props.viewMovie.imdbID
-      // let id = this.props.viewMovie.imdbID.slice(0, -1)
-      fetch(`https://api.themoviedb.org/3/find/${id}?api_key=3eb68659d6134fa388c1a0220feb7fd1&external_source=imdb_id`)
-      .then(r => r.json())
-      .then(r => {
-        if (r.movie_results.length !== 0) {
-        // if (r.movie_results[0].length !== 0 || r.movie_results[0] !== undefined) {
-          this.setState({movie: r.movie_results[0]})
-        } else if (r.tv_results.length !== 0) {
-          this.setState({movie: r.tv_results[0]})
-        } else {
-          this.setState({badData: true})
-        }
-      })
+    let id = this.props.viewMovie.imdbID
+    // let id = this.props.viewMovie.imdbID.slice(0, -1)
+    fetch(`https://api.themoviedb.org/3/find/${id}?api_key=3eb68659d6134fa388c1a0220feb7fd1&external_source=imdb_id`)
+    .then(r => r.json())
+    .then(r => {
+      if (r.movie_results.length !== 0) {
+        this.setState({movie: r.movie_results[0]})
+      } else if (r.tv_results.length !== 0) {
+        this.setState({movie: r.tv_results[0]})
+      } else {
+        this.setState({badData: true})
+      }
+    })
   }
 
   handleFetch = () => {
     if (this.props.viewMovie !== null) {
       this.fetchMovieInfo()
+      // this.props.dispatch({ type: "FETCH_MOVIE", payload: this.props.viewMovie })
+
     } else {
       return null
     }
   }
 
   handleWatchlist = () => {
-    // this.props.dispatch({type: "WATCH_MOVIE", payload: this.props.viewMovie})
     this.postToWatchlist(this.props.viewMovie)
   }
 
   postToWatchlist = (movie) => {
-    // title: movie.Title
-    // omdb_id: this.state.movie.id
-    // imdb_id: movie.imdbID
     debugger
     fetch(`http://localhost:3000/watchlists`, {
       method: 'POST',
@@ -52,7 +49,8 @@ class MovieView extends React.Component {
       body: JSON.stringify({
         title: movie.Title,
         omdb_id: this.state.movie.id,
-        imdb_id: movie.imdbID
+        imdb_id: movie.imdbID,
+        user_id: this.props.user
       })
     })
     .then(r=>r.json())
@@ -101,7 +99,9 @@ class MovieView extends React.Component {
 
 function mapStateToProps(state){
   return {
-    viewMovie: state.viewMovie
+    viewMovie: state.viewMovie,
+    user: state.user,
+    movie: state.movieInfo
   }
 }
 

@@ -11,7 +11,6 @@ class Search extends React.Component {
 
   handleTyping = (e) => {
     this.setState({input: e.target.value})
-
   }
 
   handleSearch = (e) => {
