@@ -11,13 +11,14 @@ class Search extends React.Component {
 
   handleTyping = (e) => {
     this.setState({input: e.target.value})
-
-  }
-
-  handleSearch = (e) => {
     e.preventDefault()
-    this.fetchMovies()
+    this.fetchMovies(e.target.value)
   }
+
+  // handleSearch = (e) => {
+  //   e.preventDefault()
+  //   this.fetchMovies()
+  // }
 
   slugify = (str) => {
       str = str.replace(/^\s+|\s+$/g, '') // trim
@@ -38,17 +39,19 @@ class Search extends React.Component {
       return str;
   }
 
-  fetchMovies = () => {
-    let slug = this.slugify(this.state.input)
+  fetchMovies = (input) => {
+    let slug = this.slugify(input)
     fetch(`http://www.omdbapi.com/?s=${slug}&apikey=7e2663e7`)
     .then(r => r.json())
     .then(r => {
-      this.setState({results: r.Search})
+      if (r.Error !== "Too many results.") {
+        this.setState({results: r.Search})
+      }
     })
   }
 
   renderSearchResults = () => {
-    if (this.state.results.length > 0) {
+    if (!!this.state.results && this.state.results !== []) {
       return this.state.results.map(r => {
         return <SearchResult result={r} changePage={this.props.changePage}/>
       })
@@ -59,8 +62,7 @@ class Search extends React.Component {
     return (
       <div>
         <form onSubmit={this.handleSearch}>
-          <input type="text" onChange={this.handleTyping}/>
-          <input type="submit" value="Search"/>
+          <input type="text" placeholder="Search..." onChange={this.handleTyping}/>
         </form>
         <p>{this.renderSearchResults()}</p>
       </div>

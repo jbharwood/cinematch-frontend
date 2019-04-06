@@ -3,6 +3,7 @@ import './App.css';
 import NavHeader from './components/Header'
 import Search from './components/Search'
 import MovieView from './components/MovieView'
+import Watchlist from './components/Watchlist'
 // import 'semantic-ui-css/semantic.min.css';
 import {connect} from 'react-redux'
 
@@ -31,6 +32,7 @@ class App extends Component {
     return (
       <div className="App">
         <NavHeader />
+        <Watchlist changePage={this.changePage} />
         {this.renderPage()}
       </div>
     );

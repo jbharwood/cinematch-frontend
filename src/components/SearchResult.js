@@ -31,20 +31,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(SearchResult)
-
-// import React from "react";
-// import {connect} from 'react-redux'
-//
-//
-// class SearchResult extends React.Component {
-//
-//   render() {
-//     console.log("hit");
-//     return (
-//       <div>
-//         {this.props.result.Title}
-//       </div>
-//     )
-//   }
-// }
-// export default SearchResult

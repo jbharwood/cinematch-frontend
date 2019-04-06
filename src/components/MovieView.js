@@ -55,7 +55,8 @@ class MovieView extends React.Component {
         title: movie.Title,
         omdb_id: this.state.movie.id,
         imdb_id: movie.imdbID,
-        user_id: this.props.user
+        user_id: this.props.user,
+        poster: movie.Poster
       })
     })
     .then(r=>r.json())

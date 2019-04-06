@@ -36,3 +36,8 @@
   border: solid;
   box-sizing: border-box;
 }
+
+.watchlist {
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+}
