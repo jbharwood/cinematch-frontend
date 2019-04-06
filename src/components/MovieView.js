@@ -83,7 +83,7 @@ class MovieView extends React.Component {
   }
 
   renderSimilarMovies = () => {
-    if (this.state.similarMovies.length > 0) {
+    if (!!this.state.similarMovies && this.state.similarMovies.length > 0) {
       return this.state.similarMovies.map (m => {
         return  <SimilarMovie result={m}
         changePage={this.props.changePage}

@@ -11,7 +11,7 @@ const SimilarMovie = (props) => {
 
   const renderSimilar = () => {
     //tv check
-    if (props.result.name !== undefined) {
+    if (!!props.result.name) {
       return (
         <div className="similarMovie">
           <h3>{props.result.name}</h3>

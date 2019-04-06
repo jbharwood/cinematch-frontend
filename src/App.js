@@ -6,6 +6,7 @@ import MovieView from './components/MovieView'
 import Watchlist from './components/Watchlist'
 // import 'semantic-ui-css/semantic.min.css';
 import {connect} from 'react-redux'
+import { Switch, Route } from 'react-router-dom'
 
 console.log('connect function', connect({hello: 'world'}))
 
@@ -32,7 +33,9 @@ class App extends Component {
     return (
       <div className="App">
         <NavHeader />
-        <Watchlist changePage={this.changePage} />
+        <Switch>
+          <Route path="/users/:id" render={routerProps => <Watchlist changePage={this.changePage} {...routerProps} />} />
+        </Switch>
         {this.renderPage()}
       </div>
     );
@@ -46,3 +49,6 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps)(App);
+
+// <Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.setCurrentUser} />} />
+// <Route path="/signup" component={SignupForm} />
