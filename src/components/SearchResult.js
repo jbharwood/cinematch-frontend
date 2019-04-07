@@ -3,11 +3,6 @@ import {connect} from 'react-redux'
 
 const SearchResult = (props) => {
 
-  // const handleWatchlist = () => {
-  //   postToWatchlist(props.result)
-  //   // props.dispatch({type: "WATCH_MOVIE", payload: props.result.imdbID})
-  // }
-
   const handleViewMovie = () => {
     props.dispatch({type: "VIEW_MOVIE", payload: props.result})
     props.changePage("MovieView")

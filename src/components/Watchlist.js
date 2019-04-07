@@ -8,6 +8,7 @@ class Watchlist extends React.Component {
   }
 
   fetchWatchlist = () => {
+    // let userId = this.props.match.params.id
     fetch(`http://localhost:3000/watchlists`)
     .then(r => r.json())
     .then(r => {

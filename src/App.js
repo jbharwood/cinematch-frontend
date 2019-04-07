@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import NavHeader from './components/Header'
+import Navbar from './components/Navbar'
 import Search from './components/Search'
 import MovieView from './components/MovieView'
 import Watchlist from './components/Watchlist'
@@ -16,46 +16,58 @@ console.log('connect function', connect({hello: 'world'}))
 
 class App extends Component {
 
-  state = {
-    page: ""
-  }
+  // state = {
+  //   page: ""
+  // }
 
-  changePage = (page) => {
-    this.setState({page: page})
-  }
+  // changePage = (page) => {
+  //   this.setState({page: page})
+  // }
 
-  // we need to set the current user and the token
 	setCurrentUser = (response) => {
-		// localStorage.setItem("token", response.jwt)
 		this.setState({
 			currentUser: response
 		})
 
 	}
 
-  renderPage = () => {
-    if (this.state.page === "MovieView") {
-      return <MovieView changePage={this.changePage}/>
-    } else if (this.state.page === "Search"){
-      return <Search changePage={this.changePage}/>
-    } else if (this.state.page === "") {
-      return (
-        <Switch>
-          <Route path="/users/:id" render={routerProps => <Watchlist changePage={this.changePage} {...routerProps} />} />
-          <Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.setCurrentUser}
-            changePage={this.changePage} />} />
-        </Switch>
-      )
-    }
-  }
+  logout = () => {
+    this.props.dispatch({type: "SET_CURRENT_USER", payload: null})
+	}
+
+  // renderPage = () => {
+  //   if (this.state.page === "MovieView") {
+  //     return <MovieView changePage={this.changePage}/>
+  //   } else if (this.state.page === "Search"){
+  //     return <Search changePage={this.changePage}/>
+  //   } else if (this.state.page === "") {
+  //     return (
+  //       <Switch>
+  //         <Route path="/users/:id" render={routerProps => <Watchlist changePage={this.changePage} {...routerProps} />} />
+  //         <Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.setCurrentUser}
+  //           changePage={this.changePage} />} />
+  //       </Switch>
+  //     )
+  //   }
+  // }
 
   render() {
     console.log(this.props)
     return (
       <div className="App">
-        <NavHeader />
-        {this.renderPage()}
+  			<Grid>
+  				<Navbar logout={this.logout} />
+  				<Grid.Row centered>
+  					<Switch>
+              <Route path="/watchlist" render={routerProps => <Watchlist changePage={this.changePage} {...routerProps} />} />
+              <Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.setCurrentUser}
+                changePage={this.changePage} />} />
+  						<Route path="/search" render={routerProps => <Search changePage={this.changePage} {...routerProps} />} />
+  					</Switch>
+  				</Grid.Row>
+  			</Grid>
       </div>
+
     );
   }
 }

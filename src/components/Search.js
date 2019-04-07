@@ -1,18 +1,24 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import SearchResult from './SearchResult'
+import MovieView from './MovieView'
 
 class Search extends React.Component {
 
   state = {
     input: "",
-    results: []
+    results: [],
+    page: "Search"
   }
 
   handleTyping = (e) => {
-    this.setState({input: e.target.value})
+    this.setState({input: e.target.value, page: "Search"})
     e.preventDefault()
     this.fetchMovies(e.target.value)
+  }
+
+  changePage = (page) => {
+    this.setState({page: page})
   }
 
   // handleSearch = (e) => {
@@ -50,21 +56,35 @@ class Search extends React.Component {
     })
   }
 
-  renderSearchResults = () => {
-    if (!!this.state.results && this.state.results !== []) {
+  // renderSearchResults = () => {
+  //   if (!!this.state.results && this.state.results !== []) {
+  //     return this.state.results.map(r => {
+  //       return <SearchResult result={r} changePage={this.props.changePage}/>
+  //     })
+  //   }
+  // }
+
+  renderPage = () => {
+    if (this.state.page === "Search" && !!this.state.results && this.state.results !== []) {
       return this.state.results.map(r => {
-        return <SearchResult result={r} changePage={this.props.changePage}/>
+        return <SearchResult result={r} changePage={this.changePage}/>
       })
+    } else if (this.state.page === "MovieView") {
+      return <MovieView changePage={this.changePage}/>
     }
+    // else if (this.state.page === "") {
+    //   return null
+    // }
   }
 
   render() {
+    console.log(this.state);
     return (
       <div>
-        <form onSubmit={this.handleSearch}>
+        <form>
           <input type="text" placeholder="Search..." onChange={this.handleTyping}/>
         </form>
-        <p>{this.renderSearchResults()}</p>
+        <p>{this.renderPage()}</p>
       </div>
     )
   }

@@ -3,7 +3,7 @@ const initialState =  {
   watchlist: [],
   viewMovie: null,
   movieInfo: null,
-  user: 1,
+  user: null,
   badData: false,
 }
 

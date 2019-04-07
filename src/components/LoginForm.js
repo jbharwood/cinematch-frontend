@@ -31,7 +31,7 @@ class LoginForm extends React.Component {
 					// we need to login at the top level where we are holding our current user!
 					// setState in App to currentuser
           this.props.dispatch({type: "SET_CURRENT_USER", payload: response.id})
-          this.props.changePage("Search")
+          // this.props.changePage("Search")
 					// this.props.setCurrentUser(response.user)
 					// localStorage.setItem('jwt', response.jwt)
 					// this.props.history.push(`/users/${response.user.id}`)
