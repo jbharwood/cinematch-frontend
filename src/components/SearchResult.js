@@ -20,8 +20,7 @@ const SearchResult = (props) => {
 
 function mapStateToProps(state) {
   return {
-    search: state.search,
-    user: state.user
+    search: state.search
   }
 }
 

@@ -9,16 +9,27 @@ class Watchlist extends React.Component {
 
   fetchWatchlist = () => {
     // let userId = this.props.match.params.id
-    fetch(`http://localhost:3000/watchlists`)
+    // fetch(`http://localhost:3000/watchlists`)
+    fetch(`http://localhost:3000/users/${this.props.user.id}`)
     .then(r => r.json())
     .then(r => {
-      r.map(result => {
-        if (result.user_id === this.props.user) {
+      r.watchlist.map(result => {
           this.setState({list: [...this.state.list, result]})
-        }
       })
     })
   }
+
+  // handleWatchMovie = (e) => {
+  //   let a = this.props
+  //   debugger
+  //   fetch(`http://localhost:3000/watchlists`)
+  //   .then(r => r.json())
+  //   .then(r => {
+  //     if (r.Error !== "Too many results.") {
+  //       this.setState({results: r.Search})
+  //     }
+  //   })
+  // }
 
   renderList = () => {
     if (this.state.list !== []) {
@@ -27,6 +38,7 @@ class Watchlist extends React.Component {
           <div>
             {l.title} <br/>
             <img src={l.poster} alt="poster" width="50" height="50"/> <br/>
+            <button onClick={this.handleWatchMovie} id={l.id}> Watched Movie </button>
           </div>
         )
       })
