@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import WatchlistMovie from './WatchlistMovie'
 
 class Watchlist extends React.Component {
 
@@ -19,28 +20,16 @@ class Watchlist extends React.Component {
     })
   }
 
-  // handleWatchMovie = (e) => {
-  //   let a = this.props
-  //   debugger
-  //   fetch(`http://localhost:3000/watchlists`)
-  //   .then(r => r.json())
-  //   .then(r => {
-  //     if (r.Error !== "Too many results.") {
-  //       this.setState({results: r.Search})
-  //     }
-  //   })
-  // }
+  changeList = (movie) => {
+    this.setState({list: this.state.list.filter(function(m) {
+        return m.id !== movie
+    })});
+  }
 
   renderList = () => {
     if (this.state.list !== []) {
       return this.state.list.map(l => {
-        return (
-          <div>
-            {l.title} <br/>
-            <img src={l.poster} alt="poster" width="50" height="50"/> <br/>
-            <button onClick={this.handleWatchMovie} id={l.id}> Watched Movie </button>
-          </div>
-        )
+        return <WatchlistMovie changeList={this.changeList} movie={l}/>
       })
     }
   }
@@ -50,7 +39,6 @@ class Watchlist extends React.Component {
   }
 
   render() {
-    console.log(this.state.list);
     return (
       <div>
         <h3>Watchlist</h3>

@@ -5,14 +5,11 @@ import Search from './components/Search'
 import MovieView from './components/MovieView'
 import Watchlist from './components/Watchlist'
 import LoginForm from './components/LoginForm'
-// import SignupForm from './components/SignupForm'
+import SignUpForm from './components/SignUpForm'
 // import 'semantic-ui-css/semantic.min.css';
 import {connect} from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
 import { Grid } from 'semantic-ui-react'
-
-
-console.log('connect function', connect({hello: 'world'}))
 
 class App extends Component {
 
@@ -52,7 +49,6 @@ class App extends Component {
   // }
 
   render() {
-    console.log(this.props)
     return (
       <div className="App">
   			<Grid>
@@ -61,6 +57,8 @@ class App extends Component {
   					<Switch>
               <Route path="/watchlist" render={routerProps => <Watchlist changePage={this.changePage} {...routerProps} />} />
               <Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.setCurrentUser}
+                changePage={this.changePage} />} />
+              <Route path="/signup" render={routerProps => <SignUpForm {...routerProps} setCurrentUser={this.setCurrentUser}
                 changePage={this.changePage} />} />
   						<Route path="/search" render={routerProps => <Search changePage={this.changePage} {...routerProps} />} />
   					</Switch>
