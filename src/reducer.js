@@ -16,6 +16,8 @@ function reducer(state=initialState, action){
       return {...state, watchlist: [...state.watchlist, action.payload]}
     case "VIEW_MOVIE":
       return {...state, viewMovie: action.payload}
+    case "SET_CURRENT_USER":
+      return {...state, user: action.payload}
     case "FETCH_MOVIE":
       fetchMovieInfo(action.payload)
     default:
