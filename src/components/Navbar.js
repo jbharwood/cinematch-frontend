@@ -28,6 +28,9 @@ class Navbar extends React.Component {
 									<Link className="item" to="/watchlist">
 										Watchlist
 									</Link>
+									<Link className="item" to="/chatbox">
+										Chatbox
+									</Link>
 								</Menu.Menu>
 							:
 								<Menu.Menu position="left">

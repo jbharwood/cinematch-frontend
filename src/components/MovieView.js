@@ -74,7 +74,6 @@ class MovieView extends React.Component {
     })
     .then(r=>r.json())
     .then(r=> {
-      debugger
     })
   }
 
