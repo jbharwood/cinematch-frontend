@@ -45,6 +45,19 @@ class MovieView extends React.Component {
   }
 
   postToWatchlist = (movie) => {
+    let title = null
+    let imdbID = null
+    let poster = null
+    //similar movie input check
+    if (!!movie.title) {
+      title = movie.title
+      imdbID = null
+      poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
+    } else {
+      title = movie.Title
+      imdbID = movie.imdbID
+      poster = movie.Poster
+    }
     fetch(`http://localhost:3000/watchlists`, {
       method: 'POST',
       headers: {
@@ -52,15 +65,16 @@ class MovieView extends React.Component {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        title: movie.Title,
+        title: title,
         omdb_id: this.state.movie.id,
-        imdb_id: movie.imdbID,
+        imdb_id: imdbID,
         user_id: this.props.user.id,
-        poster: movie.Poster
+        poster: poster
       })
     })
     .then(r=>r.json())
     .then(r=> {
+      debugger
     })
   }
 

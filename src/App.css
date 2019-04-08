@@ -41,3 +41,9 @@
   display: grid;
   grid-template-columns: 200px 200px 200px;
 }
+
+.navbar {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 200px 200px 200px;
+}

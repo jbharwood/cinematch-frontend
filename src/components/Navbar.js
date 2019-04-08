@@ -16,21 +16,21 @@ class Navbar extends React.Component {
       <h1>Cinematch</h1>
 				<Grid.Column width={16}>
 				<Menu>
-					<Link className="item" to="/search">
-						Search
-					</Link>
-					<Link className="item" to="/watchlist">
-						Watchlist
-					</Link>
 						{this.props.user
 							?
 								<Menu.Menu position="right">
 									<Link className="item" to="/login" onClick={this.logout} >
 										Logout
 									</Link>
+									<Link className="item" to="/search">
+										Search
+									</Link>
+									<Link className="item" to="/watchlist">
+										Watchlist
+									</Link>
 								</Menu.Menu>
 							:
-								<Menu.Menu position="right">
+								<Menu.Menu position="left">
 									<Link className="item" to="/login">
 										Login
 									</Link>

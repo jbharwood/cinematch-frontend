@@ -20,9 +20,9 @@ class Watchlist extends React.Component {
     })
   }
 
-  changeList = (movie) => {
+  changeList = (movieId) => {
     this.setState({list: this.state.list.filter(function(m) {
-        return m.id !== movie
+        return m.id !== movieId
     })});
   }
 
