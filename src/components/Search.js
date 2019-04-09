@@ -21,11 +21,6 @@ class Search extends React.Component {
     this.setState({page: page})
   }
 
-  // handleSearch = (e) => {
-  //   e.preventDefault()
-  //   this.fetchMovies()
-  // }
-
   slugify = (str) => {
       str = str.replace(/^\s+|\s+$/g, '') // trim
       str = str.toLowerCase()
@@ -56,14 +51,6 @@ class Search extends React.Component {
     })
   }
 
-  // renderSearchResults = () => {
-  //   if (!!this.state.results && this.state.results !== []) {
-  //     return this.state.results.map(r => {
-  //       return <SearchResult result={r} changePage={this.props.changePage}/>
-  //     })
-  //   }
-  // }
-
   renderPage = () => {
     if (this.state.page === "Search" && !!this.state.results && this.state.results !== []) {
       return this.state.results.map(r => {
@@ -72,13 +59,9 @@ class Search extends React.Component {
     } else if (this.state.page === "MovieView") {
       return <MovieView changePage={this.changePage}/>
     }
-    // else if (this.state.page === "") {
-    //   return null
-    // }
   }
 
   render() {
-    console.log(this.state);
     return (
       <div>
         <form>

@@ -1,11 +1,15 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import WatchlistMovie from './WatchlistMovie'
+import MovieView from './MovieView'
 
 class Watchlist extends React.Component {
 
   state = {
-    list: []
+    list: [],
+    viewMovieCheck: false,
+    viewMovie: null
+
   }
 
   fetchWatchlist = () => {
@@ -26,11 +30,30 @@ class Watchlist extends React.Component {
     })});
   }
 
+  changeViewMovie = (movie) => {
+    this.setState({viewMovieCheck: true})
+  }
+
+  changeToWatchlist = () => {
+    this.setState({viewMovieCheck: false})
+  }
+
   renderList = () => {
-    if (this.state.list !== []) {
-      return this.state.list.map(l => {
-        return <WatchlistMovie changeList={this.changeList} movie={l}/>
-      })
+    if (this.state.list !== [] && this.state.viewMovieCheck === false) {
+        return this.state.list.map(l => {
+          return (
+            <div className="watchlist">
+              <WatchlistMovie changeList={this.changeList}
+                movie={l} changeViewMovie={this.changeViewMovie}/>
+            </div>
+          )
+        })
+    } else if (this.state.viewMovieCheck === true) {
+      return (
+        <div className="movieView">
+          <MovieView changeToWatchlist={this.changeToWatchlist}/>
+        </div>
+      )
     }
   }
 
@@ -42,9 +65,7 @@ class Watchlist extends React.Component {
     return (
       <div>
         <h3>Watchlist</h3>
-        <div className="watchlist">
           {this.renderList()}
-        </div>
       </div>
     )
   }

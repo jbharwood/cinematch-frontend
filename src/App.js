@@ -6,6 +6,7 @@ import MovieView from './components/MovieView'
 import Watchlist from './components/Watchlist'
 import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
+import Feed from './components/Feed'
 // import 'semantic-ui-css/semantic.min.css';
 import {connect} from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
@@ -61,6 +62,7 @@ class App extends Component {
               <Route path="/signup" render={routerProps => <SignUpForm {...routerProps} setCurrentUser={this.setCurrentUser}
                 changePage={this.changePage} />} />
   						<Route path="/search" render={routerProps => <Search changePage={this.changePage} {...routerProps} />} />
+  						<Route path="/chatbox" render={routerProps => <Feed changePage={this.changePage} {...routerProps} />} />
   					</Switch>
   				</Grid.Row>
   			</Grid>
