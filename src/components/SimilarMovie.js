@@ -4,6 +4,9 @@ import {connect} from 'react-redux'
 const SimilarMovie = (props) => {
 
   const handleViewMovie = () => {
+    if (props.clicked === true) {
+      props.changeWatchButton()
+    }
     props.dispatch({type: "VIEW_MOVIE", payload: props.result})
     // props.changePage("MovieView")
     props.fetchWithOMDBId(props.result.id)

@@ -7,7 +7,8 @@ class MovieView extends React.Component {
   state = {
     movie: null,
     badData: false,
-    similarMovies: []
+    similarMovies: [],
+    clicked: false
   }
 
   fetchMovieInfo = () => {
@@ -41,7 +42,12 @@ class MovieView extends React.Component {
   }
 
   handleWatchlist = () => {
+    this.changeWatchButton()
     this.postToWatchlist(this.props.viewMovie)
+  }
+
+  changeWatchButton = () => {
+    this.setState({clicked: !this.state.clicked})
   }
 
   postToWatchlist = (movie) => {
@@ -53,10 +59,15 @@ class MovieView extends React.Component {
       title = movie.title
       imdbID = null
       poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
-    } else {
+    } else if (!!movie.Title) {
+      debugger
       title = movie.Title
       imdbID = movie.imdbID
       poster = movie.Poster
+    } else if (!!movie.name) {
+      title = movie.name
+      imdbID = null
+      poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
     }
     fetch(`http://localhost:3000/watchlists`, {
       method: 'POST',
@@ -85,8 +96,11 @@ class MovieView extends React.Component {
     let id = this.state.movie.id
     let media = "movie"
     //tv check
-    if (this.state.movie.name !== undefined) {
+    if (!!this.state.movie.name) {
       media = "tv"
+    } else if (!!this.props.viewMovie.name) {
+      media = "tv"
+      id = this.props.viewMovie.id
     }
     fetch(`https://api.themoviedb.org/3/${media}/${id}/recommendations?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US&page=1`)
     .then(r => r.json())
@@ -100,22 +114,33 @@ class MovieView extends React.Component {
       return this.state.similarMovies.map (m => {
         return  <SimilarMovie result={m}
         changePage={this.props.changePage}
-        fetchWithOMDBId={this.fetchWithOMDBId}/>
+        fetchWithOMDBId={this.fetchWithOMDBId}
+        changeWatchButton={this.changeWatchButton}
+        clicked={this.state.clicked}/>
       })
+    }
+  }
+
+  renderWatchButton = () => {
+    if (this.state.clicked === true) {
+      return <button> Added to Watchlist </button>
+    } else {
+      return <button onClick={this.handleWatchlist}> Add to Watchlist </button>
+
     }
   }
 
   renderMoviePage = () => {
     if (this.state.movie !== null) {
       //tv check
-      if (this.state.movie.name !== undefined) {
+      if (this.props.viewMovie.name !== undefined) {
         return (
           <div>
-            <h3>{this.state.movie.name}</h3>
-            <p>{this.state.movie.first_air_date}</p>
-            <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="50" height="50"/> <br/>
-            <p>{this.state.movie.overview}</p>
-            <button onClick={this.handleWatchlist}> Add to Watchlist </button>
+            <h3>{this.props.viewMovie.name}</h3>
+            <p>{this.props.viewMovie.first_air_date}</p>
+            <img src={"http://image.tmdb.org/t/p/w185/" + this.props.viewMovie.poster_path} alt="poster" width="50" height="50"/> <br/>
+            <p>{this.props.viewMovie.overview}</p>
+            {this.renderWatchButton()}
             <button onClick={this.handleBack}> Go Back </button>
             <h3>Similar TV Shows</h3>
             {this.renderSimilarMovies()}
@@ -128,7 +153,7 @@ class MovieView extends React.Component {
           <p>{this.state.movie.release_date}</p>
           <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="50" height="50"/> <br/>
           <p>{this.state.movie.overview}</p>
-          <button onClick={this.handleWatchlist}> Add to Watchlist </button>
+          {this.renderWatchButton()}
           <button onClick={this.handleBack}> Go Back </button>
           <h3>Similar Movies</h3>
           {this.renderSimilarMovies()}
