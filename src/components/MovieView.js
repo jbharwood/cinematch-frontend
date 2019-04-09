@@ -4,6 +4,11 @@ import SimilarMovie from './SimilarMovie'
 
 class MovieView extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.similarRef = React.createRef()   // Create a ref for scrolling
+  }
+
   state = {
     movie: null,
     badData: false,
@@ -112,7 +117,7 @@ class MovieView extends React.Component {
       media = "tv"
       id = this.props.viewMovie.id
     }
-    fetch(`https://api.themoviedb.org/3/${media}/${id}/recommendations?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US&page=${page}`)
+    fetch(`https://api.themoviedb.org/3/${media}/${id}/similar?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US&page=${page}`)
     .then(r => r.json())
     .then(r => {
       this.setState({similarMovies: r.results})
@@ -120,11 +125,14 @@ class MovieView extends React.Component {
   }
 
   handleNextPage = () => {
-    this.setState({pageCount: 2}, this.fetchSimilarMovies(2))
+    this.setState({pageCount: this.state.pageCount += 1}, this.fetchSimilarMovies(this.state.pageCount))
+    // this.setState({pageCount: 2}, this.fetchSimilarMovies(2))
+    window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
   }
 
   handlePrevPage = () => {
-    this.setState({pageCount: 1}, this.fetchSimilarMovies(1))
+    this.setState({pageCount: this.state.pageCount -= 1}, this.fetchSimilarMovies(this.state.pageCount))
+    window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
   }
 
   renderSimilarMovies = () => {
@@ -161,7 +169,7 @@ class MovieView extends React.Component {
             <p>{this.props.viewMovie.overview}</p>
             {this.renderWatchButton()}
             <button onClick={this.handleBack}> Go Back </button>
-            <h3>Similar TV Shows</h3>
+            <h3 ref={this.similarRef}>Similar TV Shows</h3>
             {this.renderSimilarMovies()}
           </div>
         )
@@ -175,11 +183,12 @@ class MovieView extends React.Component {
             <p>{this.state.movie.overview}</p>
             {this.renderWatchButton()}
             <button onClick={this.handleBack}> Go Back </button>
-            <h3>Similar TV Shows</h3>
+            <h3 ref={this.similarRef}>Similar TV Shows</h3>
             {this.renderSimilarMovies()}
           </div>
         )
       }
+      //for movies
       return (
         <div>
           <h3>{this.state.movie.title}</h3>
@@ -188,7 +197,7 @@ class MovieView extends React.Component {
           <p>{this.state.movie.overview}</p>
           {this.renderWatchButton()}
           <button onClick={this.handleBack}> Go Back </button>
-          <h3>Similar Movies</h3>
+          <h3 ref={this.similarRef}>Similar Movies</h3>
           {this.renderSimilarMovies()}
         </div>
       )
@@ -207,8 +216,15 @@ class MovieView extends React.Component {
   renderPageButtons = () => {
     if (this.state.pageCount === 1) {
       return <button onClick={this.handleNextPage}>Next Page</button>
-    } else if (this.state.pageCount === 2){
+    } else if (this.state.pageCount === 5){
       return <button onClick={this.handlePrevPage}>Previous Page</button>
+    } else {
+      return (
+        <div>
+          <button onClick={this.handlePrevPage}>Previous Page</button>
+          <button onClick={this.handleNextPage}>Next Page</button>
+        </div>
+      )
     }
   }
 
@@ -223,6 +239,7 @@ class MovieView extends React.Component {
   }
 
   render() {
+    console.log("pageCount state: ", this.state.pageCount);
     return (
       <div className="movieView">
         {this.renderMoviePage()}

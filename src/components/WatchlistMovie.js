@@ -25,8 +25,8 @@ class WatchlistMovie extends React.Component {
       <div>
         {this.props.movie.title} <br/>
         <img src={this.props.movie.poster} alt="poster" width="50" height="50"/> <br/>
-        <button onClick={this.handleViewMovie}> View Movie Info</button>
-        <button onClick={this.handleWatchMovie}> Remove Movie</button>
+        <button onClick={this.handleViewMovie}> View Info</button>
+        <button onClick={this.handleWatchMovie}> Remove </button>
       </div>
     )
   }

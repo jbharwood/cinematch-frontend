@@ -41,11 +41,19 @@ class Watchlist extends React.Component {
   renderList = () => {
     if (this.state.list !== [] && this.state.viewMovieCheck === false) {
         return this.state.list.map(l => {
-          return <WatchlistMovie changeList={this.changeList}
-          movie={l} changeViewMovie={this.changeViewMovie}/>
+          return (
+            <div className="watchlist">
+              <WatchlistMovie changeList={this.changeList}
+                movie={l} changeViewMovie={this.changeViewMovie}/>
+            </div>
+          )
         })
     } else if (this.state.viewMovieCheck === true) {
-      return <MovieView changeToWatchlist={this.changeToWatchlist}/>
+      return (
+        <div className="movieView">
+          <MovieView changeToWatchlist={this.changeToWatchlist}/>
+        </div>
+      )
     }
   }
 
@@ -57,9 +65,7 @@ class Watchlist extends React.Component {
     return (
       <div>
         <h3>Watchlist</h3>
-        <div className="watchlist">
           {this.renderList()}
-        </div>
       </div>
     )
   }
