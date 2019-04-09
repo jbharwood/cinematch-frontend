@@ -8,7 +8,6 @@ const SimilarMovie = (props) => {
       props.changeWatchButton()
     }
     props.dispatch({type: "VIEW_MOVIE", payload: props.result})
-    // props.changePage("MovieView")
     props.fetchWithOMDBId(props.result.id)
   }
 

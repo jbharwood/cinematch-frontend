@@ -8,7 +8,8 @@ class MovieView extends React.Component {
     movie: null,
     badData: false,
     similarMovies: [],
-    clicked: false
+    clicked: false,
+    pageCount: 1
   }
 
   fetchMovieInfo = () => {
@@ -34,9 +35,9 @@ class MovieView extends React.Component {
     .then(r => r.json())
     .then(r => {
       if (r) {
-        this.setState({movie: r}, this.fetchSimilarMovies)
+        this.setState({movie: r, pageCount: 1}, this.fetchSimilarMovies)
       } else {
-        this.setState({badData: true})
+        this.setState({badData: true, pageCount: 1})
       }
     })
   }
@@ -54,17 +55,15 @@ class MovieView extends React.Component {
     let title = null
     let imdbID = null
     let poster = null
-    //similar movie input check
-    if (!!movie.title) {
+    if (!!movie.title) { //similar movie input check
       title = movie.title
       imdbID = null
       poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
-    } else if (!!movie.Title) {
-      debugger
+    } else if (!!movie.Title) { //movie and tv check
       title = movie.Title
       imdbID = movie.imdbID
       poster = movie.Poster
-    } else if (!!movie.name) {
+    } else if (!!movie.name) {//checks for similar tv shows
       title = movie.name
       imdbID = null
       poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
@@ -77,7 +76,7 @@ class MovieView extends React.Component {
       },
       body: JSON.stringify({
         title: title,
-        omdb_id: this.state.movie.id,
+        omdb_id: this.state.movie.id, //look at later?
         imdb_id: imdbID,
         user_id: this.props.user.id,
         poster: poster
@@ -92,7 +91,8 @@ class MovieView extends React.Component {
     this.props.changePage("Search")
   }
 
-  fetchSimilarMovies = (omdbId) => {
+  // fetchSimilarMovies = (omdbId, page=1) => {
+  fetchSimilarMovies = (page=1) => {
     let id = this.state.movie.id
     let media = "movie"
     //tv check
@@ -102,11 +102,19 @@ class MovieView extends React.Component {
       media = "tv"
       id = this.props.viewMovie.id
     }
-    fetch(`https://api.themoviedb.org/3/${media}/${id}/recommendations?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US&page=1`)
+    fetch(`https://api.themoviedb.org/3/${media}/${id}/recommendations?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US&page=${page}`)
     .then(r => r.json())
     .then(r => {
       this.setState({similarMovies: r.results})
     })
+  }
+
+  handleNextPage = () => {
+    this.setState({pageCount: 2}, this.fetchSimilarMovies(2))
+  }
+
+  handlePrevPage = () => {
+    this.setState({pageCount: 1}, this.fetchSimilarMovies(1))
   }
 
   renderSimilarMovies = () => {
@@ -116,7 +124,8 @@ class MovieView extends React.Component {
         changePage={this.props.changePage}
         fetchWithOMDBId={this.fetchWithOMDBId}
         changeWatchButton={this.changeWatchButton}
-        clicked={this.state.clicked}/>
+        clicked={this.state.clicked}
+        fetchSimilarMovies={this.fetchSimilarMovies}/>
       })
     }
   }
@@ -171,6 +180,14 @@ class MovieView extends React.Component {
       }
   }
 
+  renderPageButtons = () => {
+    if (this.state.pageCount === 1) {
+      return <button onClick={this.handleNextPage}>Next Page</button>
+    } else if (this.state.pageCount === 2){
+      return <button onClick={this.handlePrevPage}>Previous Page</button>
+    }
+  }
+
   componentDidMount = () => {
     if (this.props.viewMovie !== null) {
       this.fetchMovieInfo()
@@ -182,6 +199,7 @@ class MovieView extends React.Component {
     return (
       <div className="movieView">
         {this.renderMoviePage()}
+        {this.renderPageButtons()}
       </div>
     )
   }
@@ -197,3 +215,5 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps)(MovieView)
+
+// <button onClick={this.fetchSimilarMovies}>Next Page</button>
