@@ -13,7 +13,13 @@ class MovieView extends React.Component {
   }
 
   fetchMovieInfo = () => {
-    let id = this.props.viewMovie.imdbID
+    let id = null
+    if (!!this.props.viewMovie.imdbID) { //from searchResult check
+      id = this.props.viewMovie.imdbID
+    } else if (!!this.props.viewMovie.imdb_id) {
+      id = this.props.viewMovie.imdb_id
+    }
+    // let id = this.props.viewMovie.imdbID
     if (id.length > 9) {
       id = this.props.viewMovie.imdbID.slice(0, -1)
     }
@@ -88,7 +94,11 @@ class MovieView extends React.Component {
   }
 
   handleBack = () => {
-    this.props.changePage("Search")
+    if (!!this.props.changeToWatchlist) {
+      this.props.changeToWatchlist()
+    } else {
+      this.props.changePage("Search")
+    }
   }
 
   // fetchSimilarMovies = (omdbId, page=1) => {
@@ -131,7 +141,7 @@ class MovieView extends React.Component {
   }
 
   renderWatchButton = () => {
-    if (this.state.clicked === true) {
+    if (this.state.clicked === true || !!this.props.changeToWatchlist) {
       return <button> Added to Watchlist </button>
     } else {
       return <button onClick={this.handleWatchlist}> Add to Watchlist </button>
@@ -141,14 +151,28 @@ class MovieView extends React.Component {
 
   renderMoviePage = () => {
     if (this.state.movie !== null) {
-      //tv check
-      if (this.props.viewMovie.name !== undefined) {
+      //tv check from SearchResult
+      if (!!this.props.viewMovie.name) {
         return (
           <div>
             <h3>{this.props.viewMovie.name}</h3>
             <p>{this.props.viewMovie.first_air_date}</p>
             <img src={"http://image.tmdb.org/t/p/w185/" + this.props.viewMovie.poster_path} alt="poster" width="50" height="50"/> <br/>
             <p>{this.props.viewMovie.overview}</p>
+            {this.renderWatchButton()}
+            <button onClick={this.handleBack}> Go Back </button>
+            <h3>Similar TV Shows</h3>
+            {this.renderSimilarMovies()}
+          </div>
+        )
+        //tv check from Watchlist
+      } else if (!!this.state.movie.name) {
+        return (
+          <div>
+            <h3>{this.state.movie.name}</h3>
+            <p>{this.state.movie.first_air_date}</p>
+            <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="50" height="50"/> <br/>
+            <p>{this.state.movie.overview}</p>
             {this.renderWatchButton()}
             <button onClick={this.handleBack}> Go Back </button>
             <h3>Similar TV Shows</h3>
@@ -189,13 +213,16 @@ class MovieView extends React.Component {
   }
 
   componentDidMount = () => {
-    if (this.props.viewMovie !== null) {
+    // if (this.props.viewMovie !== null) {
+    if ((this.props.viewMovie.imdbID !== null && this.props.viewMovie.imdbID !== undefined)
+      || (this.props.viewMovie.imdb_id !== null && this.props.viewMovie.imdb_id !== undefined)) {
       this.fetchMovieInfo()
+    } else if (!!this.props.viewMovie.omdb_id && this.props.viewMovie.imdb_id === null) {
+      this.fetchWithOMDBId(this.props.viewMovie.omdb_id)
     }
   }
 
   render() {
-    console.log(this.state);
     return (
       <div className="movieView">
         {this.renderMoviePage()}
@@ -215,5 +242,3 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps)(MovieView)
-
-// <button onClick={this.fetchSimilarMovies}>Next Page</button>

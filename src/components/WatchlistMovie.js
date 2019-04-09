@@ -1,4 +1,6 @@
 import React from "react";
+import { Link } from 'react-router-dom'
+import {connect} from 'react-redux'
 
 class WatchlistMovie extends React.Component {
 
@@ -13,14 +15,21 @@ class WatchlistMovie extends React.Component {
     })
   }
 
+  handleViewMovie = () => {
+    this.props.dispatch({type: "VIEW_MOVIE", payload: this.props.movie})
+    this.props.changeViewMovie()
+  }
+
   render() {
     return (
       <div>
         {this.props.movie.title} <br/>
         <img src={this.props.movie.poster} alt="poster" width="50" height="50"/> <br/>
-        <button onClick={this.handleWatchMovie} id={this.props.movie.id}> Watched Movie </button>
+        <button onClick={this.handleViewMovie}> View Movie Info</button>
+        <button onClick={this.handleWatchMovie}> Remove Movie</button>
       </div>
     )
   }
+
 }
-export default WatchlistMovie
+export default connect(null)(WatchlistMovie)
