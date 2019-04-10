@@ -123,7 +123,7 @@ class Watchlist extends React.Component {
         )
       } else {
         return (
-          <button onClick={this.handleWatchedMovies}>View All</button>
+          <button onClick={this.handleWatchedMovies}>View Unwatched</button>
         )
       }
     } else {
