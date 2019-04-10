@@ -79,4 +79,3 @@ function mapStateToProps(state){
 }
 
 export default connect(mapStateToProps)(App);
-// <Route path="/signup" component={SignupForm} />

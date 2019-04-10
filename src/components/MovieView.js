@@ -14,7 +14,8 @@ class MovieView extends React.Component {
     badData: false,
     similarMovies: [],
     clicked: false,
-    pageCount: 1
+    pageCount: 1,
+    watchlist: []
   }
 
   fetchMovieInfo = () => {
@@ -143,19 +144,62 @@ class MovieView extends React.Component {
         fetchWithOMDBId={this.fetchWithOMDBId}
         changeWatchButton={this.changeWatchButton}
         clicked={this.state.clicked}
-        fetchSimilarMovies={this.fetchSimilarMovies}/>
+        fetchSimilarMovies={this.fetchSimilarMovies}
+        changeToWatchlist={this.props.changeToWatchlist}/>
       })
     }
   }
 
+  fetchUserWatchlist = () => {
+    fetch(`http://localhost:3000/users/${this.props.user.id}`)
+    .then(r => r.json())
+    .then(r => {
+      this.setState({watchlist: r.watchlist})
+    })
+  }
+
   renderWatchButton = () => {
-    if (this.state.clicked === true || !!this.props.changeToWatchlist) {
+    // if (this.state.clicked === true || !!this.props.changeToWatchlist) {
+    if (this.state.watchlist.length > 0) {
+      //checks if movie is in the watchlist table
+      if (Object.values(this.state.watchlist).find(w => w.id === this.props.viewMovie.id)) {
+        return <button> Added to Watchlist </button>
+      }
+      if (Object.values(this.state.watchlist).find(w => w.omdb_id === this.props.viewMovie.id)) {
+        return <button> Added to Watchlist </button>
+      }
+    }
+    if (this.state.clicked === true) {
       return <button> Added to Watchlist </button>
     } else {
       return <button onClick={this.handleWatchlist}> Add to Watchlist </button>
-
     }
+    //fetch for watchlist and render a button
   }
+
+  // renderWatchButton = () => {
+  //   debugger
+  //   if (this.state.clicked === true) {
+  //     return <button> Added to Watchlist </button>
+  //   } else {
+  //     return <button onClick={this.handleWatchlist}> Add to Watchlist </button>
+  //   }
+    // if (this.state.clicked === true) {
+    //   debugger
+    //   return <button> Added to Watchlist </button>
+    // } else if (this.state.fromWatchlist === false && !!this.props.changeToWatchlist) {
+    //   debugger
+    //   this.setState({fromWatchlist: true})
+    //   return <button> Added to Watchlist </button>
+    // } else if (this.state.fromWatchlist === true && !!this.props.changeToWatchlist) {
+    //   debugger
+    //   return <button onClick={this.handleWatchlist}> Add to Watchlist </button>
+    // } else {
+    //   debugger
+    //   return <button onClick={this.handleWatchlist}> Add to Watchlist </button>
+    //
+  //   // }
+  // }
 
   renderMoviePage = () => {
     if (this.state.movie !== null) {
@@ -235,6 +279,9 @@ class MovieView extends React.Component {
       this.fetchMovieInfo()
     } else if (!!this.props.viewMovie.omdb_id && this.props.viewMovie.imdb_id === null) {
       this.fetchWithOMDBId(this.props.viewMovie.omdb_id)
+    }
+    if (!!this.props.changeToWatchlist) {
+      this.fetchUserWatchlist()
     }
   }
 
