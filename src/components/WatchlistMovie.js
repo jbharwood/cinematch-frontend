@@ -8,10 +8,26 @@ class WatchlistMovie extends React.Component {
     watched: false
   }
 
-  handleWatchMovie = () => {
+  handleRemoveMovie = () => {
     this.props.changeList(this.props.movie.id)
     fetch(`http://localhost:3000/watchlists/${this.props.movie.id}`, {
       method: "DELETE"
+    })
+  }
+
+  handleWatchedMovie = () => {
+    this.props.changeList(this.props.movie.id)
+    fetch(`http://localhost:3000/watchlists/${this.props.movie.id}`, {
+      method: "PATCH",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        watched: true,
+      })
+    }).then(r=>r.json())
+    .then(r => {
     })
   }
 
@@ -20,13 +36,26 @@ class WatchlistMovie extends React.Component {
     this.props.changeViewMovie()
   }
 
+  renderWatchButton = () => {
+    if (this.props.filtered === true) {
+      return null
+    } else {
+      return (
+        <div>
+          <button onClick={this.handleViewMovie}> View Info</button>
+          <button onClick={this.handleWatchedMovie}> Watched </button>
+        </div>
+      )
+    }
+  }
+
   render() {
     return (
       <div>
         {this.props.movie.title} <br/>
         <img src={this.props.movie.poster} alt="poster" width="50" height="50"/> <br/>
-        <button onClick={this.handleViewMovie}> View Info</button>
-        <button onClick={this.handleWatchMovie}> Remove </button>
+        {this.renderWatchButton()}
+        <button onClick={this.handleRemoveMovie}> Remove </button>
       </div>
     )
   }

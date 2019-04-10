@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import SimilarMovie from './SimilarMovie'
+import adapter from '../services/adapter';
 
 class MovieView extends React.Component {
 
@@ -174,32 +175,18 @@ class MovieView extends React.Component {
     } else {
       return <button onClick={this.handleWatchlist}> Add to Watchlist </button>
     }
-    //fetch for watchlist and render a button
   }
 
-  // renderWatchButton = () => {
-  //   debugger
-  //   if (this.state.clicked === true) {
-  //     return <button> Added to Watchlist </button>
-  //   } else {
-  //     return <button onClick={this.handleWatchlist}> Add to Watchlist </button>
-  //   }
-    // if (this.state.clicked === true) {
-    //   debugger
-    //   return <button> Added to Watchlist </button>
-    // } else if (this.state.fromWatchlist === false && !!this.props.changeToWatchlist) {
-    //   debugger
-    //   this.setState({fromWatchlist: true})
-    //   return <button> Added to Watchlist </button>
-    // } else if (this.state.fromWatchlist === true && !!this.props.changeToWatchlist) {
-    //   debugger
-    //   return <button onClick={this.handleWatchlist}> Add to Watchlist </button>
-    // } else {
-    //   debugger
-    //   return <button onClick={this.handleWatchlist}> Add to Watchlist </button>
-    //
-  //   // }
-  // }
+  handlePost = () => {
+    // let that = this
+    // let post = `http://image.tmdb.org/t/p/w185/${this.props.viewMovie.poster_path}`
+    let post = this.props.viewMovie.Poster
+    // let post = this.props.viewMovie.imdbID + " " + this.props.viewMovie.Poster
+    // post = <img src="http://image.tmdb.org/t/p/w185/" + ${this.props.viewMovie.poster_path}" alt="poster" width="50" height="50"/>
+    adapter.createPost({ content: post, feed_id: 1, user_id: this.props.user.id })
+    // adapter.createPost({ content: this.props.viewMovie.Title, feed_id: 1, user_id: this.props.user.id })
+
+  }
 
   renderMoviePage = () => {
     if (this.state.movie !== null) {
@@ -212,6 +199,7 @@ class MovieView extends React.Component {
             <img src={"http://image.tmdb.org/t/p/w185/" + this.props.viewMovie.poster_path} alt="poster" width="50" height="50"/> <br/>
             <p>{this.props.viewMovie.overview}</p>
             {this.renderWatchButton()}
+            <button onClick={this.handlePost}> Share </button>
             <button onClick={this.handleBack}> Go Back </button>
             <h3 ref={this.similarRef}>Similar TV Shows</h3>
             {this.renderSimilarMovies()}
@@ -226,6 +214,7 @@ class MovieView extends React.Component {
             <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="50" height="50"/> <br/>
             <p>{this.state.movie.overview}</p>
             {this.renderWatchButton()}
+            <button onClick={this.handlePost}> Share </button>
             <button onClick={this.handleBack}> Go Back </button>
             <h3 ref={this.similarRef}>Similar TV Shows</h3>
             {this.renderSimilarMovies()}
@@ -240,6 +229,7 @@ class MovieView extends React.Component {
           <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="50" height="50"/> <br/>
           <p>{this.state.movie.overview}</p>
           {this.renderWatchButton()}
+          <button onClick={this.handlePost}> Share </button>
           <button onClick={this.handleBack}> Go Back </button>
           <h3 ref={this.similarRef}>Similar Movies</h3>
           {this.renderSimilarMovies()}
@@ -273,7 +263,6 @@ class MovieView extends React.Component {
   }
 
   componentDidMount = () => {
-    // if (this.props.viewMovie !== null) {
     if ((this.props.viewMovie.imdbID !== null && this.props.viewMovie.imdbID !== undefined)
       || (this.props.viewMovie.imdb_id !== null && this.props.viewMovie.imdb_id !== undefined)) {
       this.fetchMovieInfo()
@@ -301,7 +290,8 @@ function mapStateToProps(state){
   return {
     viewMovie: state.viewMovie,
     user: state.user,
-    movie: state.movieInfo
+    movie: state.movieInfo,
+    history: state.history
   }
 }
 

@@ -5,6 +5,7 @@ const initialState =  {
   movieInfo: null,
   user: null,
   badData: false,
+  history: []
 }
 
 function reducer(state=initialState, action){
