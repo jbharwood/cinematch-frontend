@@ -7,20 +7,12 @@ import Watchlist from './components/Watchlist'
 import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
 import Feed from './components/Feed'
-// import 'semantic-ui-css/semantic.min.css';
+import 'semantic-ui-css/semantic.min.css';
 import {connect} from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
 import { Grid } from 'semantic-ui-react'
 
 class App extends Component {
-
-  // state = {
-  //   page: ""
-  // }
-
-  // changePage = (page) => {
-  //   this.setState({page: page})
-  // }
 
 	setCurrentUser = (response) => {
 		this.setState({
@@ -33,25 +25,10 @@ class App extends Component {
     this.props.dispatch({type: "SET_CURRENT_USER", payload: null})
 	}
 
-  // renderPage = () => {
-  //   if (this.state.page === "MovieView") {
-  //     return <MovieView changePage={this.changePage}/>
-  //   } else if (this.state.page === "Search"){
-  //     return <Search changePage={this.changePage}/>
-  //   } else if (this.state.page === "") {
-  //     return (
-  //       <Switch>
-  //         <Route path="/users/:id" render={routerProps => <Watchlist changePage={this.changePage} {...routerProps} />} />
-  //         <Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.setCurrentUser}
-  //           changePage={this.changePage} />} />
-  //       </Switch>
-  //     )
-  //   }
-  // }
-
   render() {
     return (
       <div className="App">
+      <h1>Cinematch</h1>
   			<Grid>
   				<Navbar logout={this.logout} />
   				<Grid.Row centered>

@@ -13,12 +13,11 @@ class Navbar extends React.Component {
 	render(){
 		return (
 			<Grid.Row>
-      <h1>Cinematch</h1>
 				<Grid.Column width={16}>
 				<Menu>
 						{this.props.user
 							?
-								<Menu.Menu position="right">
+								<Menu.Menu>
 									<Link className="item" to="/login" onClick={this.logout} >
 										Logout
 									</Link>
@@ -33,7 +32,7 @@ class Navbar extends React.Component {
 									</Link>
 								</Menu.Menu>
 							:
-								<Menu.Menu position="left">
+								<Menu.Menu>
 									<Link className="item" to="/login">
 										Login
 									</Link>
