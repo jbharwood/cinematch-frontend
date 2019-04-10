@@ -40,12 +40,7 @@ class WatchlistMovie extends React.Component {
     if (this.props.filtered === true) {
       return null
     } else {
-      return (
-        <div>
-          <button onClick={this.handleViewMovie}> View Info</button>
-          <button onClick={this.handleWatchedMovie}> Watched </button>
-        </div>
-      )
+      return <button onClick={this.handleWatchedMovie}> Watched </button>
     }
   }
 
@@ -54,6 +49,7 @@ class WatchlistMovie extends React.Component {
       <div>
         {this.props.movie.title} <br/>
         <img src={this.props.movie.poster} alt="poster" width="50" height="50"/> <br/>
+        <button onClick={this.handleViewMovie}> View Info</button>
         {this.renderWatchButton()}
         <button onClick={this.handleRemoveMovie}> Remove </button>
       </div>

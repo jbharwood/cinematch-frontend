@@ -95,8 +95,12 @@ class Watchlist extends React.Component {
   }
 
   changeToWatchlist = () => {
-    this.setState({viewMovieCheck: false})
-    this.fetchWatchlist()
+    if (this.state.filtered === true) {
+      this.setState({viewMovieCheck: false})
+    } else {
+      this.setState({viewMovieCheck: false})
+      this.fetchWatchlist()
+    }
   }
 
   handleWatchedMovies = () => {
