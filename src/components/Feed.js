@@ -79,7 +79,3 @@ class Feed extends React.Component {
 }
 
 export default Feed
-
-// onReceived={(post) => {
-//   this.addPost(post)
-// }}
