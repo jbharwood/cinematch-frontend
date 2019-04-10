@@ -38,6 +38,7 @@ class Watchlist extends React.Component {
 
   changeToWatchlist = () => {
     this.setState({viewMovieCheck: false})
+    this.fetchWatchlist()
   }
 
   renderList = () => {
