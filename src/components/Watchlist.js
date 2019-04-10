@@ -15,7 +15,8 @@ class Watchlist extends React.Component {
   fetchWatchlist = () => {
     // let userId = this.props.match.params.id
     // fetch(`http://localhost:3000/watchlists`)
-    fetch(`http://localhost:3000/users/${this.props.user.id}`)
+    // fetch(`http://localhost:3000/users/${this.props.user.id}`)
+    fetch(`http://localhost:3000/watchlists/${this.props.user.id}`)
     .then(r => r.json())
     .then(r => {
       r.watchlist.map(result => {

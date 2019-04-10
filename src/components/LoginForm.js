@@ -23,6 +23,7 @@ class LoginForm extends React.Component {
           this.props.dispatch({type: "SET_CURRENT_USER", payload: r})
         }
       })
+			this.props.history.push(`/`)
     })
 	}
 

@@ -30,6 +30,7 @@ class SignUpForm extends React.Component {
 			} else {
           this.props.dispatch({type: "SET_CURRENT_USER", payload: response})
 				}
+			this.props.history.push(`/`)
 			})
 	}
 
