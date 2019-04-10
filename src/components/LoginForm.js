@@ -21,7 +21,7 @@ class LoginForm extends React.Component {
       r.map(r => {
         if (this.state.username === r.username) {
           this.props.dispatch({type: "SET_CURRENT_USER", payload: r})
-        }
+				}
       })
 			this.props.history.push(`/`)
     })
