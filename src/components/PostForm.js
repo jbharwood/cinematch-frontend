@@ -27,7 +27,7 @@ class PostForm extends React.Component {
 
   render() {
     return (
-      <div className="ui secondary segment">
+      <div className="ui secondary segment postForm">
         <form onSubmit={this.handleSubmit} action="">
           <div className="ui fluid input">
             <input

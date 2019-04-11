@@ -22,10 +22,12 @@ class App extends Component {
 		this.setState({
 			currentUser: response
 		})
-
+		// this.props.dispatch({type: "ADD_TO_USERS", payload: response})
 	}
 
   logout = () => {
+		// let index = this.props.users.indexOf(this.props.user);
+		// this.props.dispatch({type: "REMOVE_USER_FROM_USERS", payload: index})
     this.props.dispatch({type: "SET_CURRENT_USER", payload: null})
 		this.setState({
 			currentUser: null
@@ -53,7 +55,7 @@ class App extends Component {
 	}
 
   render() {
-		console.log("currentUser: ", this.state.currentUser);
+		console.log("users in app: ", this.props.users);
     return (
       <div className="App">
       <h1>Cinematch</h1>
@@ -79,7 +81,9 @@ class App extends Component {
 
 function mapStateToProps(state){
   return {
-    viewMovie: state.viewMovie
+    viewMovie: state.viewMovie,
+		user: state.user,
+		users: state.users
   }
 }
 

@@ -19,6 +19,12 @@ const Post = (props) => {
     props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "MovieView"})
   }
 
+  const componentDidUpdate = () => {
+    // I was not using an li but may work to keep your div scrolled to the bottom as li's are getting pushed to the div
+    const objDiv = document.getElementById('div');
+    objDiv.scrollTop = objDiv.scrollHeight;
+  }
+
   return (
     <div className="event">
       <div className="ui card">
