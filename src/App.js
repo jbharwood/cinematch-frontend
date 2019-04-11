@@ -14,6 +14,10 @@ import { Grid } from 'semantic-ui-react'
 
 class App extends Component {
 
+	state = {
+		currentUser: null
+	}
+
 	setCurrentUser = (response) => {
 		this.setState({
 			currentUser: response
@@ -23,14 +27,38 @@ class App extends Component {
 
   logout = () => {
     this.props.dispatch({type: "SET_CURRENT_USER", payload: null})
+		this.setState({
+			currentUser: null
+		}, () => { this.props.history.push("/login") })
+	}
+
+	componentDidMount() {
+		const jwt = localStorage.getItem('jwt')
+		if (jwt){
+			fetch("http://localhost:3000/auto_login", {
+				headers: {
+					"Authorization": jwt
+				}
+			})
+				.then(res => res.json())
+				.then((response) => {
+					if (response.errors) {
+						alert(response.errors)
+					} else {
+						this.setState({currentUser: response})
+						this.props.dispatch({type: "SET_CURRENT_USER", payload: response})
+					}
+				})
+		}
 	}
 
   render() {
+		console.log("currentUser: ", this.state.currentUser);
     return (
       <div className="App">
       <h1>Cinematch</h1>
   			<Grid>
-  				<Navbar logout={this.logout} />
+  				<Navbar currentUser={this.state.currentuser} logout={this.logout} />
   				<Grid.Row centered>
   					<Switch>
               <Route path="/watchlist" render={routerProps => <Watchlist changePage={this.changePage} {...routerProps} />} />

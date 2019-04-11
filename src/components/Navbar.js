@@ -7,7 +7,7 @@ class Navbar extends React.Component {
 
 	logout = () => {
 		this.props.logout()
-		// localStorage.removeItem('userId')
+		localStorage.clear()
 	}
 
 	render(){
@@ -15,7 +15,7 @@ class Navbar extends React.Component {
 			<Grid.Row>
 				<Grid.Column width={16}>
 				<Menu>
-						{this.props.user
+						{this.props.user || this.props.currentUser
 							?
 								<Menu.Menu>
 									<Link className="item" to="/login" onClick={this.logout} >
