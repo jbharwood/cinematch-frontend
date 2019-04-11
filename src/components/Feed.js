@@ -54,12 +54,13 @@ class Feed extends React.Component {
   }
 
   fromChatbox = () => {
-    return "hi"
+    return "hi i'm from chatbox"
   }
 
   renderPage = () => {
     if (this.props.chatboxPage === "MovieView") {
-      return <MovieView fromChatbox={this.fromChatbox}/>
+      return <MovieView fromChatbox={this.fromChatbox}
+        fetchPosts= {this.fetchPosts}/>
     } else {
       return (
         <div>

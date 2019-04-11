@@ -7,8 +7,12 @@ const SimilarMovie = (props) => {
     if (props.clicked === true) {
       props.changeWatchButton()
     }
+    let media = "movie"
+    if (!!props.result.name) {
+      media = "tv"
+    }
     props.dispatch({type: "VIEW_MOVIE", payload: props.result})
-    props.fetchWithOMDBId(props.result.id)
+    props.fetchWithOMDBId(props.result.id, media)
     window.scrollTo(0, 0) //scroll to the top of the page on click
   }
 

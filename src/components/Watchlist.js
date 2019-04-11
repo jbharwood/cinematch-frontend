@@ -109,7 +109,6 @@ class Watchlist extends React.Component {
   }
 
   render() {
-    console.log("watchlist state ", this.state.filteredList);
     return (
       <div>
         <h3>Watchlist</h3>

@@ -43,8 +43,8 @@ class MovieView extends React.Component {
     })
   }
 
-  fetchWithOMDBId = (id) => {
-    fetch(`https://api.themoviedb.org/3/movie/${id}?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US`)
+  fetchWithOMDBId = (id, media) => {
+    fetch(`https://api.themoviedb.org/3/${media}/${id}?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US`)
     .then(r => r.json())
     .then(r => {
       if (r) {
@@ -101,8 +101,9 @@ class MovieView extends React.Component {
   }
 
   handleBack = () => {
-    if (!!this.props.fromChatbox) {
+    if (!!this.props.fetchPosts) {
       this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
+      this.props.fetchPosts()
       return
     }
     if (!!this.props.changeToWatchlist) {
@@ -179,28 +180,34 @@ class MovieView extends React.Component {
     }
   }
 
-  handlePost = () => {
+  handleShare = () => {
     // let that = this
     // let post = `http://image.tmdb.org/t/p/w185/${this.props.viewMovie.poster_path}`
     //from chatbox check
     let post = null
     let imdb_id = null
     let omdb_id = null
-
+    let media = "movie"
     if (!!this.state.movie.title && this.state.movie.title != null) {
       post = "http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path
       imdb_id = ""
       omdb_id = this.state.movie.id.toString()
+    } else if (!!this.props.viewMovie.name) {
+      post = "http://image.tmdb.org/t/p/w185/" + this.props.viewMovie.poster_path
+      imdb_id = ""
+      omdb_id = this.props.viewMovie.id
+      media = "tv"
     } else {
       post = this.props.viewMovie.Poster
       imdb_id = this.props.viewMovie.imdbID
       omdb_id = ""
+      media = "tv"
     }
     // let post = this.props.viewMovie.imdbID + " " + this.props.viewMovie.Poster
     // post = <img src="http://image.tmdb.org/t/p/w185/" + ${this.props.viewMovie.poster_path}" alt="poster" width="50" height="50"/>
-    adapter.createPost({ content: post, feed_id: 1, user_id: this.props.user.id, omdb_id: omdb_id, imdb_id: imdb_id })
+    adapter.createPost({ content: post, feed_id: 1, user_id: this.props.user.id, omdb_id: omdb_id, imdb_id: imdb_id, media: media})
     // adapter.createPost({ content: this.props.viewMovie.Title, feed_id: 1, user_id: this.props.user.id })
-
+    this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
   }
 
   renderMoviePage = () => {
@@ -214,7 +221,7 @@ class MovieView extends React.Component {
             <img src={"http://image.tmdb.org/t/p/w185/" + this.props.viewMovie.poster_path} alt="poster" width="50" height="50"/> <br/>
             <p>{this.props.viewMovie.overview}</p>
             {this.renderWatchButton()}
-            <button onClick={this.handlePost}> Share </button>
+            <button onClick={this.handleShare}> Share </button>
             <button onClick={this.handleBack}> Go Back </button>
             <h3 ref={this.similarRef}>Similar TV Shows</h3>
             {this.renderSimilarMovies()}
@@ -229,7 +236,7 @@ class MovieView extends React.Component {
             <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="50" height="50"/> <br/>
             <p>{this.state.movie.overview}</p>
             {this.renderWatchButton()}
-            <button onClick={this.handlePost}> Share </button>
+            <button onClick={this.handleShare}> Share </button>
             <button onClick={this.handleBack}> Go Back </button>
             <h3 ref={this.similarRef}>Similar TV Shows</h3>
             {this.renderSimilarMovies()}
@@ -244,7 +251,7 @@ class MovieView extends React.Component {
           <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="50" height="50"/> <br/>
           <p>{this.state.movie.overview}</p>
           {this.renderWatchButton()}
-          <button onClick={this.handlePost}> Share </button>
+          <button onClick={this.handleShare}> Share </button>
           <button onClick={this.handleBack}> Go Back </button>
           <h3 ref={this.similarRef}>Similar Movies</h3>
           {this.renderSimilarMovies()}
@@ -280,14 +287,20 @@ class MovieView extends React.Component {
   componentDidMount = () => {
     //search result movie post check from chatbox
     if (this.props.viewMovie.imdb_id === "") {
-      this.fetchWithOMDBId(this.props.viewMovie.omdb_id)
+      let media = "movie"
+      this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media)
       return
     }
     if ((this.props.viewMovie.imdbID !== null && this.props.viewMovie.imdbID !== undefined)
       || (this.props.viewMovie.imdb_id !== null && this.props.viewMovie.imdb_id !== undefined)) {
       this.fetchMovieInfo()
+      // watchlist view info movie check
     } else if (!!this.props.viewMovie.omdb_id && this.props.viewMovie.imdb_id === null) {
-      this.fetchWithOMDBId(this.props.viewMovie.omdb_id)
+      let media2 = "movie" //media wouldn't work again for some reason
+      if (!!this.props.viewMovie.name || !!this.props.viewMovie.title) {
+        media2 = "tv"
+      }
+      this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media2)
     }
     if (!!this.props.changeToWatchlist) {
       this.fetchUserWatchlist()
@@ -295,7 +308,6 @@ class MovieView extends React.Component {
   }
 
   render() {
-    console.log("pageCount state: ", this.state.pageCount);
     return (
       <div className="movieView">
         {this.renderMoviePage()}
