@@ -1,22 +1,29 @@
 import React from 'react'
 import adapter from '../services/adapter'
+import {connect} from 'react-redux'
 
-const handlePost = (post) => {
-  if (!!post.content && post.content.search("http") === 0) {
-    return (
-      <img src={post.content} alt="poster" width="50" height="50"/>
-    )
-  } else {
-    return post.content
+const Post = (props) => {
+
+  const handlePost = (post) => {
+    if (!!props.post.content && props.post.content.search("http") === 0) {
+      return (
+        <img src={props.post.content} onClick={handleClick} alt="poster" width="50" height="50"/>
+      )
+    } else {
+      return props.post.content
+    }
   }
-}
 
-const Post = ({ post }) => {
+  const handleClick = (post) => {
+    props.dispatch({type: "VIEW_MOVIE", payload: props.post})
+    props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "MovieView"})
+  }
+
   return (
     <div className="event">
       <div className="ui card">
         <div className="content">
-        <div className="summary">{post.user.username}: {handlePost(post)}</div>
+        <div className="summary">{props.post.user.username}: {handlePost(props.post)}</div>
           <div className="meta">
             <a
             href="/"
@@ -33,6 +40,10 @@ const Post = ({ post }) => {
   );
 };
 
-export default Post;
+function mapStateToProps(state) {
+  return {
+    search: state.search
+  }
+}
 
-// <div className="summary">{post.user.username}: {post.content}</div>
+export default connect(mapStateToProps)(Post)

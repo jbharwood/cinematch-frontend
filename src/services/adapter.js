@@ -11,6 +11,8 @@ const createPost = post => {
     headers,
     body: JSON.stringify(post)
   }).then(res => res.json())
+  .then(r => {
+  })
 }
 
 const fetchFeed = feedId => {

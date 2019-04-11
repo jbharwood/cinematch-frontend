@@ -14,9 +14,6 @@ class Watchlist extends React.Component {
   }
 
   fetchWatchlist = () => {
-    // let userId = this.props.match.params.id
-    // fetch(`http://localhost:3000/watchlists`)
-    // fetch(`http://localhost:3000/users/${this.props.user.id}`)
     fetch(`http://localhost:3000/users/${this.props.user.id}`)
     .then(r => r.json())
     .then(r => {
@@ -27,62 +24,22 @@ class Watchlist extends React.Component {
         }
       })
       this.setState({list: newArr, filteredList: newArr, filtered: false})
-
     })
   }
-  // fetchWatchlist = () => {
-  //   // let userId = this.props.match.params.id
-  //   // fetch(`http://localhost:3000/watchlists`)
-  //   // fetch(`http://localhost:3000/users/${this.props.user.id}`)
-  //   fetch(`http://localhost:3000/users/${this.props.user.id}`)
-  //   .then(r => r.json())
-  //   .then(r => {
-  //     r.watchlist.map(result => {
-  //       if (result.watched !== true) {
-  //         this.setState({list: [...this.state.list, result], filteredList: [...this.state.filteredList, result], filtered: false})
-  //       }
-  //     })
-  //     // r.watchlist.map(result => {
-  //     //   if (result.watched !== true)
-  //     //   this.setState({list: [...this.state.list, result], filteredList: [...this.state.filteredList, result], filtered: false})
-  //     // })
-  //   })
-  // }
 
   fetchFilteredWatchlist = () => {
     fetch(`http://localhost:3000/users/${this.props.user.id}`)
-      .then(r => r.json())
-      .then(r => {
-        let newArr = []
-        r.watchlist.map(result => {
-          if (result.watched === true) {
-            newArr.push(result)
-          }
-        })
-        this.setState({filteredList: newArr, filtered: true})
+    .then(r => r.json())
+    .then(r => {
+      let newArr = []
+      r.watchlist.map(result => {
+        if (result.watched === true) {
+          newArr.push(result)
+        }
       })
-    // let newArr = []
-    // this.state.filteredList.map(result => {
-    //   if (result.watched === true) {
-    //     newArr.push(result)
-    //   }
-    //   this.setState({filteredList: newArr, filtered: true})
-    // })
+      this.setState({filteredList: newArr, filtered: true})
+    })
   }
-  // fetchFilteredWatchlist = () => {
-  //   // let userId = this.props.match.params.id
-  //   // fetch(`http://localhost:3000/watchlists`)
-  //   // fetch(`http://localhost:3000/users/${this.props.user.id}`)
-  //   fetch(`http://localhost:3000/users/${this.props.user.id}`)
-  //   .then(r => r.json())
-  //   .then(r => {
-  //     r.watchlist.map(result => {
-  //       if (result.watched === true) {
-  //         this.setState({filteredList: [...this.state.filteredList, result], filtered: true})
-  //       }
-  //     })
-  //   })
-  // }
 
   changeList = (movieId) => {
     this.setState({filteredList: this.state.filteredList.filter(function(m) {
@@ -106,12 +63,8 @@ class Watchlist extends React.Component {
   handleWatchedMovies = () => {
     if (this.state.filtered === false) {
       this.fetchFilteredWatchlist()
-      // let filtered = this.state.list.filter(r => r.watched === true)
-      // debugger
-      // this.setState({list: filtered, filtered: !this.state.filtered})
     } else {
       this.fetchWatchlist()
-      // this.setState({filteredList: this.state.list, filtered: false})
     }
   }
 
@@ -134,15 +87,13 @@ class Watchlist extends React.Component {
   renderList = () => {
     if (this.state.filteredList !== [] && this.state.viewMovieCheck === false) {
         return this.state.filteredList.map(l => {
-          // if (l.watched != true) {
-            return (
-              <div className="watchlist">
-                <WatchlistMovie changeList={this.changeList}
-                  movie={l} changeViewMovie={this.changeViewMovie}
-                  filtered={this.state.filtered}/>
-              </div>
-            )
-          // }
+          return (
+            <div className="watchlist">
+              <WatchlistMovie changeList={this.changeList}
+                movie={l} changeViewMovie={this.changeViewMovie}
+                filtered={this.state.filtered}/>
+            </div>
+          )
         })
     } else if (this.state.viewMovieCheck === true) {
       return (

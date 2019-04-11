@@ -5,7 +5,8 @@ const initialState =  {
   movieInfo: null,
   user: null,
   badData: false,
-  history: []
+  history: [],
+  chatboxPage: ""
 }
 
 function reducer(state=initialState, action){
@@ -20,6 +21,8 @@ function reducer(state=initialState, action){
       return {...state, user: action.payload}
     case "FETCH_MOVIE":
       fetchMovieInfo(action.payload)
+    case "CHANGE_CHATBOX_PAGE":
+      return {...state, chatboxPage: action.payload}
     default:
       return state
   }

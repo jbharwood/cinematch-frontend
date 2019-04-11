@@ -101,6 +101,10 @@ class MovieView extends React.Component {
   }
 
   handleBack = () => {
+    if (!!this.props.fromChatbox) {
+      this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
+      return
+    }
     if (!!this.props.changeToWatchlist) {
       this.props.changeToWatchlist()
     } else {
@@ -108,7 +112,6 @@ class MovieView extends React.Component {
     }
   }
 
-  // fetchSimilarMovies = (omdbId, page=1) => {
   fetchSimilarMovies = (page=1) => {
     let id = this.state.movie.id
     let media = "movie"
@@ -128,7 +131,6 @@ class MovieView extends React.Component {
 
   handleNextPage = () => {
     this.setState({pageCount: this.state.pageCount += 1}, this.fetchSimilarMovies(this.state.pageCount))
-    // this.setState({pageCount: 2}, this.fetchSimilarMovies(2))
     window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
   }
 
@@ -180,10 +182,23 @@ class MovieView extends React.Component {
   handlePost = () => {
     // let that = this
     // let post = `http://image.tmdb.org/t/p/w185/${this.props.viewMovie.poster_path}`
-    let post = this.props.viewMovie.Poster
+    //from chatbox check
+    let post = null
+    let imdb_id = null
+    let omdb_id = null
+
+    if (!!this.state.movie.title && this.state.movie.title != null) {
+      post = "http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path
+      imdb_id = ""
+      omdb_id = this.state.movie.id.toString()
+    } else {
+      post = this.props.viewMovie.Poster
+      imdb_id = this.props.viewMovie.imdbID
+      omdb_id = ""
+    }
     // let post = this.props.viewMovie.imdbID + " " + this.props.viewMovie.Poster
     // post = <img src="http://image.tmdb.org/t/p/w185/" + ${this.props.viewMovie.poster_path}" alt="poster" width="50" height="50"/>
-    adapter.createPost({ content: post, feed_id: 1, user_id: this.props.user.id })
+    adapter.createPost({ content: post, feed_id: 1, user_id: this.props.user.id, omdb_id: omdb_id, imdb_id: imdb_id })
     // adapter.createPost({ content: this.props.viewMovie.Title, feed_id: 1, user_id: this.props.user.id })
 
   }
@@ -263,6 +278,11 @@ class MovieView extends React.Component {
   }
 
   componentDidMount = () => {
+    //search result movie post check from chatbox
+    if (this.props.viewMovie.imdb_id === "") {
+      this.fetchWithOMDBId(this.props.viewMovie.omdb_id)
+      return
+    }
     if ((this.props.viewMovie.imdbID !== null && this.props.viewMovie.imdbID !== undefined)
       || (this.props.viewMovie.imdb_id !== null && this.props.viewMovie.imdb_id !== undefined)) {
       this.fetchMovieInfo()
@@ -291,7 +311,8 @@ function mapStateToProps(state){
     viewMovie: state.viewMovie,
     user: state.user,
     movie: state.movieInfo,
-    history: state.history
+    history: state.history,
+    chatboxPage: state.chatboxPage
   }
 }
 
