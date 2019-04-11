@@ -14,16 +14,24 @@ class Watchlist extends React.Component {
   }
 
   fetchWatchlist = () => {
+    if (this.props.user === null) {
+      this.props.history.push(`/`)
+      return null
+    }
     fetch(`http://localhost:3000/users/${this.props.user.id}`)
     .then(r => r.json())
     .then(r => {
-      let newArr = []
-      r.watchlist.map(result => {
-        if (result.watched !== true) {
-          newArr.push(result)
-        }
-      })
-      this.setState({list: newArr, filteredList: newArr, filtered: false})
+      if (!!r.watchlist) {
+        let newArr = []
+        r.watchlist.map(result => {
+          if (result.watched !== true) {
+            newArr.push(result)
+          }
+        })
+        this.setState({list: newArr, filteredList: newArr, filtered: false})
+      } else {
+        return null
+      }
     })
   }
 

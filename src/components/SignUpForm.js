@@ -5,7 +5,7 @@ import { Form, Button } from 'semantic-ui-react'
 class SignUpForm extends React.Component {
 	state = {
 		username: "",
-		password: "",
+		password: ""
 	}
 
 	handleChange = (event) => {
@@ -29,8 +29,8 @@ class SignUpForm extends React.Component {
 				alert(response.errors)
 			} else {
           this.props.dispatch({type: "SET_CURRENT_USER", payload: response})
+					this.props.history.push(`/`)
 				}
-			this.props.history.push(`/`)
 			})
 	}
 
