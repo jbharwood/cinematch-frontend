@@ -285,9 +285,14 @@ class MovieView extends React.Component {
   }
 
   componentDidMount = () => {
-    //search result movie post check from chatbox
+    //search result post check from chatbox
     if (this.props.viewMovie.imdb_id === "") {
-      let media = "movie"
+      let media = ""
+      if (this.props.viewMovie.media === "tv") {
+        media = "tv"
+      } else {
+        media = "movie"
+      }
       this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media)
       return
     }
