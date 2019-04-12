@@ -15,14 +15,16 @@ class PostForm extends React.Component {
 
   handleSubmit = e => {
     e.preventDefault();
-    adapter.createPost({ content: this.state.value, feed_id: 1, user_id: this.props.user.id })
-      .then(post => {
-        this.props.fetchPosts()
-      })
+    if (this.state.value != "") {
+      adapter.createPost({ content: this.state.value, feed_id: 1, user_id: this.props.user.id })
+        .then(post => {
+          this.props.fetchPosts()
+        })
 
-    this.setState({
-      value: ''
-    });
+      this.setState({
+        value: ''
+      });
+    }
   };
 
   render() {
