@@ -215,7 +215,7 @@ class MovieView extends React.Component {
     // post = <img src="http://image.tmdb.org/t/p/w185/" + ${this.props.viewMovie.poster_path}" alt="poster" width="50" height="50"/>
     adapter.createPost({ content: post, feed_id: 1, user_id: this.props.user.id, omdb_id: omdb_id, imdb_id: imdb_id, media: media})
     // adapter.createPost({ content: this.props.viewMovie.Title, feed_id: 1, user_id: this.props.user.id })
-    this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
+    // this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
   }
 
   renderMoviePage = () => {

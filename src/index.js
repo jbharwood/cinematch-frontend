@@ -15,11 +15,11 @@ const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Router>
-    <Provider store={store}>
-      <ActionCableProvider url={'ws://localhost:3000/cable'}>
-        <Route path="/" component={App} />
-      </ActionCableProvider>
-    </Provider>
+    <ActionCableProvider url={'ws://localhost:3000/cable'}>
+      <Provider store={store}>
+          <Route path="/" component={App} />
+      </Provider>
+    </ActionCableProvider>
   </Router>, document.getElementById('root'));
 
 // ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('root'));

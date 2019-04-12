@@ -5,6 +5,13 @@ const headers = {
   'Content-Type': 'application/json'
 }
 
+const fetchPosts = () => {
+  return fetch(`http://localhost:3000/posts`)
+  .then(r => r.json())
+  .then(r => {
+  })
+}
+
 const createPost = post => {
   return fetch(`${API_URL}/posts`, {
     method: 'POST',

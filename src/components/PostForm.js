@@ -17,7 +17,7 @@ class PostForm extends React.Component {
     e.preventDefault();
     adapter.createPost({ content: this.state.value, feed_id: 1, user_id: this.props.user.id })
       .then(post => {
-        // this.props.addPost(post)
+        this.props.fetchPosts()
       })
 
     this.setState({

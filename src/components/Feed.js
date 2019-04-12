@@ -28,7 +28,8 @@ class Feed extends React.Component {
       return {
         displayedPosts: [
           ...prevState.displayedPosts,
-          ...prevState.newPosts.reverse()
+          ...prevState.newPosts
+          // ...prevState.newPosts.reverse()
         ],
         newPosts: []
       }
@@ -39,22 +40,24 @@ class Feed extends React.Component {
     fetch(`http://localhost:3000/posts`)
     .then(r => r.json())
     .then(r => {
+      // debugger
       this.setState({
         // newPosts: r.reverse().slice(0, 6)
+        // newPosts: r.reverse()
         newPosts: r.reverse()
       }, this.fetchUsers)
     })
   }
 
-  fetchPost = (post) => {
-    fetch(`http://localhost:3000/posts/${post.id}`)
-    .then(r => r.json())
-    .then(r => {
-      this.setState({
-        newPosts: [r, ...this.state.newPosts]
-      })
-    })
-  }
+  // fetchPost = (post) => {
+  //   fetch(`http://localhost:3000/posts/${post.id}`)
+  //   .then(r => r.json())
+  //   .then(r => {
+  //     this.setState({
+  //       newPosts: [r, ...this.state.newPosts]
+  //     })
+  //   })
+  // }
 
   fromChatbox = () => {
     return "hi i'm from chatbox"
@@ -102,13 +105,15 @@ class Feed extends React.Component {
             <ActionCableConsumer
               channel={{ channel: 'FeedChannel'}}
               onReceived={(post) => {
-                this.fetchPost(post)
+                // this.fetchPost(post)
+                this.fetchPosts()
                 console.log("msg recieved", post);
                 // this.addPost(post)
               }}
             />
             <section id="new-message">
-              <PostForm addPost={this.addPost} />
+              <PostForm addPost={this.addPost}
+                fetchPosts={this.fetchPosts}/>
             </section>
             <section id="messages-list">
               <PostList
