@@ -198,9 +198,17 @@ class MovieView extends React.Component {
       omdb_id = this.props.viewMovie.id
       media = "tv"
     } else {
-      post = this.props.viewMovie.Poster
-      imdb_id = this.props.viewMovie.imdbID
-      omdb_id = ""
+      if (!!this.props.viewMovie.poster) {
+        post = this.props.viewMovie.poster
+        imdb_id = ""
+        omdb_id = this.props.viewMovie.omdb_id
+      } else {
+        post = this.props.viewMovie.Poster
+        imdb_id = this.props.viewMovie.imdbID
+        omdb_id = ""
+      }
+      // imdb_id = this.props.viewMovie.imdbID
+      // omdb_id = ""
       media = "tv"
     }
     // let post = this.props.viewMovie.imdbID + " " + this.props.viewMovie.Poster
