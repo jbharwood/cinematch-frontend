@@ -11,9 +11,11 @@ class Search extends React.Component {
     page: "Search"
   }
 
+
   handleTyping = (e) => {
+
     this.setState({input: e.target.value, page: "Search"})
-    e.preventDefault()
+    // e.preventDefault()
     this.fetchMovies(e.target.value)
   }
 
@@ -64,7 +66,13 @@ class Search extends React.Component {
   render() {
     return (
       <div>
-        <form>
+        <form
+          onKeyPress={event => {
+              if (event.which === 13 /* Enter */) {
+                event.preventDefault();
+              }
+            }}
+        >
           <input type="text" placeholder="Search..." onChange={this.handleTyping}/>
         </form>
         <p>{this.renderPage()}</p>
