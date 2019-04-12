@@ -68,6 +68,7 @@ class MovieView extends React.Component {
     let title = null
     let imdbID = null
     let poster = null
+    debugger
     if (!!movie.title) { //similar movie input check
       title = movie.title
       imdbID = null
@@ -80,6 +81,11 @@ class MovieView extends React.Component {
       title = movie.name
       imdbID = null
       poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
+    } else {
+      title = this.state.movie.title
+      imdbID = this.state.movie.imdb_id
+      poster = "http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path
+      debugger
     }
     fetch(`http://localhost:3000/watchlists`, {
       method: 'POST',
