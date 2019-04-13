@@ -68,7 +68,6 @@ class MovieView extends React.Component {
     let title = null
     let imdbID = null
     let poster = null
-    debugger
     if (!!movie.title) { //similar movie input check
       title = movie.title
       imdbID = null

@@ -14,11 +14,14 @@ class Watchlist extends React.Component {
   }
 
   fetchWatchlist = () => {
+    let id = this.props.user.id
     if (this.props.user === null) {
       this.props.history.push(`/`)
       return null
+    } else if (!!this.props.clickedUserID) {
+      id = this.props.clickedUserID
     }
-    fetch(`http://localhost:3000/users/${this.props.user.id}`)
+    fetch(`http://localhost:3000/users/${id}`)
     .then(r => r.json())
     .then(r => {
       if (!!r.watchlist) {
@@ -92,14 +95,40 @@ class Watchlist extends React.Component {
     }
   }
 
+  handleBackButton = () => {
+    this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
+  }
+
+  renderBackButton = () => {
+    if (!!this.props.clickedUserID) {
+      return (
+        <div>
+          <button onClick={this.handleBackButton}>Go Back</button> <br/>
+        </div>
+      )
+    }
+  }
+
   renderList = () => {
-    if (this.state.filteredList !== [] && this.state.viewMovieCheck === false) {
+    if (!!this.props.clickedUserID && this.state.filteredList !== [] && this.state.viewMovieCheck === false) {
         return this.state.filteredList.map(l => {
           return (
             <div className="watchlist">
               <WatchlistMovie changeList={this.changeList}
                 movie={l} changeViewMovie={this.changeViewMovie}
-                filtered={this.state.filtered}/>
+                filtered={this.state.filtered}
+                clickedUserID={this.props.clickedUserID}/>
+            </div>
+          )
+        })
+    } else if (this.state.filteredList !== [] && this.state.viewMovieCheck === false) {
+        return this.state.filteredList.map(l => {
+          return (
+            <div className="watchlist">
+              <WatchlistMovie changeList={this.changeList}
+                movie={l} changeViewMovie={this.changeViewMovie}
+                filtered={this.state.filtered}
+                clickedUserID={this.props.clickedUserID}/>
             </div>
           )
         })
@@ -112,6 +141,14 @@ class Watchlist extends React.Component {
     }
   }
 
+  renderTitle = () => {
+    if (!!this.props.clickedUserID) {
+      return <h3>{this.props.clickedUsername} Watchlist</h3>
+    } else {
+      return <h3>Your Watchlist</h3>
+    }
+  }
+
   componentDidMount = () => {
     this.fetchWatchlist()
   }
@@ -119,9 +156,10 @@ class Watchlist extends React.Component {
   render() {
     return (
       <div>
-        <h3>Watchlist</h3>
-          {this.renderFilter()}
-          {this.renderList()}
+        {this.renderTitle()}
+        {this.renderBackButton()}
+        {this.renderFilter()}
+        {this.renderList()}
       </div>
     )
   }

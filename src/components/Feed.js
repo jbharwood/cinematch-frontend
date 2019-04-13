@@ -4,6 +4,7 @@ import { ActionCableConsumer } from 'react-actioncable-provider'
 import PostForm from './PostForm'
 import PostList from './PostList'
 import MovieView from './MovieView'
+import Watchlist from './Watchlist'
 import adapter from '../services/adapter'
 
 
@@ -11,7 +12,9 @@ class Feed extends React.Component {
   state = {
     displayedPosts: [],
     newPosts: [],
-    users: []
+    users: [],
+    clickedUserID: null,
+    clickedUsername: null
   }
 
   addPost = post => {
@@ -40,10 +43,7 @@ class Feed extends React.Component {
     fetch(`http://localhost:3000/posts`)
     .then(r => r.json())
     .then(r => {
-      // debugger
       this.setState({
-        // newPosts: r.reverse().slice(0, 6)
-        // newPosts: r.reverse()
         newPosts: r.reverse()
       }, this.fetchUsers)
     })
@@ -79,11 +79,16 @@ class Feed extends React.Component {
     })
   }
 
+  handleUserWatchlist = (e) => {
+    this.setState({clickedUserID: e.target.id, clickedUsername: e.target.innerText})
+    this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Watchlist"})
+  }
+
   renderUsers = () => {
     if (this.state.users.length > 0) {
       return this.state.users.map(u => {
         return (
-          <div>
+          <div onClick={this.handleUserWatchlist} id={u.id}>
             <br/>{u.username}
           </div>
         )
@@ -95,6 +100,8 @@ class Feed extends React.Component {
     if (this.props.chatboxPage === "MovieView") {
       return <MovieView fromChatbox={this.fromChatbox}
         fetchPosts= {this.fetchPosts}/>
+    } else if (this.props.chatboxPage === "Watchlist" && this.state.clickedUserID !== null) {
+      return <Watchlist clickedUserID={this.state.clickedUserID} clickedUsername={this.state.clickedUsername}/>
     } else {
       return (
         <div id="container">
@@ -105,10 +112,7 @@ class Feed extends React.Component {
             <ActionCableConsumer
               channel={{ channel: 'FeedChannel'}}
               onReceived={(post) => {
-                // this.fetchPost(post)
                 this.fetchPosts()
-                console.log("msg recieved", post);
-                // this.addPost(post)
               }}
             />
             <section id="new-message">

@@ -44,14 +44,32 @@ class WatchlistMovie extends React.Component {
     }
   }
 
+  renderPage = () => {
+    if (!!this.props.clickedUserID) {
+      return (
+        <div>
+          {this.props.movie.title} <br/>
+          <img src={this.props.movie.poster} alt="poster" width="50" height="50"/> <br/>
+          <button onClick={this.handleViewMovie}> View Info</button>
+        </div>
+      )
+    } else {
+      return (
+        <div>
+          {this.props.movie.title} <br/>
+          <img src={this.props.movie.poster} alt="poster" width="50" height="50"/> <br/>
+          <button onClick={this.handleViewMovie}> View Info</button>
+          {this.renderWatchButton()}
+          <button onClick={this.handleRemoveMovie}> Remove </button>
+        </div>
+      )
+    }
+  }
+
   render() {
     return (
       <div>
-        {this.props.movie.title} <br/>
-        <img src={this.props.movie.poster} alt="poster" width="50" height="50"/> <br/>
-        <button onClick={this.handleViewMovie}> View Info</button>
-        {this.renderWatchButton()}
-        <button onClick={this.handleRemoveMovie}> Remove </button>
+        {this.renderPage()}
       </div>
     )
   }
