@@ -29,7 +29,10 @@ const Post = (props) => {
     <div className="event">
       <div className="ui card">
         <div className="content">
-        <div className="summary">{props.post.date} <br/> {props.post.user.username}: {handlePost(props.post)}</div>
+        <div className="summary">
+          {props.post.user.username}: {handlePost(props.post)}
+          <br/> {props.post.date}
+          </div>
           <div className="meta">
             <a
             href="/"

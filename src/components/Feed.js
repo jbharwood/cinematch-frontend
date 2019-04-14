@@ -64,20 +64,35 @@ class Feed extends React.Component {
   }
 
   fetchUsers = () => {
-    fetch(`http://localhost:3000/feeds/1`)
+    fetch(`http://localhost:3000/feed_users`)
     .then(r => r.json())
     .then(r => {
       const flags = new Set();
-      const uniqueUsernames = r.users.filter(post => {
-        if (flags.has(post.username)) {
-          return false;
-        }
-        flags.add(post.username);
-        return true;
-    });
-      this.setState({users: uniqueUsernames})
+      const uniqueUsernames = r.filter(post => {
+      if (flags.has(post.username)) {
+        return false;
+      }
+      flags.add(post.username);
+      return true;
+      });
+        this.setState({users: uniqueUsernames})
     })
   }
+  // fetchUsers = () => {
+  //   fetch(`http://localhost:3000/feeds/1`)
+  //   .then(r => r.json())
+  //   .then(r => {
+  //     const flags = new Set();
+  //     const uniqueUsernames = r.users.filter(post => {
+  //       if (flags.has(post.username)) {
+  //         return false;
+  //       }
+  //       flags.add(post.username);
+  //       return true;
+  //   });
+  //     this.setState({users: uniqueUsernames})
+  //   })
+  // }
 
   handleUserWatchlist = (e) => {
     this.setState({clickedUserID: e.target.id, clickedUsername: e.target.innerText})

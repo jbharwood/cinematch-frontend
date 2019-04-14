@@ -143,7 +143,7 @@ class Watchlist extends React.Component {
 
   renderTitle = () => {
     if (!!this.props.clickedUserID) {
-      return <h3>{this.props.clickedUsername} Watchlist</h3>
+      return <h3>{this.props.clickedUsername}'s Watchlist</h3>
     } else {
       return <h3>Your Watchlist</h3>
     }
@@ -156,8 +156,8 @@ class Watchlist extends React.Component {
   render() {
     return (
       <div>
-        {this.renderTitle()}
         {this.renderBackButton()}
+        {this.renderTitle()}
         {this.renderFilter()}
         {this.renderList()}
       </div>

@@ -7,7 +7,8 @@ const initialState =  {
   users: [],
   badData: false,
   history: [],
-  chatboxPage: ""
+  chatboxPage: "",
+  feedUser: null
 }
 
 function reducer(state=initialState, action){
@@ -20,6 +21,8 @@ function reducer(state=initialState, action){
       return {...state, viewMovie: action.payload}
     case "SET_CURRENT_USER":
       return {...state, user: action.payload}
+    case "SET_FEED_USER":
+      return {...state, feedUser: action.payload}
     case "ADD_TO_USERS":
       return {...state, users: [...state.users, action.payload]}
     case "REMOVE_USER_FROM_USERS":

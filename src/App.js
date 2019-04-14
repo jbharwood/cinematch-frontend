@@ -28,10 +28,18 @@ class App extends Component {
   logout = () => {
 		// let index = this.props.users.indexOf(this.props.user);
 		// this.props.dispatch({type: "REMOVE_USER_FROM_USERS", payload: index})
+		this.deleteFromFeedUser()
     this.props.dispatch({type: "SET_CURRENT_USER", payload: null})
 		this.setState({
 			currentUser: null
 		}, () => { this.props.history.push("/login") })
+	}
+
+	deleteFromFeedUser = () => {
+		// fetch(`http://localhost:3000/feed_users/${1}`, {
+		fetch(`http://localhost:3000/feed_users/${this.props.feedUser.id}`, {
+      method: "DELETE"
+    })
 	}
 
 	componentDidMount() {
@@ -55,7 +63,7 @@ class App extends Component {
 	}
 
   render() {
-		console.log("users in app: ", this.props.users);
+		console.log("feeduser in app: ", this.props.feedUser);
     return (
       <div className="App">
       <h1>Cinematch</h1>
@@ -83,7 +91,8 @@ function mapStateToProps(state){
   return {
     viewMovie: state.viewMovie,
 		user: state.user,
-		users: state.users
+		users: state.users,
+		feedUser: state.feedUser
   }
 }
 

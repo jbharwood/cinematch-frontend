@@ -14,7 +14,7 @@ class LoginForm extends React.Component {
 		})
 	}
 
-	handleSubmit = () => {
+	postUser = () => {
 		fetch("http://localhost:3000/login", {
 			method: "POST",
 			headers: {
@@ -34,23 +34,36 @@ class LoginForm extends React.Component {
 				this.props.dispatch({type: "SET_CURRENT_USER", payload: response.user})
 				localStorage.setItem('jwt', response.jwt)
 				this.props.history.push(`/`)
+				this.postToFeedUsers(response.user)
 			}
 		})
-}
+	}
 
-	//
-	// handleSubmit = (e) => {
-  //   fetch(`http://localhost:3000/users`)
-  //   .then(r => r.json())
-  //   .then(r => {
-  //     r.map(r => {
-  //       if (this.state.username === r.username) {
-  //         this.props.dispatch({type: "SET_CURRENT_USER", payload: r})
-	// 			}
-  //     })
-	// 		this.props.history.push(`/`)
-  //   })
-	// }
+	postToFeedUsers = (user) => {
+		fetch("http://localhost:3000/feed_users", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"Accepts": "application/json",
+			},
+			body: JSON.stringify({username: user.username, feed_id: 1, user_id: user.id})
+		})
+		.then(res => res.json())
+		.then((response) => {
+			if (response.errors) {
+				debugger
+				alert(response.errors)
+			} else {
+				debugger
+				this.props.dispatch({type: "SET_FEED_USER", payload: response})
+			}
+		})
+	}
+
+	handleSubmit = () => {
+		this.postUser()
+	}
+
 
 	render(){
 		return (
