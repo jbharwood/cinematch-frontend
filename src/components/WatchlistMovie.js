@@ -68,7 +68,7 @@ class WatchlistMovie extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="watchlistMovie">
         {this.renderPage()}
       </div>
     )

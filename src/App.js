@@ -68,7 +68,7 @@ class App extends Component {
       <div className="App">
       <h1>Cinematch</h1>
   			<Grid>
-  				<Navbar currentUser={this.state.currentuser} logout={this.logout} />
+  				<Navbar currentUser={this.state.currentuser} logout={this.logout} changePage={this.changePage}/>
   				<Grid.Row centered>
   					<Switch>
               <Route path="/watchlist" render={routerProps => <Watchlist changePage={this.changePage} {...routerProps} />} />

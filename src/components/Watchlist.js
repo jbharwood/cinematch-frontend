@@ -150,12 +150,14 @@ class Watchlist extends React.Component {
   }
 
   componentDidMount = () => {
-    this.fetchWatchlist()
+    if (!!this.props.user) {
+      this.fetchWatchlist()
+    }
   }
 
   render() {
     return (
-      <div>
+      <div className="watchlist">
         {this.renderBackButton()}
         {this.renderTitle()}
         {this.renderFilter()}

@@ -14,7 +14,8 @@ class Feed extends React.Component {
     newPosts: [],
     users: [],
     clickedUserID: null,
-    clickedUsername: null
+    clickedUsername: null,
+    realUsers: null
   }
 
   addPost = post => {
@@ -45,7 +46,7 @@ class Feed extends React.Component {
     .then(r => {
       this.setState({
         newPosts: r.reverse()
-      }, this.fetchUsers)
+      }, this.fetchFeedUsers)
     })
   }
 
@@ -63,7 +64,7 @@ class Feed extends React.Component {
     return "hi i'm from chatbox"
   }
 
-  fetchUsers = () => {
+  fetchFeedUsers = () => {
     fetch(`http://localhost:3000/feed_users`)
     .then(r => r.json())
     .then(r => {
@@ -78,7 +79,16 @@ class Feed extends React.Component {
         this.setState({users: uniqueUsernames})
     })
   }
-  // fetchUsers = () => {
+
+  fetchUsers = () => {
+    fetch(`http://localhost:3000/users`)
+    .then(r => r.json())
+    .then(r => {
+      this.setState({realUsers: r})
+    })
+  }
+  //
+  // fetchFeedUsers = () => {
   //   fetch(`http://localhost:3000/feeds/1`)
   //   .then(r => r.json())
   //   .then(r => {
@@ -95,7 +105,9 @@ class Feed extends React.Component {
   // }
 
   handleUserWatchlist = (e) => {
-    this.setState({clickedUserID: e.target.id, clickedUsername: e.target.innerText})
+    let username = e.target.innerText.substring(1)
+    let clickedUser = this.state.realUsers.find(u => u.username === username)
+    this.setState({clickedUserID: clickedUser.id, clickedUsername: e.target.innerText})
     this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Watchlist"})
   }
 
@@ -148,6 +160,7 @@ class Feed extends React.Component {
   componentDidMount() {
     this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
     this.fetchPosts()
+    this.fetchUsers()
   }
 
   render() {

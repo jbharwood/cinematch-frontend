@@ -42,7 +42,6 @@ function fetchMovieInfo(movie) {
   .then(r => r.json())
   .then(r => {
     if (r.movie_results.length !== 0) {
-      debugger
       this.setState({movieInfo: r.movie_results[0]})
     } else if (r.tv_results.length !== 0) {
       this.setState({movieInfo: r.tv_results[0]})

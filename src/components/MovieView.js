@@ -84,7 +84,6 @@ class MovieView extends React.Component {
       title = this.state.movie.title
       imdbID = this.state.movie.imdb_id
       poster = "http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path
-      debugger
     }
     fetch(`http://localhost:3000/watchlists`, {
       method: 'POST',
@@ -217,7 +216,7 @@ class MovieView extends React.Component {
       media = "tv"
     }
     // let post = this.props.viewMovie.imdbID + " " + this.props.viewMovie.Poster
-    // post = <img src="http://image.tmdb.org/t/p/w185/" + ${this.props.viewMovie.poster_path}" alt="poster" width="50" height="50"/>
+    // post = <img src="http://image.tmdb.org/t/p/w185/" + ${this.props.viewMovie.poster_path}" alt="poster" width="150" height="150"/>
     adapter.createPost({ content: post, feed_id: 1, user_id: this.props.user.id, omdb_id: omdb_id, imdb_id: imdb_id, media: media})
     // adapter.createPost({ content: this.props.viewMovie.Title, feed_id: 1, user_id: this.props.user.id })
     // this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
@@ -231,7 +230,7 @@ class MovieView extends React.Component {
           <div>
             <h3>{this.props.viewMovie.name}</h3>
             <p>{this.props.viewMovie.first_air_date}</p>
-            <img src={"http://image.tmdb.org/t/p/w185/" + this.props.viewMovie.poster_path} alt="poster" width="50" height="50"/> <br/>
+            <img src={"http://image.tmdb.org/t/p/w185/" + this.props.viewMovie.poster_path} alt="poster" width="150" height="150"/> <br/>
             <p>{this.props.viewMovie.overview}</p>
             {this.renderWatchButton()}
             <button onClick={this.handleShare}> Share </button>
@@ -246,7 +245,7 @@ class MovieView extends React.Component {
           <div>
             <h3>{this.state.movie.name}</h3>
             <p>{this.state.movie.first_air_date}</p>
-            <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="50" height="50"/> <br/>
+            <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="150" height="150"/> <br/>
             <p>{this.state.movie.overview}</p>
             {this.renderWatchButton()}
             <button onClick={this.handleShare}> Share </button>
@@ -261,7 +260,7 @@ class MovieView extends React.Component {
         <div>
           <h3>{this.state.movie.title}</h3>
           <p>{this.state.movie.release_date}</p>
-          <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="50" height="50"/> <br/>
+          <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="150" height="150"/> <br/>
           <p>{this.state.movie.overview}</p>
           {this.renderWatchButton()}
           <button onClick={this.handleShare}> Share </button>

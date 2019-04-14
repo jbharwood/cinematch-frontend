@@ -38,6 +38,9 @@
 }
 
 /* .watchlist {
+  border: solid;
+} */
+/* .watchlist {
   display: grid;
   grid-template-columns: 200px 200px 200px;
 } */
@@ -48,9 +51,25 @@
   grid-template-columns: 200px 200px 200px;
 }
 
+.watchlistMovie {
+  border: solid;
+  box-sizing: content-box;
+}
+
+.searchResult {
+  border: solid;
+  box-sizing: content-box;
+}
+
 .movieView {
   text-align: center;
 }
+
+.similarMovie {
+  border: solid;
+  box-sizing: content-box;
+}
+
 .title {
   text-align: center;
 }
@@ -82,4 +101,13 @@
     padding: 5px 0 0 5px;
     border-right: 1px solid #3f3f3f;
     height: 100%;
+}
+
+.ui.menu:last-child {
+    margin-bottom: 0;
+    background-color: #00cec9
+}
+
+* {
+  font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
 }
