@@ -51,10 +51,8 @@ class LoginForm extends React.Component {
 		.then(res => res.json())
 		.then((response) => {
 			if (response.errors) {
-				debugger
 				alert(response.errors)
 			} else {
-				debugger
 				this.props.dispatch({type: "SET_FEED_USER", payload: response})
 			}
 		})

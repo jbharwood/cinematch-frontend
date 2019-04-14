@@ -16,7 +16,13 @@ class PostForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.value != "") {
-      adapter.createPost({ content: this.state.value, feed_id: 1, user_id: this.props.user.id })
+      let id = null
+      if (!!this.props.user.id) {
+        id = this.props.user.id
+      } else if (!!this.props.user.user.id) { //checks for signed up user
+        id = this.props.user.user.id
+      }
+      adapter.createPost({ content: this.state.value, feed_id: 1, user_id: id })
         .then(post => {
           this.props.fetchPosts()
         })

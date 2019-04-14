@@ -14,6 +14,25 @@ class SignUpForm extends React.Component {
 		})
 	}
 
+	postToFeedUsers = (user) => {
+		fetch("http://localhost:3000/feed_users", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+				"Accepts": "application/json",
+			},
+			body: JSON.stringify({username: user.username, feed_id: 1, user_id: user.id})
+		})
+		.then(res => res.json())
+		.then((response) => {
+			if (response.errors) {
+				alert(response.errors)
+			} else {
+				this.props.dispatch({type: "SET_FEED_USER", payload: response})
+			}
+		})
+	}
+
 	handleSubmit = (e) => {
 		fetch("http://localhost:3000/users", {
 			method: "POST",
@@ -30,6 +49,7 @@ class SignUpForm extends React.Component {
 			} else {
           this.props.dispatch({type: "SET_CURRENT_USER", payload: response})
 					this.props.history.push(`/`)
+					this.postToFeedUsers(response.user)
 				}
 			})
 	}
