@@ -37,9 +37,14 @@
   box-sizing: border-box;
 }
 
-/* .watchlist {
-  border: solid;
-} */
+.searchBox {
+  margin-bottom: 10px;;
+}
+
+.watchlist {
+  margin-top: 10px;
+}
+
 /* .watchlist {
   display: grid;
   grid-template-columns: 200px 200px 200px;

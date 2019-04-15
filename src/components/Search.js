@@ -67,15 +67,17 @@ class Search extends React.Component {
     return (
 
       <div>
-        <form
-          onKeyPress={event => {
-              if (event.which === 13 /* Enter */) {
-                event.preventDefault();
-              }
-            }}
-        >
-          <input type="text" placeholder="Search..." onChange={this.handleTyping}/>
-        </form>
+        <div className="searchBox">
+          <form
+            onKeyPress={event => {
+                if (event.which === 13 /* Enter */) {
+                  event.preventDefault();
+                }
+              }}
+          >
+            <input type="text" placeholder="Search..." onChange={this.handleTyping}/>
+          </form>
+        </div>
         <p>{this.renderPage()}</p>
       </div>
     )

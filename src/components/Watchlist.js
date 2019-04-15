@@ -103,7 +103,7 @@ class Watchlist extends React.Component {
   renderBackButton = () => {
     if (!!this.props.clickedUserID) {
       return (
-        <div>
+        <div className="watchlistBackButton">
           <Button variant="contained" color="primary" onClick={this.handleBackButton}>Go Back</Button> <br/>
         </div>
       )
