@@ -29,6 +29,7 @@ class App extends Component {
   logout = () => {
 		// let index = this.props.users.indexOf(this.props.user);
 		// this.props.dispatch({type: "REMOVE_USER_FROM_USERS", payload: index})
+		localStorage.clear()
 		this.deleteFromFeedUser()
     this.props.dispatch({type: "SET_CURRENT_USER", payload: null})
 		this.setState({
