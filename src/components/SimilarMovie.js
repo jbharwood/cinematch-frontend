@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import Button from '@material-ui/core/Button';
 
 const SimilarMovie = (props) => {
 
@@ -24,7 +25,7 @@ const SimilarMovie = (props) => {
           <h3>{props.result.name}</h3>
           <p>{props.result.first_air_date}</p>
           <img src={"http://image.tmdb.org/t/p/w185/" + props.result.poster_path} alt="poster" width="50" height="50"/> <br/>
-          <button onClick={handleViewMovie}> View Info </button>
+          <Button variant="contained" color="primary" onClick={handleViewMovie}> View Info </Button>
         </div>
       )
     }
@@ -33,7 +34,7 @@ const SimilarMovie = (props) => {
         <h3>{props.result.title}</h3>
         <p>{props.result.release_date}</p>
         <img src={"http://image.tmdb.org/t/p/w185/" + props.result.poster_path} alt="poster" width="50" height="50"/> <br/>
-        <button onClick={handleViewMovie}> View Info </button>
+        <Button variant="contained" color="primary" onClick={handleViewMovie}> View Info </Button>
       </div>
     )
   }

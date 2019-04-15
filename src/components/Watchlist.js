@@ -2,6 +2,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import WatchlistMovie from './WatchlistMovie'
 import MovieView from './MovieView'
+import Button from '@material-ui/core/Button';
 
 class Watchlist extends React.Component {
 
@@ -83,11 +84,11 @@ class Watchlist extends React.Component {
     if (this.state.viewMovieCheck === false) {
       if (this.state.filtered === false) {
         return (
-          <button onClick={this.handleWatchedMovies}>View Watched</button>
+          <Button variant="contained" color="primary" onClick={this.handleWatchedMovies}>View Watched</Button>
         )
       } else {
         return (
-          <button onClick={this.handleWatchedMovies}>View Unwatched</button>
+          <Button variant="contained" color="primary" onClick={this.handleWatchedMovies}>View Unwatched</Button>
         )
       }
     } else {
@@ -103,7 +104,7 @@ class Watchlist extends React.Component {
     if (!!this.props.clickedUserID) {
       return (
         <div>
-          <button onClick={this.handleBackButton}>Go Back</button> <br/>
+          <Button variant="contained" color="primary" onClick={this.handleBackButton}>Go Back</Button> <br/>
         </div>
       )
     }

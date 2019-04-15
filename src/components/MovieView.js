@@ -2,6 +2,8 @@ import React from 'react'
 import {connect} from 'react-redux'
 import SimilarMovie from './SimilarMovie'
 import adapter from '../services/adapter';
+import Button from '@material-ui/core/Button';
+
 
 class MovieView extends React.Component {
 
@@ -171,16 +173,16 @@ class MovieView extends React.Component {
     if (this.state.watchlist.length > 0) {
       //checks if movie is in the watchlist table
       if (Object.values(this.state.watchlist).find(w => w.id === this.props.viewMovie.id)) {
-        return <button> Added to Watchlist </button>
+        return <Button variant="contained" color="primary"> Added to Watchlist </Button>
       }
       if (Object.values(this.state.watchlist).find(w => w.omdb_id === this.props.viewMovie.id)) {
-        return <button> Added to Watchlist </button>
+        return <Button variant="contained" color="primary"> Added to Watchlist </Button>
       }
     }
     if (this.state.clicked === true) {
-      return <button> Added to Watchlist </button>
+      return <Button variant="contained" color="primary"> Added to Watchlist </Button>
     } else {
-      return <button onClick={this.handleWatchlist}> Add to Watchlist </button>
+      return <Button variant="contained" color="primary" onClick={this.handleWatchlist}> Add to Watchlist </Button>
     }
   }
 
@@ -233,8 +235,8 @@ class MovieView extends React.Component {
             <img src={"http://image.tmdb.org/t/p/w185/" + this.props.viewMovie.poster_path} alt="poster" width="150" height="150"/> <br/>
             <p>{this.props.viewMovie.overview}</p>
             {this.renderWatchButton()}
-            <button onClick={this.handleShare}> Share </button>
-            <button onClick={this.handleBack}> Go Back </button>
+            <Button variant="contained" color="primary" onClick={this.handleShare}> Share </Button>
+            <Button variant="contained" color="primary" onClick={this.handleBack}> Go Back </Button>
             <h3 ref={this.similarRef}>Similar TV Shows</h3>
             {this.renderSimilarMovies()}
           </div>
@@ -248,8 +250,8 @@ class MovieView extends React.Component {
             <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="150" height="150"/> <br/>
             <p>{this.state.movie.overview}</p>
             {this.renderWatchButton()}
-            <button onClick={this.handleShare}> Share </button>
-            <button onClick={this.handleBack}> Go Back </button>
+            <Button variant="contained" color="primary" onClick={this.handleShare}> Share </Button>
+            <Button variant="contained" color="primary" onClick={this.handleBack}> Go Back </Button>
             <h3 ref={this.similarRef}>Similar TV Shows</h3>
             {this.renderSimilarMovies()}
           </div>
@@ -263,8 +265,8 @@ class MovieView extends React.Component {
           <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="150" height="150"/> <br/>
           <p>{this.state.movie.overview}</p>
           {this.renderWatchButton()}
-          <button onClick={this.handleShare}> Share </button>
-          <button onClick={this.handleBack}> Go Back </button>
+          <Button variant="contained" color="primary" onClick={this.handleShare}> Share </Button>
+          <Button variant="contained" color="primary" onClick={this.handleBack}> Go Back </Button>
           <h3 ref={this.similarRef}>Similar Movies</h3>
           {this.renderSimilarMovies()}
         </div>
@@ -273,7 +275,7 @@ class MovieView extends React.Component {
         return (
           <div>
             <p>Movie Not Found</p>
-            <button onClick={this.handleBack}> Go Back </button>
+            <Button variant="contained" color="primary" onClick={this.handleBack}> Go Back </Button>
           </div>
         )
       } else {
@@ -283,14 +285,14 @@ class MovieView extends React.Component {
 
   renderPageButtons = () => {
     if (this.state.pageCount === 1) {
-      return <button onClick={this.handleNextPage}>Next Page</button>
+      return <Button variant="contained" color="primary" onClick={this.handleNextPage}>Next Page</Button>
     } else if (this.state.pageCount === 5){
-      return <button onClick={this.handlePrevPage}>Previous Page</button>
+      return <Button variant="contained" color="primary" onClick={this.handlePrevPage}>Previous Page</Button>
     } else {
       return (
         <div>
-          <button onClick={this.handlePrevPage}>Previous Page</button>
-          <button onClick={this.handleNextPage}>Next Page</button>
+          <Button variant="contained" color="primary" onClick={this.handlePrevPage}>Previous Page</Button>
+          <Button variant="contained" color="primary" onClick={this.handleNextPage}>Next Page</Button>
         </div>
       )
     }

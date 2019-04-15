@@ -52,13 +52,19 @@
 }
 
 .watchlistMovie {
-  border: solid;
+  /* border: solid; */
   box-sizing: content-box;
+  border: 1px solid #c2c2c2;
+  background: #dfe6e9;
+  padding: 10px;
 }
 
 .searchResult {
-  border: solid;
+  /* border: solid; */
   box-sizing: content-box;
+  border: 1px solid #c2c2c2;
+  background: #dfe6e9;
+  padding: 10px;
 }
 
 .movieView {
@@ -66,8 +72,11 @@
 }
 
 .similarMovie {
-  border: solid;
+  /* border: solid; */
   box-sizing: content-box;
+  border: 1px solid #c2c2c2;
+  background: #dfe6e9;
+  padding: 10px;
 }
 
 .title {
@@ -105,7 +114,7 @@
 
 .ui.menu:last-child {
     margin-bottom: 0;
-    background-color: #00cec9
+    background-color: #74b9ff
 }
 
 * {

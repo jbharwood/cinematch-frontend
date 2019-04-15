@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^3.9.3",
     "react": "^16.8.6",
     "react-actioncable-provider": "^2.0.0",
     "react-bell-chat": "^1.0.10",

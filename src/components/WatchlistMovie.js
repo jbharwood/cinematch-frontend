@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
+import Button from '@material-ui/core/Button';
 
 class WatchlistMovie extends React.Component {
 
@@ -40,7 +41,7 @@ class WatchlistMovie extends React.Component {
     if (this.props.filtered === true) {
       return null
     } else {
-      return <button onClick={this.handleWatchedMovie}> Watched </button>
+      return <Button variant="contained" color="primary" onClick={this.handleWatchedMovie}> Watched </Button>
     }
   }
 
@@ -50,7 +51,7 @@ class WatchlistMovie extends React.Component {
         <div>
           {this.props.movie.title} <br/>
           <img src={this.props.movie.poster} alt="poster" width="50" height="50"/> <br/>
-          <button onClick={this.handleViewMovie}> View Info</button>
+          <Button variant="contained" color="primary" onClick={this.handleViewMovie}> View Info</Button>
         </div>
       )
     } else {
@@ -58,9 +59,9 @@ class WatchlistMovie extends React.Component {
         <div>
           {this.props.movie.title} <br/>
           <img src={this.props.movie.poster} alt="poster" width="50" height="50"/> <br/>
-          <button onClick={this.handleViewMovie}> View Info</button>
+          <Button variant="contained" color="primary" onClick={this.handleViewMovie}> View Info</Button>
           {this.renderWatchButton()}
-          <button onClick={this.handleRemoveMovie}> Remove </button>
+          <Button variant="contained" color="primary" onClick={this.handleRemoveMovie}> Remove </Button>
         </div>
       )
     }

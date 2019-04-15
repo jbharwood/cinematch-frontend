@@ -17,7 +17,6 @@ class Movies extends React.Component {
 
   renderSearchResults = () => {
     if (this.props.searchString !== undefined) {
-      debugger
       this.fetchMovies()
     } else {
       return null
