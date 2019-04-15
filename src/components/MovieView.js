@@ -9,6 +9,10 @@ class MovieView extends React.Component {
 
   constructor(props) {
     super(props)
+    this.container = null
+    this.setMainRef = (element) => {
+      this.main = element;
+    };
     this.similarRef = React.createRef()   // Create a ref for scrolling
   }
 
@@ -138,12 +142,16 @@ class MovieView extends React.Component {
 
   handleNextPage = () => {
     this.setState({pageCount: this.state.pageCount += 1}, this.fetchSimilarMovies(this.state.pageCount))
-    window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
+    let page = document.querySelector(".Dashboard-content-12")
+    page.scrollTo(0, this.similarRef.current.offsetTop - 80)
+    // window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
   }
 
   handlePrevPage = () => {
     this.setState({pageCount: this.state.pageCount -= 1}, this.fetchSimilarMovies(this.state.pageCount))
-    window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
+    let page = document.querySelector(".Dashboard-content-12")
+    page.scrollTo(0, this.similarRef.current.offsetTop - 80)
+    // window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
   }
 
   renderSimilarMovies = () => {

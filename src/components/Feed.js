@@ -164,7 +164,6 @@ class Feed extends React.Component {
   }
 
   render() {
-    console.log("users in feed: ", this.props.users);
     return (
       <div className="Feed">
         {this.renderPage()}

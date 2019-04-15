@@ -122,6 +122,10 @@
     background-color: #74b9ff
 }
 
+div.Dashboard-appBarSpacer-11 {
+  min-height: 10px;
+}
+
 * {
   font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
 }
