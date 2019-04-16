@@ -19,14 +19,15 @@ class Home extends React.Component {
   }
 
   fetchTopRated = (page=1) => {
-    let id = this.props.user.id
-    if (this.props.user === null) {
-      this.props.history.push(`/`)
-      return null
-    }
+    // let id = this.props.user.id
+    // if (this.props.user === null) {
+    //   this.props.history.push(`/`)
+    //   return null
+    // }
     fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US&page=${page}`)
     .then(r => r.json())
     .then(r => {
+      debugger
       this.setState({list: r.results})
     })
   }
@@ -91,9 +92,9 @@ class Home extends React.Component {
   }
 
   componentDidMount = () => {
-    if (!!this.props.user) {
+    // if (!!this.props.user) {
       this.fetchTopRated()
-    }
+    // }
   }
 
   render() {

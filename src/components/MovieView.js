@@ -263,6 +263,14 @@ class MovieView extends React.Component {
       // omdb_id = ""
       media = "tv"
     }
+    //share from chatbox check
+    if (!!this.props.viewMovie.content) {
+      post = this.props.viewMovie.content
+      imdb_id = ""
+      omdb_id = this.props.viewMovie.id
+      media = this.props.viewMovie.media
+    }
+    // debugger
     // let post = this.props.viewMovie.imdbID + " " + this.props.viewMovie.Poster
     // post = <img src="http://image.tmdb.org/t/p/w185/" + ${this.props.viewMovie.poster_path}" alt="poster" width="150" height="150"/>
     adapter.createPost({ content: post, feed_id: 1, user_id: this.props.user.id, omdb_id: omdb_id, imdb_id: imdb_id, media: media})
