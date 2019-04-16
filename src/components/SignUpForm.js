@@ -60,6 +60,10 @@ class SignUpForm extends React.Component {
 
 	}
 
+	componentDidMount = () => {
+		this.props.dispatch({type: "HIDE_APP", payload: true})
+	}
+
 	render(){
 		return (
 			<Form onSubmit={this.handleSubmit}>

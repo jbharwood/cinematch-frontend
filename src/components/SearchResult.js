@@ -15,7 +15,7 @@ const styles = theme => ({
   paper: {
     padding: theme.spacing.unit * 2,
     margin: 'auto',
-    maxWidth: 500,
+    maxWidth: 300,
   },
   image: {
     width: 128,
@@ -38,7 +38,7 @@ function SearchResult(props) {
 
   const { classes } = props;
   return (
-    <div className={classes.root}>
+    <div className={classes.root} onClick={handleViewMovie} style={{ cursor: 'pointer' }}>
       <Paper className={classes.paper}>
         <Grid container spacing={16}>
           <Grid item>
@@ -50,7 +50,7 @@ function SearchResult(props) {
             <Grid item xs container direction="column" spacing={16}>
               <Grid item xs>
                 <Typography gutterBottom variant="subtitle1">
-                {props.result.Title}
+                  {props.result.Title}
                 </Typography>
                 <Typography gutterBottom>{props.result.Year}</Typography>
                 <Typography color="textSecondary">{props.result.release_date}</Typography>

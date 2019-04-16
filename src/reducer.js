@@ -8,7 +8,8 @@ const initialState =  {
   badData: false,
   history: [],
   chatboxPage: "",
-  feedUser: null
+  feedUser: null,
+  isHidden: false
 }
 
 function reducer(state=initialState, action){
@@ -26,8 +27,9 @@ function reducer(state=initialState, action){
     case "ADD_TO_USERS":
       return {...state, users: [...state.users, action.payload]}
     case "REMOVE_USER_FROM_USERS":
-      return {...state, users: [...state.users.slice(0, action.payload),...state.users.slice(action.payload + 1)
-]}
+      return {...state, users: [...state.users.slice(0, action.payload),...state.users.slice(action.payload + 1)]}
+    case "HIDE_APP":
+      return {...state, isHidden: action.payload}
     case "FETCH_MOVIE":
       fetchMovieInfo(action.payload)
     case "CHANGE_CHATBOX_PAGE":

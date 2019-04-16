@@ -158,6 +158,7 @@ class Feed extends React.Component {
   }
 
   componentDidMount() {
+    this.props.dispatch({type: "HIDE_APP", payload: true})
     this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
     this.fetchPosts()
     this.fetchUsers()

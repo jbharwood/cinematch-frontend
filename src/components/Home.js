@@ -108,6 +108,7 @@ class Home extends React.Component {
   }
 
   componentDidMount = () => {
+    this.props.dispatch({type: "HIDE_APP", payload: true})
     let page = document.querySelector(".Dashboard-content-12")
     page.scrollTo(0, 0)
     // if (!!this.props.user) {

@@ -21,6 +21,8 @@ class Search extends React.Component {
 
   changePage = (page) => {
     this.setState({page: page})
+    let p = document.querySelector(".Dashboard-content-12")
+    p.scrollTo(0, 0)
   }
 
   slugify = (str) => {
@@ -63,6 +65,10 @@ class Search extends React.Component {
     }
   }
 
+  componentDidMount = () => {
+    this.props.dispatch({type: "HIDE_APP", payload: true})
+  }
+
   render() {
     return (
 
@@ -84,7 +90,7 @@ class Search extends React.Component {
   }
 }
 
-export default Search
+export default connect(null)(Search)
 
 
 // export default class MovieSearch extends Component {

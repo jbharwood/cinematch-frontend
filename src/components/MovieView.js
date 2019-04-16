@@ -108,23 +108,19 @@ class MovieView extends React.Component {
       poster = "http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path
     }
     // if (!!movie.title) { //similar movie input check
-    //   debugger
     //   title = movie.title
     //   imdbID = null
     //   poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
     // } else if (!!movie.Title) { //movie and tv check
-    //   debugger
     //   title = movie.Title
     //   imdbID = movie.imdbID
     //   poster = movie.Poster
     //   media = "movie"
     // } else if (!!movie.name) {//checks for similar tv shows
-    //   debugger
     //   title = movie.name
     //   imdbID = null
     //   poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
     // } else {
-    //   debugger
     //   title = this.state.movie.title
     //   imdbID = this.state.movie.imdb_id
     //   poster = "http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path
@@ -273,7 +269,6 @@ class MovieView extends React.Component {
       omdb_id = this.props.viewMovie.id
       media = this.props.viewMovie.media
     }
-    // debugger
     // let post = this.props.viewMovie.imdbID + " " + this.props.viewMovie.Poster
     // post = <img src="http://image.tmdb.org/t/p/w185/" + ${this.props.viewMovie.poster_path}" alt="poster" width="150" height="150"/>
     adapter.createPost({ content: post, feed_id: 1, user_id: this.props.user.id, omdb_id: omdb_id, imdb_id: imdb_id, media: media})
@@ -380,6 +375,7 @@ class MovieView extends React.Component {
   }
 
   componentDidMount = () => {
+    this.props.dispatch({type: "HIDE_APP", payload: true})
     //search result post check from chatbox
     // if (!!this.props.viewMovie.id) { //top rated movies check
     //   this.fetchWithOMDBId(this.props.viewMovie.id, "movie")
@@ -423,12 +419,9 @@ class MovieView extends React.Component {
     //   let media = ""
     //   if (this.props.viewMovie.media === "tv") {
     //     media = "tv"
-    //     debugger
     //   } else {
     //     media = "movie"
-    //     debugger
     //   }
-    //   debugger
     //   this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media)
     //   return
     // }
@@ -437,15 +430,12 @@ class MovieView extends React.Component {
     //   this.fetchMovieInfo()
     //   // watchlist view info movie check
     // } else if (!!this.props.viewMovie.omdb_id && this.props.viewMovie.imdb_id === null) {
-    //   debugger
     //   let media2 = "movie" //media wouldn't work again for some reason
     //   if (!!this.props.viewMovie.name || !!this.props.viewMovie.title) {
-    //     debugger
     //     media2 = "tv"
     //     this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media2)
     //     return
     //   }
-    //   debugger
     //   this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media2)
     // }
     if (!!this.props.changeToWatchlist) {

@@ -60,8 +60,8 @@ class LoginForm extends React.Component {
 
 	handleSubmit = () => {
 		this.postUser()
+		this.props.dispatch({type: "HIDE_APP", payload: false})
 	}
-
 
 	render(){
 		return (

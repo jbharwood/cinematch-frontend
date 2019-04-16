@@ -45,7 +45,18 @@ class App extends Component {
     })
 	}
 
+	renderPic = () => {
+		let container = document.querySelector("div.Dashboard-tableContainer-14")
+		// debugger
+		if (container !== null && this.props.isHidden === false) {
+			container.innerHTML = "<img src=https://visualhunt.com/photos/1/night-television-tv-video.jpg?s=l className=mainImage width=100% height=100%>"
+		} else if (container !== null && this.props.isHidden === true) {
+			container.innerHTML = ""
+		}
+	}
+
 	componentDidMount() {
+		this.props.dispatch({type: "HIDE_APP", payload: false})
 		const jwt = localStorage.getItem('jwt')
 		if (jwt){
 			fetch("http://localhost:3000/auto_login", {
@@ -68,8 +79,9 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+				{this.renderPic()}
 				<Dashboard currentUser={this.state.currentuser} logout={this.logout} changePage={this.changePage}
-					setCurrentUser={this.setCurrentUser}/>
+					setCurrentUser={this.setCurrentUser} toggleHidden={this.state.toggleHidden}/>
       </div>
     );
   }
@@ -103,7 +115,8 @@ function mapStateToProps(state){
     viewMovie: state.viewMovie,
 		user: state.user,
 		users: state.users,
-		feedUser: state.feedUser
+		feedUser: state.feedUser,
+		isHidden: state.isHidden
   }
 }
 
