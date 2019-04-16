@@ -7,6 +7,7 @@ import MovieView from './components/MovieView'
 import Watchlist from './components/Watchlist'
 import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
+// import Home from './components/Home'
 import Feed from './components/Feed'
 import 'semantic-ui-css/semantic.min.css';
 import {connect} from 'react-redux'
@@ -67,7 +68,6 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-      	<h1>Cinematch</h1>
 				<Dashboard currentUser={this.state.currentuser} logout={this.logout} changePage={this.changePage}
 					setCurrentUser={this.setCurrentUser}/>
       </div>

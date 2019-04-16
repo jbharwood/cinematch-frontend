@@ -159,6 +159,7 @@ class Watchlist extends React.Component {
   render() {
     return (
       <div className="watchlist">
+        <h3>Top Rated Movies</h3>
         {this.renderBackButton()}
         {this.renderTitle()}
         {this.renderFilter()}
