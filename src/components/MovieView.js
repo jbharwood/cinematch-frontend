@@ -3,7 +3,13 @@ import {connect} from 'react-redux'
 import SimilarMovie from './SimilarMovie'
 import adapter from '../services/adapter';
 import Button from '@material-ui/core/Button';
-
+import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
+import ChatIcon from '@material-ui/icons/Chat';
+import BackIcon from '@material-ui/icons/ArrowBack';
+import MovieIcon from '@material-ui/icons/Movie';
+import CloseIcon from '@material-ui/icons/Close';
+import ZoomIcon from '@material-ui/icons/ZoomIn';
 
 class MovieView extends React.Component {
 
@@ -74,7 +80,12 @@ class MovieView extends React.Component {
     if (!!movie.title) { //similar movie input check
       title = movie.title
       imdbID = null
-      poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
+      //share from other watchlist check
+      if (!!movie.poster) {
+        poster = movie.poster
+      } else {
+        poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
+      }
       media = "movie"
     } else if (!!movie.Title && movie.Type == "series") { //movie and tv check
       title = movie.Title
@@ -211,16 +222,16 @@ class MovieView extends React.Component {
     if (this.state.watchlist.length > 0) {
       //checks if movie is in the watchlist table
       if (Object.values(this.state.watchlist).find(w => w.id === this.props.viewMovie.id)) {
-        return <Button variant="contained" color="primary"> Added to Watchlist </Button>
+        return <Button variant="contained" color="primary" title="Already Added to Watchlist"> <CloseIcon /> </Button>
       }
       if (Object.values(this.state.watchlist).find(w => w.omdb_id === this.props.viewMovie.id)) {
-        return <Button variant="contained" color="primary"> Added to Watchlist </Button>
+        return <Button variant="contained" color="primary" title="Already Added to Watchlist"> <CloseIcon /> </Button>
       }
     }
     if (this.state.clicked === true) {
-      return <Button variant="contained" color="primary"> Added to Watchlist </Button>
+      return <Button variant="contained" color="primary" title="Already Added to Watchlist"> <CloseIcon /> </Button>
     } else {
-      return <Button variant="contained" color="primary" onClick={this.handleWatchlist}> Add to Watchlist </Button>
+        return <Button variant="contained" color="primary" onClick={this.handleWatchlist} title="Add to Watchlist"> <MovieIcon /> </Button>
     }
   }
 
@@ -273,11 +284,11 @@ class MovieView extends React.Component {
   renderIMDBButton = () => {
     if (!!this.props.viewMovie.imdbID && this.props.viewMovie.imdbID != "") {
       return <a href={`https://www.imdb.com/title/` + this.props.viewMovie.imdbID + `/`} target="_blank">
-        <img src="https://yt3.ggpht.com/a-/AAuE7mDrGwDBII_0LO6cM4ud7pVuGIJXSlLrZYEO-Q=s900-mo-c-c0xffffffff-rj-k-no" alt="poster" width="35" height="35"/> <br/>
+        <img src="https://yt3.ggpht.com/a-/AAuE7mDrGwDBII_0LO6cM4ud7pVuGIJXSlLrZYEO-Q=s900-mo-c-c0xffffffff-rj-k-no" alt="poster" width="35" height="35" title="Open IMDB"/> <br/>
       </a>
     } else if (!!this.props.viewMovie.imdb_id && this.props.viewMovie.imdb_id !== "") {
       return <a href={`https://www.imdb.com/title/` + this.props.viewMovie.imdb_id + `/`} target="_blank">
-        <img src="https://yt3.ggpht.com/a-/AAuE7mDrGwDBII_0LO6cM4ud7pVuGIJXSlLrZYEO-Q=s900-mo-c-c0xffffffff-rj-k-no" alt="poster" width="35" height="35"/> <br/>
+        <img src="https://yt3.ggpht.com/a-/AAuE7mDrGwDBII_0LO6cM4ud7pVuGIJXSlLrZYEO-Q=s900-mo-c-c0xffffffff-rj-k-no" alt="poster" width="35" height="35" title="Open IMDB"/> <br/>
       </a>
     } else {
       return null
@@ -296,8 +307,10 @@ class MovieView extends React.Component {
             <p>{this.props.viewMovie.overview}</p>
             {this.renderIMDBButton()}
             {this.renderWatchButton()}
-            <Button variant="contained" color="primary" onClick={this.handleShare}> Share </Button>
-            <Button variant="contained" color="primary" onClick={this.handleBack}> Go Back </Button>
+            <div class="divider"/>
+            <Button variant="contained" color="primary" onClick={this.handleShare} title="Share to Chat"> <ChatIcon /> </Button>
+            <div class="divider"/>
+            <Button variant="contained" color="primary" onClick={this.handleBack} title="Go Back"> <BackIcon /> </Button>
             <h3 ref={this.similarRef}>Similar TV Shows Page: {this.state.pageCount}</h3>
             {this.renderSimilarMovies()}
           </div>
@@ -312,8 +325,10 @@ class MovieView extends React.Component {
             <p>{this.state.movie.overview}</p>
             {this.renderIMDBButton()}
             {this.renderWatchButton()}
-            <Button variant="contained" color="primary" onClick={this.handleShare}> Share </Button>
-            <Button variant="contained" color="primary" onClick={this.handleBack}> Go Back </Button>
+            <div class="divider"/>
+            <Button variant="contained" color="primary" onClick={this.handleShare} title="Share to Chat"> <ChatIcon /> </Button>
+            <div class="divider"/>
+            <Button variant="contained" color="primary" onClick={this.handleBack} title="Go Back"> <BackIcon /> </Button>
             <h3 ref={this.similarRef}>Similar TV Shows Page: {this.state.pageCount}</h3>
             {this.renderSimilarMovies()}
           </div>
@@ -328,8 +343,10 @@ class MovieView extends React.Component {
           <p>{this.state.movie.overview}</p>
           {this.renderIMDBButton()}
           {this.renderWatchButton()}
-          <Button variant="contained" color="primary" onClick={this.handleShare}> Share </Button>
-          <Button variant="contained" color="primary" onClick={this.handleBack}> Go Back </Button>
+          <div class="divider"/>
+          <Button variant="contained" color="primary" onClick={this.handleShare} title="Share to Chat"> <ChatIcon /> </Button>
+          <div class="divider"/>
+          <Button variant="contained" color="primary" onClick={this.handleBack} title="Go Back"> <BackIcon /> </Button>
           <h3 ref={this.similarRef}>Similar Movies Page: {this.state.pageCount}</h3>
           {this.renderSimilarMovies()}
         </div>
@@ -348,14 +365,15 @@ class MovieView extends React.Component {
 
   renderPageButtons = () => {
     if (this.state.pageCount === 1) {
-      return <Button variant="contained" color="primary" onClick={this.handleNextPage}>Next Page</Button>
+      return <ArrowForwardIcon onClick={this.handleNextPage}/>
     } else if (this.state.pageCount === 5){
-      return <Button variant="contained" color="primary" onClick={this.handlePrevPage}>Previous Page</Button>
+      return <ArrowBackIcon onClick={this.handleNextPage}/>
     } else {
       return (
         <div>
-          <Button variant="contained" color="primary" onClick={this.handlePrevPage}>Previous Page</Button>
-          <Button variant="contained" color="primary" onClick={this.handleNextPage}>Next Page</Button>
+          <ArrowBackIcon onClick={this.handleNextPage}/>
+          <div class="divider"/>
+          <ArrowForwardIcon onClick={this.handleNextPage}/>
         </div>
       )
     }

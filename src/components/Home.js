@@ -3,6 +3,8 @@ import {connect} from 'react-redux'
 import HomeMovie from './HomeMovie'
 import MovieView from './MovieView'
 import Button from '@material-ui/core/Button';
+import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
+import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
 
 class Home extends React.Component {
 
@@ -64,14 +66,16 @@ class Home extends React.Component {
       return null
     }
     if (this.state.pageCount === 1) {
-      return <Button variant="contained" color="primary" onClick={this.handleNextPage}>Next Page</Button>
+      return <ArrowForwardIcon onClick={this.handleNextPage}/>
+      // return <Button variant="contained" color="primary" onClick={this.handleNextPage}>Next Page</Button>
     } else if (this.state.pageCount === 100){
-      return <Button variant="contained" color="primary" onClick={this.handlePrevPage}>Previous Page</Button>
+      return <ArrowBackIcon onClick={this.handleNextPage}/>
     } else {
       return (
         <div>
-          <Button variant="contained" color="primary" onClick={this.handlePrevPage}>Previous Page</Button>
-          <Button variant="contained" color="primary" onClick={this.handleNextPage}>Next Page</Button>
+          <ArrowBackIcon onClick={this.handleNextPage}/>
+          <div class="divider"/>
+          <ArrowForwardIcon onClick={this.handleNextPage}/>
         </div>
       )
     }
@@ -115,9 +119,13 @@ class Home extends React.Component {
     return (
       <div className="watchlist">
         {this.renderTitle()}
-        {this.renderPageButtons()}
+        <div className="pageButtons">
+          {this.renderPageButtons()}
+        </div>
         {this.renderList()}
-        {this.renderPageButtons()}
+        <div className="pageButtons">
+          {this.renderPageButtons()}
+        </div>
       </div>
     )
   }

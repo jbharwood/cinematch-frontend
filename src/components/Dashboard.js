@@ -37,7 +37,6 @@ import AssignmentIcon from '@material-ui/icons/Assignment';
 import SearchIcon from '@material-ui/icons/Search';
 import ChatIcon from '@material-ui/icons/Chat';
 
-
 const drawerWidth = 240;
 
 const styles = theme => ({
@@ -207,7 +206,7 @@ class Dashboard extends React.Component {
                     <ListItemIcon>
                       <ChatIcon />
                     </ListItemIcon>
-                    <ListItemText primary="Chatbox" />
+                    <ListItemText primary="Chat" />
                   </ListItem>
                   <ListItem button component={Link} to="/login" onClick={this.logout}>
                     <ListItemIcon>
