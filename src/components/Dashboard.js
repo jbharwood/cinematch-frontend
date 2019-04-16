@@ -17,7 +17,7 @@ import NotificationsIcon from '@material-ui/icons/Notifications';
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import Search from './Search'
-import MovieView from './MovieView'
+import Home from './Home'
 import Watchlist from './Watchlist'
 import LoginForm from './LoginForm'
 import SignUpForm from './SignUpForm'
@@ -185,7 +185,7 @@ class Dashboard extends React.Component {
             {this.props.user || this.props.currentUser
               ?
                 <div>
-                  <ListItem button component={Link} to="/">
+                  <ListItem button component={Link} to="/home">
                     <ListItemIcon>
                       <HomeIcon />
                     </ListItemIcon>
@@ -239,6 +239,7 @@ class Dashboard extends React.Component {
           <div className={classes.appBarSpacer} />
           <Typography variant="h4" gutterBottom component="h2">
             <Switch>
+            <Route path="/home" render={routerProps => <Home changePage={this.props.changePage} {...routerProps} />} />
             <Route path="/watchlist" render={routerProps => <Watchlist changePage={this.props.changePage} {...routerProps} />} />
             <Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.props.setCurrentUser}
               changePage={this.props.changePage} />} />

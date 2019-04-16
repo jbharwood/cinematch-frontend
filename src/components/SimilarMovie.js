@@ -41,8 +41,9 @@ function SimilarMovie(props) {
     }
     props.dispatch({type: "VIEW_MOVIE", payload: props.result})
     props.fetchWithOMDBId(props.result.id, media)
-    debugger
-    window.scrollTo(0, 0) //scroll to the top of the page on click
+    let page = document.querySelector(".Dashboard-content-12")
+    page.scrollTo(0, 0)
+    // window.scrollTo(0, 0) //scroll to the top of the page on click
   }
 
   const renderSimilar = () => {

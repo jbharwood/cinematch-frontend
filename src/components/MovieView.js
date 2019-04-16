@@ -9,10 +9,6 @@ class MovieView extends React.Component {
 
   constructor(props) {
     super(props)
-    this.container = null
-    this.setMainRef = (element) => {
-      this.main = element;
-    };
     this.similarRef = React.createRef()   // Create a ref for scrolling
   }
 
@@ -26,6 +22,7 @@ class MovieView extends React.Component {
   }
 
   fetchMovieInfo = () => {
+    debugger
     let id = null
     if (!!this.props.viewMovie.imdbID) { //from searchResult check
       id = this.props.viewMovie.imdbID
@@ -50,9 +47,11 @@ class MovieView extends React.Component {
   }
 
   fetchWithOMDBId = (id, media) => {
+    debugger
     fetch(`https://api.themoviedb.org/3/${media}/${id}?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US`)
     .then(r => r.json())
     .then(r => {
+      debugger
       if (r) {
         this.setState({movie: r, pageCount: 1}, this.fetchSimilarMovies)
       } else {
@@ -74,23 +73,54 @@ class MovieView extends React.Component {
     let title = null
     let imdbID = null
     let poster = null
+    let media = null
     if (!!movie.title) { //similar movie input check
       title = movie.title
       imdbID = null
       poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
-    } else if (!!movie.Title) { //movie and tv check
+      media = "movie"
+    } else if (!!movie.Title && movie.Type == "series") { //movie and tv check
       title = movie.Title
       imdbID = movie.imdbID
       poster = movie.Poster
+      media = "tv"
+    } else if (!!movie.Title && movie.Type == "movie") { //movie and tv check
+      title = movie.Title
+      imdbID = movie.imdbID
+      poster = movie.Poster
+      media = "movie"
     } else if (!!movie.name) {//checks for similar tv shows
       title = movie.name
       imdbID = null
       poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
+      media = "tv"
     } else {
       title = this.state.movie.title
       imdbID = this.state.movie.imdb_id
       poster = "http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path
     }
+    // if (!!movie.title) { //similar movie input check
+    //   debugger
+    //   title = movie.title
+    //   imdbID = null
+    //   poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
+    // } else if (!!movie.Title) { //movie and tv check
+    //   debugger
+    //   title = movie.Title
+    //   imdbID = movie.imdbID
+    //   poster = movie.Poster
+    //   media = "movie"
+    // } else if (!!movie.name) {//checks for similar tv shows
+    //   debugger
+    //   title = movie.name
+    //   imdbID = null
+    //   poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
+    // } else {
+    //   debugger
+    //   title = this.state.movie.title
+    //   imdbID = this.state.movie.imdb_id
+    //   poster = "http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path
+    // }
     fetch(`http://localhost:3000/watchlists`, {
       method: 'POST',
       headers: {
@@ -102,11 +132,13 @@ class MovieView extends React.Component {
         omdb_id: this.state.movie.id, //look at later?
         imdb_id: imdbID,
         user_id: this.props.user.id,
-        poster: poster
+        poster: poster,
+        media: media
       })
     })
     .then(r=>r.json())
     .then(r=> {
+      debugger
     })
   }
 
@@ -118,6 +150,8 @@ class MovieView extends React.Component {
     }
     if (!!this.props.changeToWatchlist) {
       this.props.changeToWatchlist()
+    } else if (!!this.props.changeToHome) {
+      this.props.changeToHome()
     } else {
       this.props.changePage("Search")
     }
@@ -133,9 +167,11 @@ class MovieView extends React.Component {
       media = "tv"
       id = this.props.viewMovie.id
     }
+    debugger
     fetch(`https://api.themoviedb.org/3/${media}/${id}/similar?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US&page=${page}`)
     .then(r => r.json())
     .then(r => {
+      debugger
       this.setState({similarMovies: r.results})
     })
   }
@@ -155,8 +191,10 @@ class MovieView extends React.Component {
   }
 
   renderSimilarMovies = () => {
+    // debugger
     if (!!this.state.similarMovies && this.state.similarMovies.length > 0) {
       return this.state.similarMovies.map (m => {
+        // debugger
         return  <SimilarMovie result={m}
         changePage={this.props.changePage}
         fetchWithOMDBId={this.fetchWithOMDBId}
@@ -245,7 +283,7 @@ class MovieView extends React.Component {
             {this.renderWatchButton()}
             <Button variant="contained" color="primary" onClick={this.handleShare}> Share </Button>
             <Button variant="contained" color="primary" onClick={this.handleBack}> Go Back </Button>
-            <h3 ref={this.similarRef}>Similar TV Shows</h3>
+            <h3 ref={this.similarRef}>Similar TV Shows Page: {this.state.pageCount}</h3>
             {this.renderSimilarMovies()}
           </div>
         )
@@ -260,7 +298,7 @@ class MovieView extends React.Component {
             {this.renderWatchButton()}
             <Button variant="contained" color="primary" onClick={this.handleShare}> Share </Button>
             <Button variant="contained" color="primary" onClick={this.handleBack}> Go Back </Button>
-            <h3 ref={this.similarRef}>Similar TV Shows</h3>
+            <h3 ref={this.similarRef}>Similar TV Shows Page: {this.state.pageCount}</h3>
             {this.renderSimilarMovies()}
           </div>
         )
@@ -275,7 +313,7 @@ class MovieView extends React.Component {
           {this.renderWatchButton()}
           <Button variant="contained" color="primary" onClick={this.handleShare}> Share </Button>
           <Button variant="contained" color="primary" onClick={this.handleBack}> Go Back </Button>
-          <h3 ref={this.similarRef}>Similar Movies</h3>
+          <h3 ref={this.similarRef}>Similar Movies Page: {this.state.pageCount}</h3>
           {this.renderSimilarMovies()}
         </div>
       )
@@ -308,27 +346,77 @@ class MovieView extends React.Component {
 
   componentDidMount = () => {
     //search result post check from chatbox
-    if (this.props.viewMovie.imdb_id === "") {
-      let media = ""
-      if (this.props.viewMovie.media === "tv") {
-        media = "tv"
-      } else {
-        media = "movie"
-      }
-      this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media)
-      return
+    debugger
+    // if (!!this.props.viewMovie.id) { //top rated movies check
+    //   this.fetchWithOMDBId(this.props.viewMovie.id, "movie")
+    // }
+
+    //from top movies/home
+    if (this.props.viewMovie.imdb_id === undefined
+      && this.props.viewMovie.omdb_id === undefined) {
+        debugger
+        this.fetchWithOMDBId(this.props.viewMovie.id, "movie")
     }
+
+    //chatbox check
+    if (!!this.props.viewMovie.feed_id) {
+      if (this.props.viewMovie.omdb_id !== "") {
+        debugger
+        this.fetchWithOMDBId(this.props.viewMovie.omdb_id, this.props.viewMovie.media)
+        return
+      } else {
+        debugger
+        this.fetchMovieInfo()
+        return
+      }
+    }
+
+    if (this.props.viewMovie.imdb_id === "") {
+      this.fetchWithOMDBId()
+    } else if (this.props.viewMovie.omdb_id === "") {
+      this.fetchMovieInfo()
+    }
+
+    //viewMovie from Search
     if ((this.props.viewMovie.imdbID !== null && this.props.viewMovie.imdbID !== undefined)
       || (this.props.viewMovie.imdb_id !== null && this.props.viewMovie.imdb_id !== undefined)) {
       this.fetchMovieInfo()
       // watchlist view info movie check
     } else if (!!this.props.viewMovie.omdb_id && this.props.viewMovie.imdb_id === null) {
-      let media2 = "movie" //media wouldn't work again for some reason
-      if (!!this.props.viewMovie.name || !!this.props.viewMovie.title) {
-        media2 = "tv"
-      }
-      this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media2)
+      debugger
+        this.fetchWithOMDBId(this.props.viewMovie.omdb_id, this.props.viewMovie.media)
     }
+
+
+    // if (this.props.viewMovie.imdb_id === "") {
+    //   let media = ""
+    //   if (this.props.viewMovie.media === "tv") {
+    //     media = "tv"
+    //     debugger
+    //   } else {
+    //     media = "movie"
+    //     debugger
+    //   }
+    //   debugger
+    //   this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media)
+    //   return
+    // }
+    // if ((this.props.viewMovie.imdbID !== null && this.props.viewMovie.imdbID !== undefined)
+    //   || (this.props.viewMovie.imdb_id !== null && this.props.viewMovie.imdb_id !== undefined)) {
+    //   this.fetchMovieInfo()
+    //   // watchlist view info movie check
+    // } else if (!!this.props.viewMovie.omdb_id && this.props.viewMovie.imdb_id === null) {
+    //   debugger
+    //   let media2 = "movie" //media wouldn't work again for some reason
+    //   if (!!this.props.viewMovie.name || !!this.props.viewMovie.title) {
+    //     debugger
+    //     media2 = "tv"
+    //     this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media2)
+    //     return
+    //   }
+    //   debugger
+    //   this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media2)
+    // }
     if (!!this.props.changeToWatchlist) {
       this.fetchUserWatchlist()
     }

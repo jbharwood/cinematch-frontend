@@ -70,6 +70,8 @@ class Watchlist extends React.Component {
       this.setState({viewMovieCheck: false})
       this.fetchWatchlist()
     }
+    let page = document.querySelector(".Dashboard-content-12")
+    page.scrollTo(0, 0)
   }
 
   handleWatchedMovies = () => {
