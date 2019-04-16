@@ -153,6 +153,8 @@ class Watchlist extends React.Component {
   }
 
   componentDidMount = () => {
+    let page = document.querySelector(".Dashboard-content-12")
+    page.scrollTo(0, 0)
     if (!!this.props.user) {
       this.fetchWatchlist()
     }
@@ -161,7 +163,6 @@ class Watchlist extends React.Component {
   render() {
     return (
       <div className="watchlist">
-        <h3>Top Rated Movies</h3>
         {this.renderBackButton()}
         {this.renderTitle()}
         {this.renderFilter()}

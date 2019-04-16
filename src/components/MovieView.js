@@ -22,7 +22,6 @@ class MovieView extends React.Component {
   }
 
   fetchMovieInfo = () => {
-    debugger
     let id = null
     if (!!this.props.viewMovie.imdbID) { //from searchResult check
       id = this.props.viewMovie.imdbID
@@ -47,11 +46,9 @@ class MovieView extends React.Component {
   }
 
   fetchWithOMDBId = (id, media) => {
-    debugger
     fetch(`https://api.themoviedb.org/3/${media}/${id}?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US`)
     .then(r => r.json())
     .then(r => {
-      debugger
       if (r) {
         this.setState({movie: r, pageCount: 1}, this.fetchSimilarMovies)
       } else {
@@ -138,7 +135,6 @@ class MovieView extends React.Component {
     })
     .then(r=>r.json())
     .then(r=> {
-      debugger
     })
   }
 
@@ -167,11 +163,9 @@ class MovieView extends React.Component {
       media = "tv"
       id = this.props.viewMovie.id
     }
-    debugger
     fetch(`https://api.themoviedb.org/3/${media}/${id}/similar?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US&page=${page}`)
     .then(r => r.json())
     .then(r => {
-      debugger
       this.setState({similarMovies: r.results})
     })
   }
@@ -191,10 +185,8 @@ class MovieView extends React.Component {
   }
 
   renderSimilarMovies = () => {
-    // debugger
     if (!!this.state.similarMovies && this.state.similarMovies.length > 0) {
       return this.state.similarMovies.map (m => {
-        // debugger
         return  <SimilarMovie result={m}
         changePage={this.props.changePage}
         fetchWithOMDBId={this.fetchWithOMDBId}
@@ -278,6 +270,20 @@ class MovieView extends React.Component {
     // this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
   }
 
+  renderIMDBButton = () => {
+    if (!!this.props.viewMovie.imdbID && this.props.viewMovie.imdbID != "") {
+      return <a href={`https://www.imdb.com/title/` + this.props.viewMovie.imdbID + `/`} target="_blank">
+        <img src="https://yt3.ggpht.com/a-/AAuE7mDrGwDBII_0LO6cM4ud7pVuGIJXSlLrZYEO-Q=s900-mo-c-c0xffffffff-rj-k-no" alt="poster" width="35" height="35"/> <br/>
+      </a>
+    } else if (!!this.props.viewMovie.imdb_id && this.props.viewMovie.imdb_id !== "") {
+      return <a href={`https://www.imdb.com/title/` + this.props.viewMovie.imdb_id + `/`} target="_blank">
+        <img src="https://yt3.ggpht.com/a-/AAuE7mDrGwDBII_0LO6cM4ud7pVuGIJXSlLrZYEO-Q=s900-mo-c-c0xffffffff-rj-k-no" alt="poster" width="35" height="35"/> <br/>
+      </a>
+    } else {
+      return null
+    }
+  }
+
   renderMoviePage = () => {
     if (this.state.movie !== null) {
       //tv check from SearchResult
@@ -288,6 +294,7 @@ class MovieView extends React.Component {
             <p>{this.props.viewMovie.first_air_date}</p>
             <img src={"http://image.tmdb.org/t/p/w185/" + this.props.viewMovie.poster_path} alt="poster" width="150" height="150"/> <br/>
             <p>{this.props.viewMovie.overview}</p>
+            {this.renderIMDBButton()}
             {this.renderWatchButton()}
             <Button variant="contained" color="primary" onClick={this.handleShare}> Share </Button>
             <Button variant="contained" color="primary" onClick={this.handleBack}> Go Back </Button>
@@ -303,6 +310,7 @@ class MovieView extends React.Component {
             <p>{this.state.movie.first_air_date}</p>
             <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="150" height="150"/> <br/>
             <p>{this.state.movie.overview}</p>
+            {this.renderIMDBButton()}
             {this.renderWatchButton()}
             <Button variant="contained" color="primary" onClick={this.handleShare}> Share </Button>
             <Button variant="contained" color="primary" onClick={this.handleBack}> Go Back </Button>
@@ -318,6 +326,7 @@ class MovieView extends React.Component {
           <p>{this.state.movie.release_date}</p>
           <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="150" height="150"/> <br/>
           <p>{this.state.movie.overview}</p>
+          {this.renderIMDBButton()}
           {this.renderWatchButton()}
           <Button variant="contained" color="primary" onClick={this.handleShare}> Share </Button>
           <Button variant="contained" color="primary" onClick={this.handleBack}> Go Back </Button>
@@ -354,26 +363,23 @@ class MovieView extends React.Component {
 
   componentDidMount = () => {
     //search result post check from chatbox
-    debugger
     // if (!!this.props.viewMovie.id) { //top rated movies check
     //   this.fetchWithOMDBId(this.props.viewMovie.id, "movie")
     // }
-
+    let page = document.querySelector(".Dashboard-content-12")
+    page.scrollTo(0, 0)
     //from top movies/home
     if (this.props.viewMovie.imdb_id === undefined
       && this.props.viewMovie.omdb_id === undefined) {
-        debugger
         this.fetchWithOMDBId(this.props.viewMovie.id, "movie")
     }
 
     //chatbox check
     if (!!this.props.viewMovie.feed_id) {
       if (this.props.viewMovie.omdb_id !== "") {
-        debugger
         this.fetchWithOMDBId(this.props.viewMovie.omdb_id, this.props.viewMovie.media)
         return
       } else {
-        debugger
         this.fetchMovieInfo()
         return
       }
@@ -391,7 +397,6 @@ class MovieView extends React.Component {
       this.fetchMovieInfo()
       // watchlist view info movie check
     } else if (!!this.props.viewMovie.omdb_id && this.props.viewMovie.imdb_id === null) {
-      debugger
         this.fetchWithOMDBId(this.props.viewMovie.omdb_id, this.props.viewMovie.media)
     }
 

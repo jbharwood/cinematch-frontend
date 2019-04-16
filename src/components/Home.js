@@ -27,7 +27,6 @@ class Home extends React.Component {
     fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US&page=${page}`)
     .then(r => r.json())
     .then(r => {
-      debugger
       this.setState({list: r.results})
     })
   }
@@ -38,6 +37,8 @@ class Home extends React.Component {
 
   changeToHome = () => {
     this.setState({viewMovieCheck: false})
+    let page = document.querySelector(".Dashboard-content-12")
+    page.scrollTo(0, 0)
   }
 
   handleBackButton = () => {
@@ -59,9 +60,12 @@ class Home extends React.Component {
   }
 
   renderPageButtons = () => {
+    if (this.state.viewMovieCheck === true) {
+      return null
+    }
     if (this.state.pageCount === 1) {
       return <Button variant="contained" color="primary" onClick={this.handleNextPage}>Next Page</Button>
-    } else if (this.state.pageCount === 5){
+    } else if (this.state.pageCount === 100){
       return <Button variant="contained" color="primary" onClick={this.handlePrevPage}>Previous Page</Button>
     } else {
       return (
@@ -75,13 +79,13 @@ class Home extends React.Component {
 
   renderList = () => {
     if (this.state.viewMovieCheck === false) {
-        return this.state.list.map(l => {
-          return (
-            <div className="home">
-              <HomeMovie movie={l} changeViewMovie={this.changeViewMovie}/>
-            </div>
-          )
-        })
+      return this.state.list.map(l => {
+        return (
+          <div className="home">
+            <HomeMovie movie={l} changeViewMovie={this.changeViewMovie}/>
+          </div>
+        )
+      })
     } else if (this.state.viewMovieCheck === true) {
       return (
         <div className="movieView">
@@ -91,16 +95,27 @@ class Home extends React.Component {
     }
   }
 
+  renderTitle = () => {
+    if (this.state.viewMovieCheck === true) {
+      return null
+    } else {
+      return <h3 ref={this.similarRef}>Top Rated Movies Page: {this.state.pageCount}</h3>
+    }
+  }
+
   componentDidMount = () => {
+    let page = document.querySelector(".Dashboard-content-12")
+    page.scrollTo(0, 0)
     // if (!!this.props.user) {
-      this.fetchTopRated()
+    this.fetchTopRated()
     // }
   }
 
   render() {
     return (
       <div className="watchlist">
-        <h3 ref={this.similarRef}>Top Rated Movies Page: {this.state.pageCount}</h3>
+        {this.renderTitle()}
+        {this.renderPageButtons()}
         {this.renderList()}
         {this.renderPageButtons()}
       </div>
