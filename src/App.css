@@ -68,6 +68,27 @@
 
 }
 
+.watchlistMovie:hover {
+  border-color: rgb(19,149,218);
+}
+
+.picture {
+  outline-color: white;
+}
+
+.picture:hover {
+  outline-color: rgb(19,149,218);
+}
+
+.paper:hover {
+  outline-color: rgb(19,149,218);
+}
+
+.underline:hover {
+  text-decoration: underline;
+  text-decoration-color: rgb(19,149,218);
+}
+
 .searchResult {
   /* border: solid; */
   box-sizing: content-box;

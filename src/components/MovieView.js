@@ -304,7 +304,7 @@ class MovieView extends React.Component {
       if (!!this.props.viewMovie.name) {
         return (
           <div>
-            <h3>{this.props.viewMovie.name}</h3>
+            <h2>{this.props.viewMovie.name}</h2>
             <p>{this.renderDate(this.props.viewMovie.first_air_date)}</p>
             <img src={"http://image.tmdb.org/t/p/w185/" + this.props.viewMovie.poster_path} alt="poster" width="150" height="150"/> <br/>
             <p>{this.props.viewMovie.overview}</p>
@@ -322,7 +322,7 @@ class MovieView extends React.Component {
       } else if (!!this.state.movie.name) {
         return (
           <div>
-            <h3>{this.state.movie.name}</h3>
+            <h2>{this.state.movie.name}</h2>
             <p>{this.renderDate(this.state.movie.first_air_date)}</p>
             <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="150" height="150"/> <br/>
             <p>{this.state.movie.overview}</p>
@@ -340,7 +340,7 @@ class MovieView extends React.Component {
       //for movies
       return (
         <div>
-          <h3>{this.state.movie.title}</h3>
+          <h2>{this.state.movie.title}</h2>
           <p>{this.renderDate(this.state.movie.release_date)}</p>
           <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="150" height="150"/> <br/>
           <p>{this.state.movie.overview}</p>

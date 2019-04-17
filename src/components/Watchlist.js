@@ -152,6 +152,8 @@ class Watchlist extends React.Component {
   renderTitle = () => {
     if (!!this.props.clickedUserID) {
       return <h3>{this.props.clickedUsername}'s Watchlist</h3>
+    } else if (this.state.viewMovieCheck === true) {
+      return null
     } else {
       return <h3>Your Watchlist</h3>
     }
