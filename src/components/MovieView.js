@@ -125,6 +125,7 @@ class MovieView extends React.Component {
     //   imdbID = this.state.movie.imdb_id
     //   poster = "http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path
     // }
+
     fetch(`http://localhost:3000/watchlists`, {
       method: 'POST',
       headers: {
@@ -214,10 +215,9 @@ class MovieView extends React.Component {
   }
 
   renderWatchButton = () => {
-    // if (this.state.clicked === true || !!this.props.changeToWatchlist) {
     if (this.state.watchlist.length > 0) {
       //checks if movie is in the watchlist table
-      if (Object.values(this.state.watchlist).find(w => w.id === this.props.viewMovie.id)) {
+      if (Object.values(this.state.watchlist).find(w => w.imdb_id === this.props.viewMovie.imdbID)) {
         return <Button variant="contained" color="primary" title="Already Added to Watchlist"> <CloseIcon /> </Button>
       }
       if (Object.values(this.state.watchlist).find(w => w.omdb_id === this.props.viewMovie.id)) {
@@ -438,9 +438,9 @@ class MovieView extends React.Component {
     //   }
     //   this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media2)
     // }
-    if (!!this.props.changeToWatchlist) {
+    // if (!!this.props.changeToWatchlist) {
       this.fetchUserWatchlist()
-    }
+    // }
   }
 
   render() {
