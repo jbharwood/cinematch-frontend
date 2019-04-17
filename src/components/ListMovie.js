@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import Button from '@material-ui/core/Button';
 
-class HomeMovie extends React.Component {
+class ListMovie extends React.Component {
 
   state = {
     watched: false
@@ -33,4 +33,4 @@ class HomeMovie extends React.Component {
   }
 
 }
-export default connect(null)(HomeMovie)
+export default connect(null)(ListMovie)

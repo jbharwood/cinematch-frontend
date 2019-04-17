@@ -7,7 +7,6 @@ import MovieView from './components/MovieView'
 import Watchlist from './components/Watchlist'
 import LoginForm from './components/LoginForm'
 import SignUpForm from './components/SignUpForm'
-// import Home from './components/Home'
 import Feed from './components/Feed'
 import 'semantic-ui-css/semantic.min.css';
 import {connect} from 'react-redux'
@@ -30,6 +29,7 @@ class App extends Component {
   logout = () => {
 		// let index = this.props.users.indexOf(this.props.user);
 		// this.props.dispatch({type: "REMOVE_USER_FROM_USERS", payload: index})
+		this.props.dispatch({type: "HIDE_APP", payload: true})
 		localStorage.clear()
 		this.deleteFromFeedUser()
     this.props.dispatch({type: "SET_CURRENT_USER", payload: null})
@@ -56,7 +56,7 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		this.props.dispatch({type: "HIDE_APP", payload: false})
+		// this.props.dispatch({type: "HIDE_APP", payload: false})
 		const jwt = localStorage.getItem('jwt')
 		if (jwt){
 			fetch("http://localhost:3000/auto_login", {

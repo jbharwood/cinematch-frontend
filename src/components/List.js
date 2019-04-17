@@ -1,12 +1,12 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import HomeMovie from './HomeMovie'
+import ListMovie from './ListMovie'
 import MovieView from './MovieView'
 import Button from '@material-ui/core/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
 
-class Home extends React.Component {
+class List extends React.Component {
 
   constructor(props) {
     super(props)
@@ -37,7 +37,7 @@ class Home extends React.Component {
     this.setState({viewMovieCheck: true})
   }
 
-  changeToHome = () => {
+  changeToList = () => {
     this.setState({viewMovieCheck: false})
     let page = document.querySelector(".Dashboard-content-12")
     page.scrollTo(0, 0)
@@ -85,15 +85,15 @@ class Home extends React.Component {
     if (this.state.viewMovieCheck === false) {
       return this.state.list.map(l => {
         return (
-          <div className="home">
-            <HomeMovie movie={l} changeViewMovie={this.changeViewMovie}/>
+          <div className="list">
+            <ListMovie movie={l} changeViewMovie={this.changeViewMovie}/>
           </div>
         )
       })
     } else if (this.state.viewMovieCheck === true) {
       return (
         <div className="movieView">
-          <MovieView changeToHome={this.changeToHome}/>
+          <MovieView changeToList={this.changeToList}/>
         </div>
       )
     }
@@ -138,4 +138,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(Home)
+export default connect(mapStateToProps)(List)

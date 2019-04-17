@@ -7,7 +7,7 @@ import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
 import ChatIcon from '@material-ui/icons/Chat';
 import BackIcon from '@material-ui/icons/ArrowBack';
-import MovieIcon from '@material-ui/icons/Movie';
+import ListIcon from '@material-ui/icons/List';
 import CloseIcon from '@material-ui/icons/Close';
 import ZoomIcon from '@material-ui/icons/ZoomIn';
 
@@ -153,8 +153,8 @@ class MovieView extends React.Component {
     }
     if (!!this.props.changeToWatchlist) {
       this.props.changeToWatchlist()
-    } else if (!!this.props.changeToHome) {
-      this.props.changeToHome()
+    } else if (!!this.props.changeToList) {
+      this.props.changeToList()
     } else {
       this.props.changePage("Search")
     }
@@ -227,7 +227,7 @@ class MovieView extends React.Component {
     if (this.state.clicked === true) {
       return <Button variant="contained" color="primary" title="Already Added to Watchlist"> <CloseIcon /> </Button>
     } else {
-        return <Button variant="contained" color="primary" onClick={this.handleWatchlist} title="Add to Watchlist"> <MovieIcon /> </Button>
+        return <Button variant="contained" color="primary" onClick={this.handleWatchlist} title="Add to Watchlist"> <ListIcon /> </Button>
     }
   }
 

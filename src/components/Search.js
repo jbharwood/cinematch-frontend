@@ -66,6 +66,8 @@ class Search extends React.Component {
   }
 
   componentDidMount = () => {
+    let p = document.querySelector(".Dashboard-content-12")
+    p.scrollTo(0, 0)
     this.props.dispatch({type: "HIDE_APP", payload: true})
   }
 

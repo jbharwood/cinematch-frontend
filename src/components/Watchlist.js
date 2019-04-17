@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import WatchlistMovie from './WatchlistMovie'
 import MovieView from './MovieView'
 import Button from '@material-ui/core/Button';
+import BackIcon from '@material-ui/icons/ArrowBack';
 
 class Watchlist extends React.Component {
 
@@ -40,7 +41,11 @@ class Watchlist extends React.Component {
   }
 
   fetchFilteredWatchlist = () => {
-    fetch(`http://localhost:3000/users/${this.props.user.id}`)
+    let id = this.props.user.id
+    if (!!this.props.clickedUserID) {
+      id = this.props.clickedUserID
+    }
+    fetch(`http://localhost:3000/users/${id}`)
     .then(r => r.json())
     .then(r => {
       let newArr = []
@@ -106,7 +111,7 @@ class Watchlist extends React.Component {
     if (!!this.props.clickedUserID) {
       return (
         <div className="watchlistBackButton">
-          <Button variant="contained" color="primary" onClick={this.handleBackButton}>Go Back</Button> <br/>
+          <Button variant="contained" color="primary" onClick={this.handleBackButton} title="Go Back"> <BackIcon /> </Button>
         </div>
       )
     }

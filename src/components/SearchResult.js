@@ -38,25 +38,24 @@ function SearchResult(props) {
 
   const { classes } = props;
   return (
-    <div className={classes.root} onClick={handleViewMovie} style={{ cursor: 'pointer' }}>
+    <div className={classes.root}>
       <Paper className={classes.paper}>
-        <Grid container spacing={16}>
+        <Grid container spacing={16} style={{ cursor: 'pointer' }} onClick={handleViewMovie}>
           <Grid item>
-            <ButtonBase className={classes.image}>
+            <ButtonBase className={classes.image} onClick={handleViewMovie}>
               <img className={classes.img} alt="complex" src={props.result.Poster} />
             </ButtonBase>
           </Grid>
-          <Grid item xs={12} sm container>
-            <Grid item xs container direction="column" spacing={16}>
-              <Grid item xs>
-                <Typography gutterBottom variant="subtitle1">
+          <Grid item xs={12} sm container onClick={handleViewMovie}>
+            <Grid item xs container direction="column" spacing={16} onClick={handleViewMovie}>
+              <Grid item xs onClick={handleViewMovie}>
+                <Typography gutterBottom variant="subtitle1" onClick={handleViewMovie}>
                   {props.result.Title}
                 </Typography>
-                <Typography gutterBottom>{props.result.Year}</Typography>
-                <Typography color="textSecondary">{props.result.release_date}</Typography>
+                <Typography gutterBottom onClick={handleViewMovie}>{props.result.Year}</Typography>
+                <Typography color="textSecondary" onClick={handleViewMovie}>{props.result.release_date}</Typography>
               </Grid>
               <Grid item>
-                <Typography style={{ cursor: 'pointer' }}><Button variant="contained" color="primary" onClick={handleViewMovie}> View Info </Button></Typography>
               </Grid>
             </Grid>
           </Grid>
@@ -77,6 +76,9 @@ SearchResult.propTypes = {
 };
 
 export default connect(mapStateToProps)(withStyles(styles)(SearchResult))
+
+// <Typography style={{ cursor: 'pointer' }}><Button variant="contained" color="primary"> View Info </Button></Typography>
+
 
 // import React from 'react'
 // import {connect} from 'react-redux'

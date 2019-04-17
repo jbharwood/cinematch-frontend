@@ -63,6 +63,11 @@ class LoginForm extends React.Component {
 		this.props.dispatch({type: "HIDE_APP", payload: false})
 	}
 
+	componentDidMount = () => {
+		let page = document.querySelector(".Dashboard-content-12")
+		page.scrollTo(0, 0)
+	}
+
 	render(){
 		return (
 			<Form onSubmit={this.handleSubmit}>
