@@ -7,8 +7,8 @@ const Post = (props) => {
   const handlePost = (post) => {
     if (!!props.post.content && props.post.content.search("http") === 0) {
       return (
-        <div className="picture" style={{ cursor: 'pointer' }}>
-          <img src={props.post.content} onClick={handleClick} alt="poster" width="50" height="50"/>
+        <div>
+          <img style={{ cursor: 'pointer' }} className="picture" src={props.post.content} onClick={handleClick} alt="poster" width="50" height="50"/>
         </div>
       )
     } else {

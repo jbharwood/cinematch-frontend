@@ -103,7 +103,7 @@ class List extends React.Component {
     } else {
       return (
         <div>
-          <ArrowBackIcon onClick={this.handleNextPage}/>
+          <ArrowBackIcon onClick={this.handlePrevPage}/>
           <div class="divider"/>
           <ArrowForwardIcon onClick={this.handleNextPage}/>
         </div>

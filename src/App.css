@@ -73,7 +73,8 @@
 }
 
 .picture {
-  outline-color: white;
+  outline-style: solid;
+  outline-color: black;
 }
 
 .picture:hover {

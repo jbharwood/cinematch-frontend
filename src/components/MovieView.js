@@ -146,18 +146,27 @@ class MovieView extends React.Component {
     })
   }
 
+  scrollToTopOfPage = () => {
+    this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
+    let page = document.querySelector(".Dashboard-content-12")
+  }
+
   handleBack = () => {
     if (!!this.props.fetchPosts) {
       this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
+      this.scrollToTopOfPage()
       this.props.fetchPosts()
       return
     }
     if (!!this.props.changeToWatchlist) {
       this.props.changeToWatchlist()
+      this.scrollToTopOfPage()
     } else if (!!this.props.changeToList) {
       this.props.changeToList()
+      this.scrollToTopOfPage()
     } else {
       this.props.changePage("Search")
+      this.scrollToTopOfPage()
     }
   }
 
@@ -281,11 +290,11 @@ class MovieView extends React.Component {
   renderIMDBButton = () => {
     if (!!this.props.viewMovie.imdbID && this.props.viewMovie.imdbID != "") {
       return <a href={`https://www.imdb.com/title/` + this.props.viewMovie.imdbID + `/`} target="_blank">
-        <img src="https://yt3.ggpht.com/a-/AAuE7mDrGwDBII_0LO6cM4ud7pVuGIJXSlLrZYEO-Q=s900-mo-c-c0xffffffff-rj-k-no" alt="poster" width="35" height="35" title="Open IMDB"/> <br/>
+        <img src="https://yt3.ggpht.com/a-/AAuE7mDrGwDBII_0LO6cM4ud7pVuGIJXSlLrZYEO-Q=s900-mo-c-c0xffffffff-rj-k-no" alt="poster" width="35" height="35" title="Open IMDB" className="picture"/> <br/>
       </a>
     } else if (!!this.props.viewMovie.imdb_id && this.props.viewMovie.imdb_id !== "") {
       return <a href={`https://www.imdb.com/title/` + this.props.viewMovie.imdb_id + `/`} target="_blank">
-        <img src="https://yt3.ggpht.com/a-/AAuE7mDrGwDBII_0LO6cM4ud7pVuGIJXSlLrZYEO-Q=s900-mo-c-c0xffffffff-rj-k-no" alt="poster" width="35" height="35" title="Open IMDB"/> <br/>
+        <img src="https://yt3.ggpht.com/a-/AAuE7mDrGwDBII_0LO6cM4ud7pVuGIJXSlLrZYEO-Q=s900-mo-c-c0xffffffff-rj-k-no" alt="poster" width="35" height="35" title="Open IMDB" className="picture"/> <br/>
       </a>
     } else {
       return null
@@ -315,6 +324,7 @@ class MovieView extends React.Component {
             <div class="divider"/>
             <Button variant="contained" color="primary" onClick={this.handleBack} title="Go Back"> <BackIcon /> </Button>
             <h3 ref={this.similarRef}>Similar TV Shows Page: {this.state.pageCount}</h3>
+            {this.renderPageButtons()}
             {this.renderSimilarMovies()}
           </div>
         )
@@ -333,6 +343,7 @@ class MovieView extends React.Component {
             <div class="divider"/>
             <Button variant="contained" color="primary" onClick={this.handleBack} title="Go Back"> <BackIcon /> </Button>
             <h3 ref={this.similarRef}>Similar TV Shows Page: {this.state.pageCount}</h3>
+            {this.renderPageButtons()}
             {this.renderSimilarMovies()}
           </div>
         )
@@ -351,6 +362,7 @@ class MovieView extends React.Component {
           <div class="divider"/>
           <Button variant="contained" color="primary" onClick={this.handleBack} title="Go Back"> <BackIcon /> </Button>
           <h3 ref={this.similarRef}>Similar Movies Page: {this.state.pageCount}</h3>
+          {this.renderPageButtons()}
           {this.renderSimilarMovies()}
         </div>
       )
@@ -374,7 +386,7 @@ class MovieView extends React.Component {
     } else {
       return (
         <div>
-          <ArrowBackIcon onClick={this.handleNextPage}/>
+          <ArrowBackIcon onClick={this.handlePrevPage}/>
           <div class="divider"/>
           <ArrowForwardIcon onClick={this.handleNextPage}/>
         </div>
@@ -388,8 +400,7 @@ class MovieView extends React.Component {
     // if (!!this.props.viewMovie.id) { //top rated movies check
     //   this.fetchWithOMDBId(this.props.viewMovie.id, "movie")
     // }
-    let page = document.querySelector(".Dashboard-content-12")
-    page.scrollTo(0, 0)
+    // this.scrollToTopOfPage()
     //from top movies/home
     if (this.props.viewMovie.imdb_id === undefined
       && this.props.viewMovie.omdb_id === undefined) {
