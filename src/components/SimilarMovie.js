@@ -51,7 +51,7 @@ function SimilarMovie(props) {
     if (!!props.result.name) {
       return (
           <Paper className={classes.paper}>
-            <Grid container spacing={16}>
+            <Grid container spacing={16} style={{ cursor: 'pointer' }} onClick={handleViewMovie}>
               <Grid item>
                 <ButtonBase className={classes.image}>
                   <img className={classes.img} alt="complex" src={"http://image.tmdb.org/t/p/w185/" + props.result.poster_path} />
@@ -66,7 +66,6 @@ function SimilarMovie(props) {
                     <Typography gutterBottom>{props.result.first_air_date}</Typography>
                   </Grid>
                   <Grid item>
-                    <Typography style={{ cursor: 'pointer' }}><Button variant="contained" color="primary" onClick={handleViewMovie}> View Info </Button></Typography>
                   </Grid>
                 </Grid>
               </Grid>
@@ -76,7 +75,7 @@ function SimilarMovie(props) {
     }
     return (
       <Paper className={classes.paper}>
-        <Grid container spacing={16}>
+        <Grid container spacing={16} style={{ cursor: 'pointer' }} onClick={handleViewMovie}>
           <Grid item>
             <ButtonBase className={classes.image}>
               <img className={classes.img} alt="complex" src={"http://image.tmdb.org/t/p/w185/" + props.result.poster_path} />
@@ -91,7 +90,6 @@ function SimilarMovie(props) {
                 <Typography gutterBottom>{props.result.release_date}</Typography>
               </Grid>
               <Grid item>
-                <Typography style={{ cursor: 'pointer' }}><Button variant="contained" color="primary" onClick={handleViewMovie}> View Info </Button></Typography>
               </Grid>
             </Grid>
           </Grid>

@@ -6,6 +6,27 @@ import Button from '@material-ui/core/Button';
 import ArrowBackIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIcon from '@material-ui/icons/ArrowForwardIos';
 
+const styles = theme => ({
+  root: {
+    flexGrow: 1,
+  },
+  paper: {
+    padding: theme.spacing.unit * 2,
+    margin: 'auto',
+    maxWidth: 300,
+  },
+  image: {
+    width: 128,
+    height: 128,
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '100%',
+    maxHeight: '100%',
+  },
+});
+
 class List extends React.Component {
 
   constructor(props) {
@@ -129,7 +150,7 @@ class List extends React.Component {
 
   render() {
     return (
-      <div className="watchlist">
+      <div className="list">
         {this.renderTitle()}
         <div className="pageButtons">
           {this.renderPageButtons()}

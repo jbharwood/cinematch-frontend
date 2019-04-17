@@ -16,10 +16,9 @@ class ListMovie extends React.Component {
 
   renderPage = () => {
     return (
-      <div>
+      <div className="listMovie" style={{ cursor: 'pointer' }} onClick={this.handleViewMovie}>
         {this.props.movie.title} <br/>
-        <img src={"http://image.tmdb.org/t/p/w185/" + this.props.movie.poster_path} alt="poster" width="50" height="50"/> <br/>
-        <Button variant="contained" color="primary" onClick={this.handleViewMovie}> View Info</Button>
+        <img src={"http://image.tmdb.org/t/p/w185/" + this.props.movie.poster_path} alt="poster" width="100" height="100"/> <br/>
       </div>
     )
   }

@@ -43,6 +43,7 @@
 
 .watchlist {
   margin-top: 10px;
+  text-align: center;
 }
 
 /* .watchlist {
@@ -58,10 +59,13 @@
 
 .watchlistMovie {
   /* border: solid; */
+  width: 50%;
   box-sizing: content-box;
   border: 1px solid #c2c2c2;
   color: rgba(0, 0, 0, 0.87);
   padding: 10px;
+  margin: auto;
+
 }
 
 .searchResult {
@@ -139,6 +143,26 @@ div.Dashboard-appBarSpacer-11 {
     width:5px;
     height:auto;
     display:inline-block;
+}
+
+/* a:link, a:visited {
+    color: rgb(19,149,218);
+    text-decoration: none;
+} */
+
+/* a:hover {
+    color: rgb(19,149,218);
+    text-decoration: none;
+} */
+
+/* a:-webkit-any-link {
+    color: -webkit-link;
+    cursor: pointer;
+    text-decoration: underline;
+} */
+
+.MuiPaper-root-25 {
+  margin-bottom: 5px;
 }
 
 * {

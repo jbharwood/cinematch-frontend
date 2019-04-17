@@ -7,7 +7,9 @@ const Post = (props) => {
   const handlePost = (post) => {
     if (!!props.post.content && props.post.content.search("http") === 0) {
       return (
-        <img src={props.post.content} onClick={handleClick} alt="poster" width="50" height="50"/>
+        <div style={{ cursor: 'pointer' }}>
+          <img src={props.post.content} onClick={handleClick} alt="poster" width="50" height="50"/>
+        </div>
       )
     } else {
       return props.post.content
@@ -30,8 +32,8 @@ const Post = (props) => {
       <div className="ui card">
         <div className="content">
         <div className="summary">
-          {props.post.user.username}: {handlePost(props.post)}
-          <br/> {props.post.date}
+          <h3>{props.post.user.username}: {handlePost(props.post)}</h3>
+          <p>{props.post.date}</p>
           </div>
           <div className="meta">
             <a

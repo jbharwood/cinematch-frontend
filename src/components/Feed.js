@@ -115,7 +115,7 @@ class Feed extends React.Component {
     if (this.state.users.length > 0) {
       return this.state.users.map(u => {
         return (
-          <div onClick={this.handleUserWatchlist} id={u.id}>
+          <div style={{ cursor: 'pointer' }} onClick={this.handleUserWatchlist} id={u.id}>
             <br/>{u.username}
           </div>
         )
