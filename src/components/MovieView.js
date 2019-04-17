@@ -175,6 +175,8 @@ class MovieView extends React.Component {
     .then(r => r.json())
     .then(r => {
       this.setState({similarMovies: r.results})
+      // debugger
+      //iterate through and fetchWithOMDBId to get overview and genre
     })
   }
 
@@ -290,6 +292,12 @@ class MovieView extends React.Component {
     }
   }
 
+  renderDate = (date) => {
+    if (!!date) {
+      return date.substring(0,4)
+    }
+  }
+
   renderMoviePage = () => {
     if (this.state.movie !== null) {
       //tv check from SearchResult
@@ -297,7 +305,7 @@ class MovieView extends React.Component {
         return (
           <div>
             <h3>{this.props.viewMovie.name}</h3>
-            <p>{this.props.viewMovie.first_air_date}</p>
+            <p>{this.renderDate(this.props.viewMovie.first_air_date)}</p>
             <img src={"http://image.tmdb.org/t/p/w185/" + this.props.viewMovie.poster_path} alt="poster" width="150" height="150"/> <br/>
             <p>{this.props.viewMovie.overview}</p>
             {this.renderIMDBButton()}
@@ -315,7 +323,7 @@ class MovieView extends React.Component {
         return (
           <div>
             <h3>{this.state.movie.name}</h3>
-            <p>{this.state.movie.first_air_date}</p>
+            <p>{this.renderDate(this.state.movie.first_air_date)}</p>
             <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="150" height="150"/> <br/>
             <p>{this.state.movie.overview}</p>
             {this.renderIMDBButton()}
@@ -333,7 +341,7 @@ class MovieView extends React.Component {
       return (
         <div>
           <h3>{this.state.movie.title}</h3>
-          <p>{this.state.movie.release_date}</p>
+          <p>{this.renderDate(this.state.movie.release_date)}</p>
           <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="150" height="150"/> <br/>
           <p>{this.state.movie.overview}</p>
           {this.renderIMDBButton()}
@@ -375,7 +383,7 @@ class MovieView extends React.Component {
   }
 
   componentDidMount = () => {
-    this.props.dispatch({type: "HIDE_APP", payload: true})
+    //this.props.dispatch({type: "HIDE_APP", payload: true})
     //search result post check from chatbox
     // if (!!this.props.viewMovie.id) { //top rated movies check
     //   this.fetchWithOMDBId(this.props.viewMovie.id, "movie")

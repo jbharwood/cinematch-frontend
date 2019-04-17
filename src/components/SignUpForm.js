@@ -57,13 +57,13 @@ class SignUpForm extends React.Component {
 		} else {
 			alert("Passwords don't match!")
 		}
-
+		//this.props.dispatch({type: "HIDE_APP", payload: false})
 	}
 
 	componentDidMount = () => {
 		let page = document.querySelector(".Dashboard-content-12")
 		page.scrollTo(0, 0)
-		// this.props.dispatch({type: "HIDE_APP", payload: true})
+		//this.props.dispatch({type: "HIDE_APP", payload: true})
 	}
 
 	render(){

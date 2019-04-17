@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import Navbar from './components/Navbar'
+// import Navbar from './components/Navbar'
 import Dashboard from './components/Dashboard'
-import Search from './components/Search'
-import MovieView from './components/MovieView'
-import Watchlist from './components/Watchlist'
-import LoginForm from './components/LoginForm'
-import SignUpForm from './components/SignUpForm'
-import Feed from './components/Feed'
+// import Search from './components/Search'
+// import MovieView from './components/MovieView'
+// import Watchlist from './components/Watchlist'
+// import LoginForm from './components/LoginForm'
+// import SignUpForm from './components/SignUpForm'
+// import Feed from './components/Feed'
 import 'semantic-ui-css/semantic.min.css';
 import {connect} from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
@@ -29,7 +29,6 @@ class App extends Component {
   logout = () => {
 		// let index = this.props.users.indexOf(this.props.user);
 		// this.props.dispatch({type: "REMOVE_USER_FROM_USERS", payload: index})
-		this.props.dispatch({type: "HIDE_APP", payload: true})
 		localStorage.clear()
 		this.deleteFromFeedUser()
     this.props.dispatch({type: "SET_CURRENT_USER", payload: null})
@@ -45,18 +44,18 @@ class App extends Component {
     })
 	}
 
-	renderPic = () => {
-		let container = document.querySelector("div.Dashboard-tableContainer-14")
-		// debugger
-		if (container !== null && this.props.isHidden === false) {
-			container.innerHTML = "<img src=https://visualhunt.com/photos/1/night-television-tv-video.jpg?s=l className=mainImage width=100% height=100%>"
-		} else if (container !== null && this.props.isHidden === true) {
-			container.innerHTML = ""
-		}
-	}
+	// renderPic = () => {
+	// 	let container = document.querySelector("div.Dashboard-tableContainer-14")
+	// 	// debugger
+	// 	if (container !== null && this.props.isHidden === false) {
+	// 		container.innerHTML = "<img src=https://visualhunt.com/photos/1/night-television-tv-video.jpg?s=l className=mainImage width=100% height=100%>"
+	// 	} else if (container !== null && this.props.isHidden === true) {
+	// 		container.innerHTML = ""
+	// 	}
+	// }
 
 	componentDidMount() {
-		// this.props.dispatch({type: "HIDE_APP", payload: false})
+		// //this.props.dispatch({type: "HIDE_APP", payload: false})
 		const jwt = localStorage.getItem('jwt')
 		if (jwt){
 			fetch("http://localhost:3000/auto_login", {
@@ -79,9 +78,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-				{this.renderPic()}
 				<Dashboard currentUser={this.state.currentuser} logout={this.logout} changePage={this.changePage}
-					setCurrentUser={this.setCurrentUser} toggleHidden={this.state.toggleHidden}/>
+					setCurrentUser={this.setCurrentUser} />
       </div>
     );
   }

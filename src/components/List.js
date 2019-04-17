@@ -17,7 +17,8 @@ class List extends React.Component {
     list: [],
     viewMovieCheck: false,
     viewMovie: null,
-    pageCount: 1
+    pageCount: 1,
+    genres: []
   }
 
   fetchTopRated = (page=1) => {
@@ -30,6 +31,14 @@ class List extends React.Component {
     .then(r => r.json())
     .then(r => {
       this.setState({list: r.results})
+    })
+  }
+
+  fetchGenres = () => {
+    fetch(`https://api.themoviedb.org/3/genre/movie/list?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US`)
+    .then(r => r.json())
+    .then(r => {
+      this.setState({genres: r.genres})
     })
   }
 
@@ -84,9 +93,10 @@ class List extends React.Component {
   renderList = () => {
     if (this.state.viewMovieCheck === false) {
       return this.state.list.map(l => {
+        // debugger
         return (
           <div className="list">
-            <ListMovie movie={l} changeViewMovie={this.changeViewMovie}/>
+            <ListMovie movie={l} genres={this.state.genres} changeViewMovie={this.changeViewMovie}/>
           </div>
         )
       })
@@ -108,10 +118,11 @@ class List extends React.Component {
   }
 
   componentDidMount = () => {
-    this.props.dispatch({type: "HIDE_APP", payload: true})
+    //this.props.dispatch({type: "HIDE_APP", payload: true})
     let page = document.querySelector(".Dashboard-content-12")
     page.scrollTo(0, 0)
     // if (!!this.props.user) {
+    this.fetchGenres()
     this.fetchTopRated()
     // }
   }

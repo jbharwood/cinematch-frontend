@@ -21,8 +21,9 @@ import TopMovies from './List'
 import Watchlist from './Watchlist'
 import LoginForm from './LoginForm'
 import SignUpForm from './SignUpForm'
+import Home from './Home'
 import Feed from './Feed'
-import { Switch, Route } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -185,7 +186,7 @@ class Dashboard extends React.Component {
             {this.props.user || this.props.currentUser
               ?
                 <div>
-                  <ListItem button component={Link} to="/">
+                  <ListItem button component={Link} to="/home">
                     <ListItemIcon>
                       <HomeIcon />
                     </ListItemIcon>
@@ -245,14 +246,16 @@ class Dashboard extends React.Component {
           <div className={classes.appBarSpacer} />
           <Typography variant="h4" gutterBottom component="h2">
             <Switch>
-            <Route path="/topmovies" render={routerProps => <TopMovies changePage={this.props.changePage} {...routerProps} />} />
-            <Route path="/watchlist" render={routerProps => <Watchlist changePage={this.props.changePage} {...routerProps} />} />
-            <Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.props.setCurrentUser}
-              changePage={this.props.changePage} />} />
-            <Route path="/signup" render={routerProps => <SignUpForm {...routerProps} setCurrentUser={this.props.setCurrentUser}
-              changePage={this.props.changePage} />} />
-            <Route path="/search" render={routerProps => <Search changePage={this.props.changePage} {...routerProps} />} />
-            <Route path="/chatbox" render={routerProps => <Feed changePage={this.props.changePage} {...routerProps} />} />
+              <Route path="/home" render={routerProps => <Home {...routerProps} />} />
+              <Route path="/topmovies" render={routerProps => <TopMovies changePage={this.props.changePage} {...routerProps} />} />
+              <Route path="/watchlist" render={routerProps => <Watchlist changePage={this.props.changePage} {...routerProps} />} />
+              <Route path="/login" render={routerProps => <LoginForm {...routerProps} setCurrentUser={this.props.setCurrentUser}
+                changePage={this.props.changePage} />} />
+              <Route path="/signup" render={routerProps => <SignUpForm {...routerProps} setCurrentUser={this.props.setCurrentUser}
+                changePage={this.props.changePage} />} />
+              <Route path="/search" render={routerProps => <Search changePage={this.props.changePage} {...routerProps} />} />
+              <Route path="/chatbox" render={routerProps => <Feed changePage={this.props.changePage} {...routerProps} />} />
+              <Redirect from="/" to= "/home" />
             </Switch>
           </Typography>
           <Typography component="div" className={classes.chartContainer}>
