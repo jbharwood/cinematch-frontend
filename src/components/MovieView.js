@@ -363,7 +363,9 @@ class MovieView extends React.Component {
             <Button variant="contained" color="primary" onClick={this.handleShare} title="Share to Chat"> <ChatIcon /> </Button>
             <div class="divider"/>
             <Button variant="contained" color="primary" onClick={this.handleBack} title="Go Back"> <BackIcon /> </Button>
-            <h3 class="sim" ref={this.similarRef}>Similar TV Shows Page: {this.state.pageCount}</h3>
+            <div ref={this.similarRef}/>
+            <br/>
+            <h3 class="sim" >Similar TV Shows Page: {this.state.pageCount}</h3>
             {this.renderPageButtons()}
             {this.renderSimilarMovies()}
           </div>
@@ -382,7 +384,9 @@ class MovieView extends React.Component {
             <Button variant="contained" color="primary" onClick={this.handleShare} title="Share to Chat"> <ChatIcon /> </Button>
             <div class="divider"/>
             <Button variant="contained" color="primary" onClick={this.handleBack} title="Go Back"> <BackIcon /> </Button>
-            <h3 class="sim" ref={this.similarRef}>Similar TV Shows Page: {this.state.pageCount}</h3>
+            <div ref={this.similarRef}/>
+            <br/>
+            <h3 class="sim" >Similar TV Shows Page: {this.state.pageCount}</h3>
             {this.renderPageButtons()}
             {this.renderSimilarMovies()}
           </div>
@@ -401,7 +405,9 @@ class MovieView extends React.Component {
           <Button variant="contained" color="primary" onClick={this.handleShare} title="Share to Chat"> <ChatIcon /> </Button>
           <div class="divider"/>
           <Button variant="contained" color="primary" onClick={this.handleBack} title="Go Back"> <BackIcon /> </Button>
-          <h3 class="sim" ref={this.similarRef}>Similar Movies Page: {this.state.pageCount}</h3>
+          <div ref={this.similarRef}/>
+          <br/>
+          <h3 class="sim" >Similar Movies Page: {this.state.pageCount}</h3>
           {this.renderPageButtons()}
           {this.renderSimilarMovies()}
         </div>
