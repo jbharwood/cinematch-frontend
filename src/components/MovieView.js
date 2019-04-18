@@ -147,11 +147,16 @@ class MovieView extends React.Component {
   }
 
   scrollToTopOfPage = () => {
-    this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
     let page = document.querySelector(".Dashboard-content-12")
+    page.scrollTo(0, 0)
   }
 
   handleBack = () => {
+    if (!!this.props.close) {
+      this.props.close()
+      debugger
+      return
+    }
     if (!!this.props.fetchPosts) {
       this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
       this.scrollToTopOfPage()
@@ -395,6 +400,8 @@ class MovieView extends React.Component {
   }
 
   componentDidMount = () => {
+    debugger
+    this.scrollToTopOfPage()
     //this.props.dispatch({type: "HIDE_APP", payload: true})
     //search result post check from chatbox
     // if (!!this.props.viewMovie.id) { //top rated movies check

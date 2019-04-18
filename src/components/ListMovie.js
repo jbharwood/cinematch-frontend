@@ -18,6 +18,7 @@ class ListMovie extends React.Component {
     return (
       <div className="listMovie" style={{ cursor: 'pointer' }} onClick={this.handleViewMovie}>
         {this.props.movie.title} <br/>
+        {this.props.movie.release_date.slice(0,4)} <br/>
         <img src={"http://image.tmdb.org/t/p/w185/" + this.props.movie.poster_path} alt="poster" width="100" height="100"/> <br/>
       </div>
     )

@@ -165,7 +165,7 @@ class Dashboard extends React.Component {
               noWrap
               className={classes.title}
             >
-              Cinematch
+            <h1>Cinematch</h1>
             </Typography>
           </Toolbar>
         </AppBar>

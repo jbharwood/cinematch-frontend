@@ -65,6 +65,7 @@ class List extends React.Component {
 
   changeViewMovie = (movie) => {
     this.setState({viewMovieCheck: true})
+    debugger
   }
 
   changeToList = () => {
@@ -114,7 +115,6 @@ class List extends React.Component {
   renderList = () => {
     if (this.state.viewMovieCheck === false) {
       return this.state.list.map(l => {
-        // debugger
         return (
           <div className="list">
             <ListMovie movie={l} genres={this.state.genres} changeViewMovie={this.changeViewMovie}/>

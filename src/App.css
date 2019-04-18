@@ -65,7 +65,6 @@
   color: rgba(0, 0, 0, 0.87);
   padding: 10px;
   margin: auto;
-
 }
 
 .watchlistMovie:hover {
@@ -137,6 +136,7 @@
 #messages-list {
   padding: 5px 0 0 5px;
   position: relative;
+  overflow-y: scroll;
 }
 
 #sidebar {
@@ -182,6 +182,15 @@ div.Dashboard-appBarSpacer-11 {
     cursor: pointer;
     text-decoration: underline;
 } */
+
+/* .modal {
+  margin: auto;
+  left: 155px;
+  display: flex;
+  z-index: 2;
+} */
+
+
 
 .MuiPaper-root-25 {
   margin-bottom: 5px;
