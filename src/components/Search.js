@@ -5,6 +5,11 @@ import MovieView from './MovieView'
 
 class Search extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.topRef = React.createRef()   // Create a ref for scrolling
+  }
+
   state = {
     input: "",
     results: [],
@@ -21,8 +26,8 @@ class Search extends React.Component {
 
   changePage = (page) => {
     this.setState({page: page})
-    let p = document.querySelector(".Dashboard-content-12")
-    p.scrollTo(0, 0)
+    // window.scrollTo(0, 0)
+    document.querySelector("main").scrollTo(0,0)
   }
 
   slugify = (str) => {
@@ -65,16 +70,23 @@ class Search extends React.Component {
     }
   }
 
-  componentDidMount = () => {
-    let p = document.querySelector(".Dashboard-content-12")
-    p.scrollTo(0, 0)
+  componentDidMount (){
+    document.querySelector("main").scrollTo(0,0)
+    // let p = document.querySelector("#top")
+    // // p.scroll(0, 0)
+    // // p.scroll(0, this.topRef.current.offsetTop - 80)
+    // let that = this
+    // console.log(this.container)
+    // debugger
+      // window.scrollTo(0, 0)
+
     //this.props.dispatch({type: "HIDE_APP", payload: true})
   }
 
   render() {
     return (
-
       <div>
+      <div id="top" ref={this.topRef}> </div>
         <div className="searchBox">
           <form
             onKeyPress={event => {

@@ -3,6 +3,12 @@ import {connect} from 'react-redux'
 import { Form, Button } from 'semantic-ui-react'
 
 class SignUpForm extends React.Component {
+
+	constructor(props) {
+    super(props)
+    this.topRef = React.createRef()   // Create a ref for scrolling
+  }
+
 	state = {
 		username: "",
 		password: "",
@@ -61,13 +67,15 @@ class SignUpForm extends React.Component {
 	}
 
 	componentDidMount = () => {
-		let page = document.querySelector(".Dashboard-content-12")
-		page.scrollTo(0, 0)
+		// let page = document.querySelector(".Dashboard-content-12")
+		// page.scrollTo(0, 0)
+		document.querySelector("main").scrollTo(0,0)
 		//this.props.dispatch({type: "HIDE_APP", payload: true})
 	}
 
 	render(){
 		return (
+			<div className="top" ref={this.topRef}>
 			<Form onSubmit={this.handleSubmit}>
 		    <Form.Field>
 		      <label>Username</label>
@@ -83,6 +91,7 @@ class SignUpForm extends React.Component {
 		    </Form.Field>
 		    <Button type='submit'>Sign Up</Button>
 		  </Form>
+			</div>
 		)
 	}
 }

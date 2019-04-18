@@ -21,6 +21,7 @@ import TopMovies from './List'
 import Watchlist from './Watchlist'
 import LoginForm from './LoginForm'
 import SignUpForm from './SignUpForm'
+import Color from './Color'
 import Home from './Home'
 import Feed from './Feed'
 import { Switch, Route, Redirect } from 'react-router-dom'
@@ -38,6 +39,7 @@ import SignUpIcon from '@material-ui/icons/PersonAdd';
 import AssignmentIcon from '@material-ui/icons/Assignment';
 import SearchIcon from '@material-ui/icons/Search';
 import ChatIcon from '@material-ui/icons/Chat';
+import ArtIcon from '@material-ui/icons/FormatPaint';
 
 const drawerWidth = 240;
 
@@ -216,6 +218,12 @@ class Dashboard extends React.Component {
                     </ListItemIcon>
                     <ListItemText primary="Chat" />
                   </ListItem>
+                  <ListItem button component={Link} to="/color">
+                    <ListItemIcon>
+                      <ArtIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Color" />
+                    </ListItem>
                   <ListItem button component={Link} to="/login" onClick={this.logout}>
                     <ListItemIcon>
                       <LogoutIcon />
@@ -255,6 +263,7 @@ class Dashboard extends React.Component {
                 changePage={this.props.changePage} />} />
               <Route path="/search" render={routerProps => <Search changePage={this.props.changePage} {...routerProps} />} />
               <Route path="/chatbox" render={routerProps => <Feed changePage={this.props.changePage} {...routerProps} />} />
+              <Route path="/color" render={routerProps => <Color {...routerProps} />} />
               <Redirect from="/" to= "/home" />
             </Switch>
           </Typography>

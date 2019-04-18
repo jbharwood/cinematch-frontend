@@ -7,6 +7,11 @@ import BackIcon from '@material-ui/icons/ArrowBack';
 
 class Watchlist extends React.Component {
 
+  constructor(props) {
+    super(props)
+    this.topRef = React.createRef()   // Create a ref for scrolling
+  }
+
   state = {
     list: [],
     viewMovieCheck: false,
@@ -75,8 +80,9 @@ class Watchlist extends React.Component {
       this.setState({viewMovieCheck: false})
       this.fetchWatchlist()
     }
-    let page = document.querySelector(".Dashboard-content-12")
-    page.scrollTo(0, 0)
+    // let page = document.querySelector(".Dashboard-content-12")
+    // page.scrollTo(0, 0)
+    document.querySelector("main").scrollTo(0,0)
   }
 
   handleWatchedMovies = () => {
@@ -161,8 +167,9 @@ class Watchlist extends React.Component {
 
   componentDidMount = () => {
     //this.props.dispatch({type: "HIDE_APP", payload: true})
-    let page = document.querySelector(".Dashboard-content-12")
-    page.scrollTo(0, 0)
+      // let p = document.querySelector(".Dashboard-content-12")
+      // p.scrollTo(0, 0)
+    document.querySelector("main").scrollTo(0,0)
     if (!!this.props.user) {
       this.fetchWatchlist()
     }
@@ -171,6 +178,7 @@ class Watchlist extends React.Component {
   render() {
     return (
       <div className="watchlist">
+      <div className="top" ref={this.topRef}> </div>
         {this.renderBackButton()}
         {this.renderTitle()}
         {this.renderFilter()}

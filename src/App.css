@@ -67,6 +67,11 @@
   margin: auto;
 }
 
+.colorPicker {
+  margin: auto;
+  padding-left: 200px;
+}
+
 .watchlistMovie:hover {
   border-color: rgb(19,149,218);
 }

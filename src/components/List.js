@@ -32,6 +32,7 @@ class List extends React.Component {
   constructor(props) {
     super(props)
     this.similarRef = React.createRef()   // Create a ref for scrolling
+    this.topRef = React.createRef()   // Create a ref for scrolling
   }
 
   state = {
@@ -65,13 +66,12 @@ class List extends React.Component {
 
   changeViewMovie = (movie) => {
     this.setState({viewMovieCheck: true})
-    debugger
   }
 
   changeToList = () => {
     this.setState({viewMovieCheck: false})
-    let page = document.querySelector(".Dashboard-content-12")
-    page.scrollTo(0, 0)
+    // let page = document.querySelector(".Dashboard-content-12")
+    document.querySelector("main").scrollTo(0,0)
   }
 
   handleBackButton = () => {
@@ -80,14 +80,14 @@ class List extends React.Component {
 
   handleNextPage = () => {
     this.setState({pageCount: this.state.pageCount += 1}, this.fetchTopRated(this.state.pageCount))
-    let page = document.querySelector(".Dashboard-content-12")
+    let page = document.querySelector(".top")
     page.scrollTo(0, this.similarRef.current.offsetTop - 80)
     // window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
   }
 
   handlePrevPage = () => {
     this.setState({pageCount: this.state.pageCount -= 1}, this.fetchTopRated(this.state.pageCount))
-    let page = document.querySelector(".Dashboard-content-12")
+    let page = document.querySelector(".top")
     page.scrollTo(0, this.similarRef.current.offsetTop - 80)
     // window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
   }
@@ -140,9 +140,12 @@ class List extends React.Component {
 
   componentDidMount = () => {
     //this.props.dispatch({type: "HIDE_APP", payload: true})
-    let page = document.querySelector(".Dashboard-content-12")
-    page.scrollTo(0, 0)
+      // let p = document.querySelector(".Dashboard-content-12")
+      // p.scrollTo(0, 0)
+    // let p = document.querySelector(".top")
+    // p.scrollTo(0, this.topRef.current.offsetTop - 80)
     // if (!!this.props.user) {
+    document.querySelector("main").scrollTo(0,0)
     this.fetchGenres()
     this.fetchTopRated()
     // }
@@ -151,6 +154,7 @@ class List extends React.Component {
   render() {
     return (
       <div className="list">
+      <div className="top" ref={this.topRef}> </div>
         {this.renderTitle()}
         <div className="pageButtons">
           {this.renderPageButtons()}

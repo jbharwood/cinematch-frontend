@@ -12,6 +12,8 @@ import 'semantic-ui-css/semantic.min.css';
 import {connect} from 'react-redux'
 import { Switch, Route } from 'react-router-dom'
 import { Grid } from 'semantic-ui-react'
+import { createStore, applyMiddleware } from 'redux'
+import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 
 class App extends Component {
 
@@ -44,6 +46,54 @@ class App extends Component {
     })
 	}
 
+	theme1 = () => {
+		return {
+			palette: {
+				primary: {
+					// light: will be calculated from palette.primary.main,
+					main: this.props.primaryColor,
+					// dark: will be calculated from palette.primary.main,
+					// contrastText: will be calculated to contrast with palette.primary.main
+				},
+				secondary: {
+					light: '#0066ff',
+					main: '#0044ff',
+					// dark: will be calculated from palette.secondary.main,
+					contrastText: '#ffcc00',
+				},
+				// error: will use the default color
+			},
+		}
+	}
+
+
+		// var test2 = "#0066ff"
+
+	// var theme2 =
+	// 	{
+	// 		palette: {
+	// 			primary: {
+	// 				// light: will be calculated from palette.primary.main,
+	// 				main: test2,
+	// 				// dark: will be calculated from palette.primary.main,
+	// 				// contrastText: will be calculated to contrast with palette.primary.main
+	// 			},
+	// 			secondary: {
+	// 				light: '#0066ff',
+	// 				main: '#0044ff',
+	// 				// dark: will be calculated from palette.secondary.main,
+	// 				contrastText: '#ffcc00',
+	// 			},
+	// 			// error: will use the default color
+	// 		},
+	// 	}
+
+		// theme = () => {
+		// 	createMuiTheme(theme1);
+		// }
+		// const themea = createMuiTheme(theme2);
+
+
 	// renderPic = () => {
 	// 	let container = document.querySelector("div.Dashboard-tableContainer-14")
 	// 	// debugger
@@ -75,15 +125,77 @@ class App extends Component {
 		}
 	}
 
+	// changeThing = () => {
+	// 	test = "#A22424"
+	// 	test2 = "#EBDDDD"
+	// 	console.log(test);
+	// 	console.log(test2);
+	// }
+
+	// theme = () => {
+	// 	createMuiTheme(theme1);
+	// }
+
   render() {
     return (
       <div className="App">
+			<MuiThemeProvider theme={createMuiTheme(this.theme1())}>
+
 				<Dashboard currentUser={this.state.currentuser} logout={this.logout} changePage={this.changePage}
-					setCurrentUser={this.setCurrentUser} />
-      </div>
+					setCurrentUser={this.setCurrentUser} setPrimaryColor={this.props.setPrimaryColor}/>
+			</MuiThemeProvider>,
+			</div>
     );
   }
 }
+
+var test = "#323232"
+// var test = "#323232"
+
+// "#323232"
+// var theme1 =
+// 	{
+// 		palette: {
+// 			primary: {
+// 				// light: will be calculated from palette.primary.main,
+// 				main: test,
+// 				// dark: will be calculated from palette.primary.main,
+// 				// contrastText: will be calculated to contrast with palette.primary.main
+// 			},
+// 			secondary: {
+// 				light: '#0066ff',
+// 				main: '#0044ff',
+// 				// dark: will be calculated from palette.secondary.main,
+// 				contrastText: '#ffcc00',
+// 			},
+// 			// error: will use the default color
+// 		},
+// 	}
+//
+// 	var test2 = "#0066ff"
+//
+// var theme2 =
+// 	{
+// 		palette: {
+// 			primary: {
+// 				// light: will be calculated from palette.primary.main,
+// 				main: test2,
+// 				// dark: will be calculated from palette.primary.main,
+// 				// contrastText: will be calculated to contrast with palette.primary.main
+// 			},
+// 			secondary: {
+// 				light: '#0066ff',
+// 				main: '#0044ff',
+// 				// dark: will be calculated from palette.secondary.main,
+// 				contrastText: '#ffcc00',
+// 			},
+// 			// error: will use the default color
+// 		},
+// 	}
+//
+// 	const theme = createMuiTheme(theme1);
+// 	const themea = createMuiTheme(theme2);
+
 //   render() {
 //     return (
 //       <div className="App">
@@ -108,14 +220,19 @@ class App extends Component {
 //   }
 // }
 
+
+
 function mapStateToProps(state){
   return {
     viewMovie: state.viewMovie,
 		user: state.user,
 		users: state.users,
 		feedUser: state.feedUser,
-		isHidden: state.isHidden
+		isHidden: state.isHidden,
+		primaryColor: state.primaryColor
   }
 }
+
+// "#323232"
 
 export default connect(mapStateToProps)(App);

@@ -9,7 +9,8 @@ const initialState =  {
   history: [],
   chatboxPage: "",
   feedUser: null,
-  isHidden: false
+  isHidden: false,
+  primaryColor: "#323232"
 }
 
 function reducer(state=initialState, action){
@@ -30,6 +31,8 @@ function reducer(state=initialState, action){
       return {...state, users: [...state.users.slice(0, action.payload),...state.users.slice(action.payload + 1)]}
     case "HIDE_APP":
       return {...state, isHidden: action.payload}
+    case "SET_PRIMARY_COLOR":
+      return {...state, primaryColor: action.payload}
     case "FETCH_MOVIE":
       fetchMovieInfo(action.payload)
     case "CHANGE_CHATBOX_PAGE":

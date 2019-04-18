@@ -16,6 +16,7 @@ class MovieView extends React.Component {
   constructor(props) {
     super(props)
     this.similarRef = React.createRef()   // Create a ref for scrolling
+    this.topRef = React.createRef()   // Create a ref for scrolling
   }
 
   state = {
@@ -147,8 +148,18 @@ class MovieView extends React.Component {
   }
 
   scrollToTopOfPage = () => {
-    let page = document.querySelector(".Dashboard-content-12")
-    page.scrollTo(0, 0)
+    document.querySelector("main").scrollTo(0,0)
+    // let page = document.querySelector(".top")
+    // let p = document.querySelector(".top")
+    // debugger
+    // p.scrollTo(0, this.topRef.current.offsetTop)
+    // page.scrollTo(0, 0)
+    // window.scrollTo(0, 0)
+  }
+
+  scrollToSim = () => {
+    let p = document.querySelector("main")
+    p.scrollTo(0, this.similarRef.current.offsetTop)
   }
 
   handleBack = () => {
@@ -188,23 +199,47 @@ class MovieView extends React.Component {
     fetch(`https://api.themoviedb.org/3/${media}/${id}/similar?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US&page=${page}`)
     .then(r => r.json())
     .then(r => {
-      this.setState({similarMovies: r.results})
+      this.setState({similarMovies: r.results}, this.scrollToTopOfPage)
+      // debugger
+      //iterate through and fetchWithOMDBId to get overview and genre
+    })
+  }
+
+  fetchPage = (page=1) => {
+    let id = this.state.movie.id
+    let media = "movie"
+    //tv check
+    if (!!this.state.movie.name) {
+      media = "tv"
+    } else if (!!this.props.viewMovie.name) {
+      media = "tv"
+      id = this.props.viewMovie.id
+    }
+    fetch(`https://api.themoviedb.org/3/${media}/${id}/similar?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US&page=${page}`)
+    .then(r => r.json())
+    .then(r => {
+      this.setState({similarMovies: r.results}, this.scrollToSim)
       // debugger
       //iterate through and fetchWithOMDBId to get overview and genre
     })
   }
 
   handleNextPage = () => {
-    this.setState({pageCount: this.state.pageCount += 1}, this.fetchSimilarMovies(this.state.pageCount))
-    let page = document.querySelector(".Dashboard-content-12")
-    page.scrollTo(0, this.similarRef.current.offsetTop - 80)
+    this.setState({pageCount: this.state.pageCount += 1}, this.fetchPage(this.state.pageCount))
+    // let page = document.querySelector(".Dashboard-content-12")
+    // page.scrollTo(0, this.similarRef.current.offsetTop - 80)
+    // window.scrollTo(0, this.similarRef.current.offsetTop - 80)
+    // let p = document.querySelector("main")
+    // debugger
+    // p.scrollTo(0, this.similarRef.current.offsetTop)
     // window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
   }
 
   handlePrevPage = () => {
-    this.setState({pageCount: this.state.pageCount -= 1}, this.fetchSimilarMovies(this.state.pageCount))
+    this.setState({pageCount: this.state.pageCount -= 1}, this.fetchPage(this.state.pageCount))
     let page = document.querySelector(".Dashboard-content-12")
-    page.scrollTo(0, this.similarRef.current.offsetTop - 80)
+    window.scrollTo(0, page - 80)
+    // page.scrollTo(0, this.similarRef.current.offsetTop - 80)
     // window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
   }
 
@@ -319,7 +354,7 @@ class MovieView extends React.Component {
         return (
           <div>
             <h2>{this.props.viewMovie.name}</h2>
-            <p>{this.renderDate(this.props.viewMovie.first_air_date)}</p>
+            <h3>{this.renderDate(this.props.viewMovie.first_air_date)}</h3>
             <img src={"http://image.tmdb.org/t/p/w185/" + this.props.viewMovie.poster_path} alt="poster" width="150" height="150"/> <br/>
             <p>{this.props.viewMovie.overview}</p>
             {this.renderIMDBButton()}
@@ -328,7 +363,7 @@ class MovieView extends React.Component {
             <Button variant="contained" color="primary" onClick={this.handleShare} title="Share to Chat"> <ChatIcon /> </Button>
             <div class="divider"/>
             <Button variant="contained" color="primary" onClick={this.handleBack} title="Go Back"> <BackIcon /> </Button>
-            <h3 ref={this.similarRef}>Similar TV Shows Page: {this.state.pageCount}</h3>
+            <h3 class="sim" ref={this.similarRef}>Similar TV Shows Page: {this.state.pageCount}</h3>
             {this.renderPageButtons()}
             {this.renderSimilarMovies()}
           </div>
@@ -338,7 +373,7 @@ class MovieView extends React.Component {
         return (
           <div>
             <h2>{this.state.movie.name}</h2>
-            <p>{this.renderDate(this.state.movie.first_air_date)}</p>
+            <h3>{this.renderDate(this.state.movie.first_air_date)}</h3>
             <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="150" height="150"/> <br/>
             <p>{this.state.movie.overview}</p>
             {this.renderIMDBButton()}
@@ -347,7 +382,7 @@ class MovieView extends React.Component {
             <Button variant="contained" color="primary" onClick={this.handleShare} title="Share to Chat"> <ChatIcon /> </Button>
             <div class="divider"/>
             <Button variant="contained" color="primary" onClick={this.handleBack} title="Go Back"> <BackIcon /> </Button>
-            <h3 ref={this.similarRef}>Similar TV Shows Page: {this.state.pageCount}</h3>
+            <h3 class="sim" ref={this.similarRef}>Similar TV Shows Page: {this.state.pageCount}</h3>
             {this.renderPageButtons()}
             {this.renderSimilarMovies()}
           </div>
@@ -357,7 +392,7 @@ class MovieView extends React.Component {
       return (
         <div>
           <h2>{this.state.movie.title}</h2>
-          <p>{this.renderDate(this.state.movie.release_date)}</p>
+          <h3>{this.renderDate(this.state.movie.release_date)}</h3>
           <img src={"http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path} alt="poster" width="150" height="150"/> <br/>
           <p>{this.state.movie.overview}</p>
           {this.renderIMDBButton()}
@@ -366,7 +401,7 @@ class MovieView extends React.Component {
           <Button variant="contained" color="primary" onClick={this.handleShare} title="Share to Chat"> <ChatIcon /> </Button>
           <div class="divider"/>
           <Button variant="contained" color="primary" onClick={this.handleBack} title="Go Back"> <BackIcon /> </Button>
-          <h3 ref={this.similarRef}>Similar Movies Page: {this.state.pageCount}</h3>
+          <h3 class="sim" ref={this.similarRef}>Similar Movies Page: {this.state.pageCount}</h3>
           {this.renderPageButtons()}
           {this.renderSimilarMovies()}
         </div>
@@ -400,14 +435,13 @@ class MovieView extends React.Component {
   }
 
   componentDidMount = () => {
-    debugger
-    this.scrollToTopOfPage()
+
     //this.props.dispatch({type: "HIDE_APP", payload: true})
     //search result post check from chatbox
     // if (!!this.props.viewMovie.id) { //top rated movies check
     //   this.fetchWithOMDBId(this.props.viewMovie.id, "movie")
     // }
-    // this.scrollToTopOfPage()
+    this.scrollToTopOfPage()
     //from top movies/home
     if (this.props.viewMovie.imdb_id === undefined
       && this.props.viewMovie.omdb_id === undefined) {
@@ -466,12 +500,14 @@ class MovieView extends React.Component {
     // }
     // if (!!this.props.changeToWatchlist) {
       this.fetchUserWatchlist()
+      // this.scrollToTopOfPage()
     // }
   }
 
   render() {
     return (
       <div className="movieView">
+      <div className="top" ref={this.topRef}> </div>
         {this.renderMoviePage()}
         {this.renderPageButtons()}
       </div>
