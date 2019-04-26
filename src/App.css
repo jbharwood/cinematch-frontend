@@ -69,7 +69,7 @@
 
 .colorPicker {
   margin: auto;
-  padding-left: 200px;
+  padding-left: 220px;
 }
 
 .watchlistMovie:hover {
@@ -170,6 +170,10 @@ div.Dashboard-appBarSpacer-11 {
     width:5px;
     height:auto;
     display:inline-block;
+}
+
+p {
+  font-size: small;
 }
 
 /* a:link, a:visited {
