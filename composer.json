@@ -2,8 +2,7 @@
     "require": {
         "monolog/monolog": "1.0.*"
     },
-
-    require: ^7.0.0,
+    
 
     "post-install-cmd": [
         "php artisan clear-compiled",
