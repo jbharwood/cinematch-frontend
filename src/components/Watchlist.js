@@ -28,7 +28,7 @@ class Watchlist extends React.Component {
     } else if (!!this.props.clickedUserID) {
       id = this.props.clickedUserID
     }
-    fetch(`http://localhost:3000/users/${id}`)
+    fetch(`https://cinematch-jbharwood.herokuapp.com/users/${id}`)
     .then(r => r.json())
     .then(r => {
       if (!!r.watchlist) {
@@ -50,7 +50,7 @@ class Watchlist extends React.Component {
     if (!!this.props.clickedUserID) {
       id = this.props.clickedUserID
     }
-    fetch(`http://localhost:3000/users/${id}`)
+    fetch(`https://cinematch-jbharwood.herokuapp.com/users/${id}`)
     .then(r => r.json())
     .then(r => {
       let newArr = []

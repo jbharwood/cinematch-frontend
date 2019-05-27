@@ -30,7 +30,7 @@ class App extends Component {
 	}
 
 	deleteFromFeedUser = () => {
-		fetch(`http://localhost:3000/feed_users/${this.props.feedUser.id}`, {
+		fetch(`https://cinematch-jbharwood.herokuapp.com/feed_users/${this.props.feedUser.id}`, {
       method: "DELETE"
     })
 	}
@@ -58,7 +58,7 @@ class App extends Component {
 	componentDidMount() {
 		const jwt = localStorage.getItem('jwt')
 		if (jwt){
-			fetch("http://localhost:3000/auto_login", {
+			fetch("https://cinematch-jbharwood.herokuapp.com/auto_login", {
 				headers: {
 					"Authorization": jwt
 				}

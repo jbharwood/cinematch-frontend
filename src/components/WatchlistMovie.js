@@ -11,14 +11,14 @@ class WatchlistMovie extends React.Component {
 
   handleRemoveMovie = () => {
     this.props.changeList(this.props.movie.id)
-    fetch(`http://localhost:3000/watchlists/${this.props.movie.id}`, {
+    fetch(`https://cinematch-jbharwood.herokuapp.com/watchlists/${this.props.movie.id}`, {
       method: "DELETE"
     })
   }
 
   handleWatchedMovie = () => {
     this.props.changeList(this.props.movie.id)
-    fetch(`http://localhost:3000/watchlists/${this.props.movie.id}`, {
+    fetch(`https://cinematch-jbharwood.herokuapp.com/watchlists/${this.props.movie.id}`, {
       method: "PATCH",
       headers: {
         'Accept': 'application/json',

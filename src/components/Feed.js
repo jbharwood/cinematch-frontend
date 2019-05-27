@@ -41,7 +41,7 @@ class Feed extends React.Component {
   }
 
   fetchPosts = () => {
-    fetch(`http://localhost:3000/posts`)
+    fetch(`https://cinematch-jbharwood.herokuapp.com/posts`)
     .then(r => r.json())
     .then(r => {
       this.setState({
@@ -51,7 +51,7 @@ class Feed extends React.Component {
   }
 
   // fetchPost = (post) => {
-  //   fetch(`http://localhost:3000/posts/${post.id}`)
+  //   fetch(`https://cinematch-jbharwood.herokuapp.com/posts/${post.id}`)
   //   .then(r => r.json())
   //   .then(r => {
   //     this.setState({
@@ -65,7 +65,7 @@ class Feed extends React.Component {
   }
 
   fetchFeedUsers = () => {
-    fetch(`http://localhost:3000/feed_users`)
+    fetch(`https://cinematch-jbharwood.herokuapp.com/feed_users`)
     .then(r => r.json())
     .then(r => {
       const flags = new Set();
@@ -81,7 +81,7 @@ class Feed extends React.Component {
   }
 
   fetchUsers = () => {
-    fetch(`http://localhost:3000/users`)
+    fetch(`https://cinematch-jbharwood.herokuapp.com/users`)
     .then(r => r.json())
     .then(r => {
       this.setState({realUsers: r})
@@ -89,7 +89,7 @@ class Feed extends React.Component {
   }
   //
   // fetchFeedUsers = () => {
-  //   fetch(`http://localhost:3000/feeds/1`)
+  //   fetch(`https://cinematch-jbharwood.herokuapp.com/feeds/1`)
   //   .then(r => r.json())
   //   .then(r => {
   //     const flags = new Set();

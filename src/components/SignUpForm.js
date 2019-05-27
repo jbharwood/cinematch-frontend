@@ -22,7 +22,7 @@ class SignUpForm extends React.Component {
 	}
 
 	postToFeedUsers = (user) => {
-		fetch("http://localhost:3000/feed_users", {
+		fetch("https://cinematch-jbharwood.herokuapp.com/feed_users", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -42,7 +42,7 @@ class SignUpForm extends React.Component {
 
 	handleSubmit = (e) => {
 		if(this.state.password === this.state.passwordConfirmation) {
-			fetch("http://localhost:3000/users", {
+			fetch("https://cinematch-jbharwood.herokuapp.com/users", {
 				method: "POST",
 				headers: {
 					"Content-Type": "application/json",

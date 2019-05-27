@@ -21,7 +21,7 @@ class LoginForm extends React.Component {
 	}
 
 	postUser = () => {
-		fetch("http://localhost:3000/login", {
+		fetch("https://cinematch-jbharwood.herokuapp.com/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -46,7 +46,7 @@ class LoginForm extends React.Component {
 	}
 
 	postToFeedUsers = (user) => {
-		fetch("http://localhost:3000/feed_users", {
+		fetch("https://cinematch-jbharwood.herokuapp.com/feed_users", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

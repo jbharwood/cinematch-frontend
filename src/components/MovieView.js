@@ -127,7 +127,7 @@ class MovieView extends React.Component {
     //   poster = "http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path
     // }
 
-    fetch(`http://localhost:3000/watchlists`, {
+    fetch(`https://cinematch-jbharwood.herokuapp.com/watchlists`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -258,7 +258,7 @@ class MovieView extends React.Component {
   }
 
   fetchUserWatchlist = () => {
-    fetch(`http://localhost:3000/users/${this.props.user.id}`)
+    fetch(`https://cinematch-jbharwood.herokuapp.com/users/${this.props.user.id}`)
     .then(r => r.json())
     .then(r => {
       this.setState({watchlist: r.watchlist})
