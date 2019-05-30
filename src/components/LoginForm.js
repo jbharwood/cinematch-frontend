@@ -21,7 +21,7 @@ class LoginForm extends React.Component {
 	}
 
 	postUser = () => {
-		fetch("https://cinematch-jbharwood.herokuapp.com/login", {
+		fetch("https://cinematch-api.herokuapp.com/login", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -46,7 +46,7 @@ class LoginForm extends React.Component {
 	}
 
 	postToFeedUsers = (user) => {
-		fetch("https://cinematch-jbharwood.herokuapp.com/feed_users", {
+		fetch("https://cinematch-api.herokuapp.com/feed_users", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

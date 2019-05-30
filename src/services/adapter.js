@@ -1,4 +1,4 @@
-const API_URL = `https://cinematch-jbharwood.herokuapp.com/`
+const API_URL = `https://cinematch-api.herokuapp.com/`
 
 const headers = {
   Accepts: 'application/json',
@@ -6,7 +6,7 @@ const headers = {
 }
 
 const fetchPosts = () => {
-  return fetch(`https://cinematch-jbharwood.herokuapp.com/posts`)
+  return fetch(`https://cinematch-api.herokuapp.com/posts`)
   .then(r => r.json())
   .then(r => {
   })

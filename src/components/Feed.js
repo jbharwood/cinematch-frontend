@@ -41,7 +41,7 @@ class Feed extends React.Component {
   }
 
   fetchPosts = () => {
-    fetch(`https://cinematch-jbharwood.herokuapp.com/posts`)
+    fetch(`https://cinematch-api.herokuapp.com/posts`)
     .then(r => r.json())
     .then(r => {
       this.setState({
@@ -51,7 +51,7 @@ class Feed extends React.Component {
   }
 
   // fetchPost = (post) => {
-  //   fetch(`https://cinematch-jbharwood.herokuapp.com/posts/${post.id}`)
+  //   fetch(`https://cinematch-api.herokuapp.com/posts/${post.id}`)
   //   .then(r => r.json())
   //   .then(r => {
   //     this.setState({
@@ -65,7 +65,7 @@ class Feed extends React.Component {
   }
 
   fetchFeedUsers = () => {
-    fetch(`https://cinematch-jbharwood.herokuapp.com/feed_users`)
+    fetch(`https://cinematch-api.herokuapp.com/feed_users`)
     .then(r => r.json())
     .then(r => {
       const flags = new Set();
@@ -81,7 +81,7 @@ class Feed extends React.Component {
   }
 
   fetchUsers = () => {
-    fetch(`https://cinematch-jbharwood.herokuapp.com/users`)
+    fetch(`https://cinematch-api.herokuapp.com/users`)
     .then(r => r.json())
     .then(r => {
       this.setState({realUsers: r})
@@ -89,7 +89,7 @@ class Feed extends React.Component {
   }
   //
   // fetchFeedUsers = () => {
-  //   fetch(`https://cinematch-jbharwood.herokuapp.com/feeds/1`)
+  //   fetch(`https://cinematch-api.herokuapp.com/feeds/1`)
   //   .then(r => r.json())
   //   .then(r => {
   //     const flags = new Set();

@@ -30,7 +30,7 @@ class App extends Component {
 	}
 
 	deleteFromFeedUser = () => {
-		fetch(`https://cinematch-jbharwood.herokuapp.com/feed_users/${this.props.feedUser.id}`, {
+		fetch(`https://cinematch-api.herokuapp.com/feed_users/${this.props.feedUser.id}`, {
       method: "DELETE"
     })
 	}
@@ -58,7 +58,7 @@ class App extends Component {
 	componentDidMount() {
 		const jwt = localStorage.getItem('jwt')
 		if (jwt){
-			fetch("https://cinematch-jbharwood.herokuapp.com/auto_login", {
+			fetch("https://cinematch-api.herokuapp.com/auto_login", {
 				headers: {
 					"Authorization": jwt
 				}
