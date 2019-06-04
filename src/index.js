@@ -12,10 +12,12 @@ import { createStore, applyMiddleware } from 'redux'
 
 const store = createStore(reducer, applyMiddleware(thunk));
 
+// <ActionCableProvider url={'ws://localhost:3000/cable'}>
+
+
 ReactDOM.render(
   <Router>
     <ActionCableProvider url={"wss://cinematch-jbharwood.herokuapp.com/"}>
-    // <ActionCableProvider url={'ws://localhost:3000/cable'}>
       <Provider store={store}>
           <Route path="/" render={routerProps => <App {...routerProps} />} /> />
       </Provider>
