@@ -1,0 +1,55 @@
+{
+  "name": "mod-5-project",
+  "version": "0.1.0",
+  "private": true,
+  "homepage": ".",
+  "dependencies": {
+    "@material-ui/core": "^4.0.2",
+    "@material-ui/icons": "^4.0.1",
+    "babel-cli": "^6.26.0",
+    "babel-preset-react-app": "^3.1.2",
+    "express": "^4.17.1",
+    "express-favicon": "^2.0.1",
+    "lodash": "^4.17.11",
+    "material-ui": "^0.20.2",
+    "path": "^0.12.7",
+    "react": "^16.8.6",
+    "react-actioncable-provider": "^2.0.0",
+    "react-color": "^2.17.3",
+    "react-dom": "^16.8.6",
+    "react-redux": "^6.0.1",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "^2.1.8",
+    "redux": "^4.0.1",
+    "redux-thunk": "^2.3.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.87.1",
+    "store": "^2.0.12",
+    "uuid": "^3.3.2"
+  },
+  "scripts": {
+    "local_start": "PORT=3001 react-scripts start",
+    "start": "node server.js",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "description": "This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jbharwood/cinematch-frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT"
+}
