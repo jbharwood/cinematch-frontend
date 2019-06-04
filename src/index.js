@@ -14,7 +14,8 @@ const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
   <Router>
-    <ActionCableProvider url={'ws://localhost:3000/cable'}>
+    <ActionCableProvider url={"wss://cinematch-jbharwood.herokuapp.com/"}>
+    // <ActionCableProvider url={'ws://localhost:3000/cable'}>
       <Provider store={store}>
           <Route path="/" render={routerProps => <App {...routerProps} />} /> />
       </Provider>
