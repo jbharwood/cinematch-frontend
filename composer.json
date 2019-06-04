@@ -8,5 +8,8 @@
         "php artisan clear-compiled",
         "php artisan optimize",
         "chmod -R 777 public/"
-    ]
+    ],
+    "require-dev": {
+      "heroku/heroku-buildpack-php" : "dev-master"
+    }
 }
