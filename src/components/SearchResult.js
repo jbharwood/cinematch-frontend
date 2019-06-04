@@ -19,7 +19,7 @@ const SearchResult = (props) => {
     <div className="watchlistMovie" onClick={handleViewMovie} style={{ cursor: 'pointer' }}>
       <h2>{props.result.Title}</h2>
       <h3>{renderYear()}</h3>
-      <img src={props.result.Poster.replace(/^https?:/, '')} alt="poster" width="150" height="150"/> <br/>
+      <img src={props.result.Poster.replace(/^http?:/, '')} alt="poster" width="150" height="150"/> <br/>
     </div>
   )
 }
