@@ -1,4 +1,4 @@
-import API_URL from `../config.js`
+import API_URL from '../config.js'
 
 const headers = {
   Accepts: 'application/json',
