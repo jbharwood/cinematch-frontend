@@ -6,7 +6,7 @@ import PostList from './PostList'
 import MovieView from './MovieView'
 import Watchlist from './Watchlist'
 import adapter from '../services/adapter'
-
+import API_URL from '../config.js'
 
 class Feed extends React.Component {
   state = {
@@ -41,7 +41,7 @@ class Feed extends React.Component {
   }
 
   fetchPosts = () => {
-    fetch(`https://cinematch-api.herokuapp.com/posts`)
+    fetch(`${API_URL}/posts`)
     .then(r => r.json())
     .then(r => {
       this.setState({
@@ -51,7 +51,7 @@ class Feed extends React.Component {
   }
 
   // fetchPost = (post) => {
-  //   fetch(`https://cinematch-api.herokuapp.com/posts/${post.id}`)
+  //   fetch(`${API_URL}/posts/${post.id}`)
   //   .then(r => r.json())
   //   .then(r => {
   //     this.setState({
@@ -65,7 +65,7 @@ class Feed extends React.Component {
   }
 
   fetchFeedUsers = () => {
-    fetch(`https://cinematch-api.herokuapp.com/feed_users`)
+    fetch(`${API_URL}/feed_users`)
     .then(r => r.json())
     .then(r => {
       const flags = new Set();
@@ -81,7 +81,7 @@ class Feed extends React.Component {
   }
 
   fetchUsers = () => {
-    fetch(`https://cinematch-api.herokuapp.com/users`)
+    fetch(`${API_URL}/users`)
     .then(r => r.json())
     .then(r => {
       this.setState({realUsers: r})
@@ -89,7 +89,7 @@ class Feed extends React.Component {
   }
   //
   // fetchFeedUsers = () => {
-  //   fetch(`https://cinematch-api.herokuapp.com/feeds/1`)
+  //   fetch(`${API_URL}/feeds/1`)
   //   .then(r => r.json())
   //   .then(r => {
   //     const flags = new Set();

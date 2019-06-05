@@ -4,6 +4,7 @@ import WatchlistMovie from './WatchlistMovie'
 import MovieView from './MovieView'
 import Button from '@material-ui/core/Button';
 import BackIcon from '@material-ui/icons/ArrowBack';
+import API_URL from '../config.js'
 
 class Watchlist extends React.Component {
 
@@ -28,7 +29,7 @@ class Watchlist extends React.Component {
     } else if (!!this.props.clickedUserID) {
       id = this.props.clickedUserID
     }
-    fetch(`https://cinematch-api.herokuapp.com/users/${id}`)
+    fetch(`${API_URL}/users/${id}`)
     .then(r => r.json())
     .then(r => {
       if (!!r.watchlist) {
@@ -50,7 +51,7 @@ class Watchlist extends React.Component {
     if (!!this.props.clickedUserID) {
       id = this.props.clickedUserID
     }
-    fetch(`https://cinematch-api.herokuapp.com/users/${id}`)
+    fetch(`${API_URL}/users/${id}`)
     .then(r => r.json())
     .then(r => {
       let newArr = []

@@ -10,6 +10,7 @@ import BackIcon from '@material-ui/icons/ArrowBack';
 import ListIcon from '@material-ui/icons/List';
 import CloseIcon from '@material-ui/icons/Close';
 import ZoomIcon from '@material-ui/icons/ZoomIn';
+import API_URL from '../config.js'
 
 class MovieView extends React.Component {
 
@@ -127,7 +128,7 @@ class MovieView extends React.Component {
     //   poster = "http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path
     // }
 
-    fetch(`https://cinematch-api.herokuapp.com/watchlists`, {
+    fetch(`${API_URL}/watchlists`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -258,7 +259,7 @@ class MovieView extends React.Component {
   }
 
   fetchUserWatchlist = () => {
-    fetch(`https://cinematch-api.herokuapp.com/users/${this.props.user.id}`)
+    fetch(`${API_URL}/users/${this.props.user.id}`)
     .then(r => r.json())
     .then(r => {
       this.setState({watchlist: r.watchlist})

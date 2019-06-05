@@ -7,6 +7,7 @@ import { Switch, Route } from 'react-router-dom'
 import { Grid } from 'semantic-ui-react'
 import { createStore, applyMiddleware } from 'redux'
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
+import API_URL from './config.js'
 
 class App extends Component {
 
@@ -30,7 +31,7 @@ class App extends Component {
 	}
 
 	deleteFromFeedUser = () => {
-		fetch(`https://cinematch-api.herokuapp.com/feed_users/${this.props.feedUser.id}`, {
+		fetch(`${API_URL}/feed_users/${this.props.feedUser.id}`, {
       method: "DELETE"
     })
 	}
@@ -58,7 +59,7 @@ class App extends Component {
 	componentDidMount() {
 		const jwt = localStorage.getItem('jwt')
 		if (jwt){
-			fetch("https://cinematch-api.herokuapp.com/auto_login", {
+			fetch(`${API_URL}/auto_login`, {
 				headers: {
 					"Authorization": jwt
 				}

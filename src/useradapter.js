@@ -1,5 +1,5 @@
 export default class UserAdapter {
-  static POST_URL = "https://cinematch-api.herokuapp.com/posts"
+  static POST_URL = `${API_URL}/posts`
 
 
   static getPosts() {

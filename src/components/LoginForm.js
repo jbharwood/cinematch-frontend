@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import { Form, Button } from 'semantic-ui-react'
+import API_URL from '../config.js'
 
 class LoginForm extends React.Component {
 
@@ -21,7 +22,7 @@ class LoginForm extends React.Component {
 	}
 
 	postUser = () => {
-		fetch("https://cinematch-api.herokuapp.com/login", {
+		fetch(`${API_URL}/login`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -46,7 +47,7 @@ class LoginForm extends React.Component {
 	}
 
 	postToFeedUsers = (user) => {
-		fetch("https://cinematch-api.herokuapp.com/feed_users", {
+		fetch(`${API_URL}/feed_users`, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",

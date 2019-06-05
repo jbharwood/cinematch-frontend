@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom'
 import {connect} from 'react-redux'
 import Button from '@material-ui/core/Button';
+import API_URL from '../config.js'
 
 class WatchlistMovie extends React.Component {
 
@@ -11,14 +12,14 @@ class WatchlistMovie extends React.Component {
 
   handleRemoveMovie = () => {
     this.props.changeList(this.props.movie.id)
-    fetch(`https://cinematch-api.herokuapp.com/watchlists/${this.props.movie.id}`, {
+    fetch(`${API_URL}/watchlists/${this.props.movie.id}`, {
       method: "DELETE"
     })
   }
 
   handleWatchedMovie = () => {
     this.props.changeList(this.props.movie.id)
-    fetch(`https://cinematch-api.herokuapp.com/watchlists/${this.props.movie.id}`, {
+    fetch(`${API_URL}/watchlists/${this.props.movie.id}`, {
       method: "PATCH",
       headers: {
         'Accept': 'application/json',
