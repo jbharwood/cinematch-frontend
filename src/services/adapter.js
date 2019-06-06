@@ -1,9 +1,10 @@
 import API_URL from '../config.js'
 
 const headers = {
-  Accepts: 'application/json',
-  'Content-Type': 'application/json',
-  "Access-Control-Allow-Origin" : "*"
+  // Accepts: 'application/json',
+  'Accept': 'application/json',
+  'Content-Type': 'application/json'
+  // "Access-Control-Allow-Origin" : "*"
   // "Access-Control-Allow-Credentials" : true
 }
 
