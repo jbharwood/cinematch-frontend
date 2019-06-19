@@ -70,13 +70,13 @@
 .colorPicker {
   margin-left:auto;
   margin-right:auto;
-  width:50%;
+  width:40%;
 }
 
-.colorPickerOpen {
+.colorPickerClosed {
   margin-left:auto;
   margin-right:auto;
-  width:37%;
+  width:41%;
 }
 
 .watchlistMovie:hover {

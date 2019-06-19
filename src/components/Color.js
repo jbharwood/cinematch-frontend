@@ -28,7 +28,7 @@ class Color extends React.Component {
         )
       } else {
         return (
-          <div className="colorPickerOpen">
+          <div className="colorPickerClosed">
             <SketchPicker
               color={ this.state.background }
               onChangeComplete={ this.handleChangeComplete }
