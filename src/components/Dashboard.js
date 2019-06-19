@@ -263,7 +263,7 @@ class Dashboard extends React.Component {
                 changePage={this.props.changePage} />} />
               <Route path="/search" render={routerProps => <Search changePage={this.props.changePage} {...routerProps} />} />
               <Route path="/chatbox" render={routerProps => <Feed changePage={this.props.changePage} {...routerProps} />} />
-              <Route path="/color" render={routerProps => <Color {...routerProps} />} />
+              <Route path="/color" render={routerProps => <Color open={this.state.open} {...routerProps} />} />
               <Redirect from="/" to= "/home" />
             </Switch>
           </Typography>

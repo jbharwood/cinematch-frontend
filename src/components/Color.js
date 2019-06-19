@@ -16,17 +16,36 @@ class Color extends React.Component {
       this.props.dispatch({type: "SET_PRIMARY_COLOR", payload: color.hex})
     };
 
+    renderColorPicker = () => {
+      if (this.props.open === true) {
+        return (
+          <div className="colorPicker">
+            <SketchPicker
+              color={ this.state.background }
+              onChangeComplete={ this.handleChangeComplete }
+            />
+          </div>
+        )
+      } else {
+        return (
+          <div className="colorPickerOpen">
+            <SketchPicker
+              color={ this.state.background }
+              onChangeComplete={ this.handleChangeComplete }
+            />
+          </div>
+        )
+      }
+    }
+
     componentDidMount = () => {
       document.querySelector("main").scrollTo(0,0)
     }
 
     render() {
       return (
-        <div className="colorPicker">
-          <SketchPicker
-            color={ this.state.background }
-            onChangeComplete={ this.handleChangeComplete }
-          />
+        <div>
+          {this.renderColorPicker()}
         </div>
       );
     }
