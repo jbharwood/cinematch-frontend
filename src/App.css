@@ -68,8 +68,9 @@
 }
 
 .colorPicker {
-  margin: auto;
-  padding-left: 220px;
+  margin-left:auto;
+  margin-right:auto;
+  width:50%;
 }
 
 .watchlistMovie:hover {
