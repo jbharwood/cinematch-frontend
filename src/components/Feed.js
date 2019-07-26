@@ -50,16 +50,6 @@ class Feed extends React.Component {
     })
   }
 
-  // fetchPost = (post) => {
-  //   fetch(`${API_URL}/posts/${post.id}`)
-  //   .then(r => r.json())
-  //   .then(r => {
-  //     this.setState({
-  //       newPosts: [r, ...this.state.newPosts]
-  //     })
-  //   })
-  // }
-
   fromChatbox = () => {
     return "hi i'm from chatbox"
   }
@@ -87,22 +77,6 @@ class Feed extends React.Component {
       this.setState({realUsers: r})
     })
   }
-  //
-  // fetchFeedUsers = () => {
-  //   fetch(`${API_URL}/feeds/1`)
-  //   .then(r => r.json())
-  //   .then(r => {
-  //     const flags = new Set();
-  //     const uniqueUsernames = r.users.filter(post => {
-  //       if (flags.has(post.username)) {
-  //         return false;
-  //       }
-  //       flags.add(post.username);
-  //       return true;
-  //   });
-  //     this.setState({users: uniqueUsernames})
-  //   })
-  // }
 
   handleUserWatchlist = (e) => {
     let username = e.target.innerText.substring(1)
@@ -159,7 +133,6 @@ class Feed extends React.Component {
 
   componentDidMount() {
     document.querySelector("main").scrollTo(0,0)
-    //this.props.dispatch({type: "HIDE_APP", payload: true})
     this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
     this.fetchPosts()
     this.fetchUsers()

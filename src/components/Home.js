@@ -13,9 +13,9 @@ const Home = (props) => {
 	}
 
   return (
-  <div className="mainImage">
-    <img src="https://visualhunt.com/photos/1/night-television-tv-video.jpg?s=l" className="mainImage" width="100%" height="100%"/>
-  </div>
+    <div className="mainImage">
+      <img src="https://visualhunt.com/photos/1/night-television-tv-video.jpg?s=l" className="mainImage" width="100%" height="100%"/>
+    </div>
   )
 
 }

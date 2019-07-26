@@ -44,11 +44,6 @@ class List extends React.Component {
   }
 
   fetchTopRated = (page=1) => {
-    // let id = this.props.user.id
-    // if (this.props.user === null) {
-    //   this.props.history.push(`/`)
-    //   return null
-    // }
     fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=3eb68659d6134fa388c1a0220feb7fd1&language=en-US&page=${page}`)
     .then(r => r.json())
     .then(r => {
@@ -70,7 +65,6 @@ class List extends React.Component {
 
   changeToList = () => {
     this.setState({viewMovieCheck: false})
-    // let page = document.querySelector(".Dashboard-content-12")
     document.querySelector("main").scrollTo(0,0)
   }
 
@@ -82,14 +76,12 @@ class List extends React.Component {
     this.setState({pageCount: this.state.pageCount += 1}, this.fetchTopRated(this.state.pageCount))
     let page = document.querySelector(".top")
     page.scrollTo(0, this.similarRef.current.offsetTop - 80)
-    // window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
   }
 
   handlePrevPage = () => {
     this.setState({pageCount: this.state.pageCount -= 1}, this.fetchTopRated(this.state.pageCount))
     let page = document.querySelector(".top")
     page.scrollTo(0, this.similarRef.current.offsetTop - 80)
-    // window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
   }
 
   renderPageButtons = () => {
@@ -98,7 +90,6 @@ class List extends React.Component {
     }
     if (this.state.pageCount === 1) {
       return <ArrowForwardIcon onClick={this.handleNextPage}/>
-      // return <Button variant="contained" color="primary" onClick={this.handleNextPage}>Next Page</Button>
     } else if (this.state.pageCount === 100){
       return <ArrowBackIcon onClick={this.handleNextPage}/>
     } else {
@@ -139,16 +130,9 @@ class List extends React.Component {
   }
 
   componentDidMount = () => {
-    //this.props.dispatch({type: "HIDE_APP", payload: true})
-      // let p = document.querySelector(".Dashboard-content-12")
-      // p.scrollTo(0, 0)
-    // let p = document.querySelector(".top")
-    // p.scrollTo(0, this.topRef.current.offsetTop - 80)
-    // if (!!this.props.user) {
     document.querySelector("main").scrollTo(0,0)
     this.fetchGenres()
     this.fetchTopRated()
-    // }
   }
 
   render() {
