@@ -21,7 +21,6 @@ class Movies extends React.Component {
     } else {
       return null
     }
-    // return this.state.searchList
   }
 
   render() {
@@ -42,44 +41,3 @@ function mapStateToProps(state) {
 }
 
 export default connect(mapStateToProps)(Movies)
-
-// <p>{this.props.search}</p>
-
-
-// const Movies = (props) => {
-//
-//   const fetchMovies = (props) => {
-//     fetch(`http://www.omdbapi.com/?s=${props.search}&apikey=7e2663e7`)
-//     .then(r => r.json())
-//     .then(r => {
-//
-//     })
-//   }
-//
-//   return (
-//     <div>
-//       <p>{props.search}</p>
-//       <p>{}<p>
-//     </div>
-//   )
-// }
-//
-// const mapStateToProps = (state) => {
-//   return {
-//     search: state.search,
-//     searchMovies: state.searchMovies,
-//     selectedMovie: state.selectedMovie
-//   }
-// }
-
-// function mapDispatchToProps(dispatch) {
-//   console.log('dispatch', dispatch)
-//   return {
-//     cookie: (something) => dispatch({ //something is really a player
-//       type: "CHOOSE_PLAYER",
-//       payload: something
-//     })
-//   }
-// }
-//
-// export default connect(mapStateToProps)(Movies)
