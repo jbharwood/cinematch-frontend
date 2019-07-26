@@ -36,7 +36,6 @@ class MovieView extends React.Component {
     } else if (!!this.props.viewMovie.imdb_id) {
       id = this.props.viewMovie.imdb_id
     }
-    // let id = this.props.viewMovie.imdbID
     if (id.length > 9) {
       id = this.props.viewMovie.imdbID.slice(0, -1)
     }
@@ -109,24 +108,6 @@ class MovieView extends React.Component {
       imdbID = this.state.movie.imdb_id
       poster = "http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path
     }
-    // if (!!movie.title) { //similar movie input check
-    //   title = movie.title
-    //   imdbID = null
-    //   poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
-    // } else if (!!movie.Title) { //movie and tv check
-    //   title = movie.Title
-    //   imdbID = movie.imdbID
-    //   poster = movie.Poster
-    //   media = "movie"
-    // } else if (!!movie.name) {//checks for similar tv shows
-    //   title = movie.name
-    //   imdbID = null
-    //   poster = "http://image.tmdb.org/t/p/w185/" + movie.poster_path
-    // } else {
-    //   title = this.state.movie.title
-    //   imdbID = this.state.movie.imdb_id
-    //   poster = "http://image.tmdb.org/t/p/w185/" + this.state.movie.poster_path
-    // }
 
     fetch(`${API_URL}/watchlists`, {
       method: 'POST',
@@ -150,12 +131,6 @@ class MovieView extends React.Component {
 
   scrollToTopOfPage = () => {
     document.querySelector("main").scrollTo(0,0)
-    // let page = document.querySelector(".top")
-    // let p = document.querySelector(".top")
-    // debugger
-    // p.scrollTo(0, this.topRef.current.offsetTop)
-    // page.scrollTo(0, 0)
-    // window.scrollTo(0, 0)
   }
 
   scrollToSim = () => {
@@ -201,8 +176,6 @@ class MovieView extends React.Component {
     .then(r => r.json())
     .then(r => {
       this.setState({similarMovies: r.results}, this.scrollToTopOfPage)
-      // debugger
-      //iterate through and fetchWithOMDBId to get overview and genre
     })
   }
 
@@ -220,28 +193,17 @@ class MovieView extends React.Component {
     .then(r => r.json())
     .then(r => {
       this.setState({similarMovies: r.results}, this.scrollToSim)
-      // debugger
-      //iterate through and fetchWithOMDBId to get overview and genre
     })
   }
 
   handleNextPage = () => {
     this.setState({pageCount: this.state.pageCount += 1}, this.fetchPage(this.state.pageCount))
-    // let page = document.querySelector(".Dashboard-content-12")
-    // page.scrollTo(0, this.similarRef.current.offsetTop - 80)
-    // window.scrollTo(0, this.similarRef.current.offsetTop - 80)
-    // let p = document.querySelector("main")
-    // debugger
-    // p.scrollTo(0, this.similarRef.current.offsetTop)
-    // window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
   }
 
   handlePrevPage = () => {
     this.setState({pageCount: this.state.pageCount -= 1}, this.fetchPage(this.state.pageCount))
     let page = document.querySelector(".Dashboard-content-12")
     window.scrollTo(0, page - 80)
-    // page.scrollTo(0, this.similarRef.current.offsetTop - 80)
-    // window.scrollTo(0, this.similarRef.current.offsetTop) //scroll to similar on click
   }
 
   renderSimilarMovies = () => {
@@ -284,8 +246,6 @@ class MovieView extends React.Component {
   }
 
   handleShare = () => {
-    // let that = this
-    // let post = `http://image.tmdb.org/t/p/w185/${this.props.viewMovie.poster_path}`
     //from chatbox check
     let post = null
     let imdb_id = null
@@ -310,8 +270,6 @@ class MovieView extends React.Component {
         imdb_id = this.props.viewMovie.imdbID
         omdb_id = ""
       }
-      // imdb_id = this.props.viewMovie.imdbID
-      // omdb_id = ""
       media = "tv"
     }
     //share from chatbox check
@@ -321,11 +279,7 @@ class MovieView extends React.Component {
       omdb_id = this.props.viewMovie.id
       media = this.props.viewMovie.media
     }
-    // let post = this.props.viewMovie.imdbID + " " + this.props.viewMovie.Poster
-    // post = <img src="http://image.tmdb.org/t/p/w185/" + ${this.props.viewMovie.poster_path}" alt="poster" width="150" height="150"/>
     adapter.createPost({ content: post, feed_id: 1, user_id: this.props.user.id, omdb_id: omdb_id, imdb_id: imdb_id, media: media})
-    // adapter.createPost({ content: this.props.viewMovie.Title, feed_id: 1, user_id: this.props.user.id })
-    // this.props.dispatch({type: "CHANGE_CHATBOX_PAGE", payload: "Chatbox"})
   }
 
   renderIMDBButton = () => {
@@ -442,12 +396,6 @@ class MovieView extends React.Component {
   }
 
   componentDidMount = () => {
-
-    //this.props.dispatch({type: "HIDE_APP", payload: true})
-    //search result post check from chatbox
-    // if (!!this.props.viewMovie.id) { //top rated movies check
-    //   this.fetchWithOMDBId(this.props.viewMovie.id, "movie")
-    // }
     this.scrollToTopOfPage()
     //from top movies/home
     if (this.props.viewMovie.imdb_id === undefined
@@ -466,6 +414,7 @@ class MovieView extends React.Component {
       }
     }
 
+    //null input check
     if (this.props.viewMovie.imdb_id === "") {
       this.fetchWithOMDBId()
     } else if (this.props.viewMovie.omdb_id === "") {
@@ -481,34 +430,7 @@ class MovieView extends React.Component {
         this.fetchWithOMDBId(this.props.viewMovie.omdb_id, this.props.viewMovie.media)
     }
 
-
-    // if (this.props.viewMovie.imdb_id === "") {
-    //   let media = ""
-    //   if (this.props.viewMovie.media === "tv") {
-    //     media = "tv"
-    //   } else {
-    //     media = "movie"
-    //   }
-    //   this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media)
-    //   return
-    // }
-    // if ((this.props.viewMovie.imdbID !== null && this.props.viewMovie.imdbID !== undefined)
-    //   || (this.props.viewMovie.imdb_id !== null && this.props.viewMovie.imdb_id !== undefined)) {
-    //   this.fetchMovieInfo()
-    //   // watchlist view info movie check
-    // } else if (!!this.props.viewMovie.omdb_id && this.props.viewMovie.imdb_id === null) {
-    //   let media2 = "movie" //media wouldn't work again for some reason
-    //   if (!!this.props.viewMovie.name || !!this.props.viewMovie.title) {
-    //     media2 = "tv"
-    //     this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media2)
-    //     return
-    //   }
-    //   this.fetchWithOMDBId(this.props.viewMovie.omdb_id, media2)
-    // }
-    // if (!!this.props.changeToWatchlist) {
-      this.fetchUserWatchlist()
-      // this.scrollToTopOfPage()
-    // }
+    this.fetchUserWatchlist()
   }
 
   render() {
