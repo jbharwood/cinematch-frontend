@@ -97,5 +97,4 @@ class SignUpForm extends React.Component {
 	}
 }
 
-// export default SignUpForm
 export default connect(null)(SignUpForm)
