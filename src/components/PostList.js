@@ -4,7 +4,6 @@ import Post from './Post';
 
 const PostList = ({ posts, newPostCount, handleDisplayPosts }) => {
   const postList = () => {
-    // const postList = posts.map(post => <Post key={post.id} post={post} />);
     return posts.map(post => {
       return <Post key={post.id} post={post} />
     })
@@ -20,8 +19,3 @@ const PostList = ({ posts, newPostCount, handleDisplayPosts }) => {
 };
 
 export default PostList;
-
-// <NewPostInfo
-//   handleDisplayPosts={handleDisplayPosts}
-//   newPostCount={newPostCount}
-// />
