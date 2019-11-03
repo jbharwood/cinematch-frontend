@@ -167,9 +167,6 @@ class Watchlist extends React.Component {
   }
 
   componentDidMount = () => {
-    //this.props.dispatch({type: "HIDE_APP", payload: true})
-      // let p = document.querySelector(".Dashboard-content-12")
-      // p.scrollTo(0, 0)
     document.querySelector("main").scrollTo(0,0)
     if (!!this.props.user) {
       this.fetchWatchlist()
